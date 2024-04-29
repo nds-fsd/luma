@@ -16,7 +16,7 @@ exports.connectDB = async () => {
       console.log(dbUrl);
     }
 
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(dbUrl); //url del mongo atlas
     const mongo = mongoose.connection;
     mongo.on('error', (error) => console.error(error));
   } catch (e) {
