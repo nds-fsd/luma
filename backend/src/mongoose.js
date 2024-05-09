@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let dbUrl = process.env.MONGO_URL;
+//let dbUrl = 'mongodb+srv://lumatic:lumatic@cluster0.ykxbhbr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
 let mongodb;
 
 exports.connectDB = async () => {
@@ -15,8 +17,8 @@ exports.connectDB = async () => {
       dbUrl = mongodb.getUri();
       console.log(dbUrl);
     }
-
-    await mongoose.connect(dbUrl); //url del mongo atlas
+    console.log(dbUrl);
+    await mongoose.connect(dbUrl);
     const mongo = mongoose.connection;
     mongo.on('error', (error) => console.error(error));
   } catch (e) {

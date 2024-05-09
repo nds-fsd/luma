@@ -1,13 +1,15 @@
 const express = require('express');
-const { connectDB } = require('./mongo/connection');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const router = require('./routers/index');
+const { connectDB } = require('./mongoose');
+
 const app = express();
-const router = require('./routers/router');
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.use('/', router);
+app.use('/api', router);
 
 connectDB().then(() => console.log('Connected to database!'));
 
