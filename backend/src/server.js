@@ -1,13 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const router = require('./routers/index');
 const { connectDB } = require('./mongoose');
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/api', router);
 

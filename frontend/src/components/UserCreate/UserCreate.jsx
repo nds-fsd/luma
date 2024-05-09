@@ -4,7 +4,9 @@ import styles from './UserCreate.module.css';
 import api from '../../services/api';
 
 function UserCreate() {
-  const [message, setMessage] = useState('');
+  const [messageServer, setMessageServer] = useState('');
+  const [errorServer, setErrorServer] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -15,17 +17,24 @@ function UserCreate() {
   const password = watch('password', '');
 
   const onSubmit = async (data) => {
+    data.fullname = data.fullname.toUpperCase();
+    data.email = data.email.toLowerCase();
+    setErrorServer('');
+    setMessageServer('');
     try {
       const response = await api.post(`/api/user/register`, data);
       console.log(response);
       if (response.data.success) {
-        setMessage(response.data.message);
+        setMessageServer(response.data.message);
+        setErrorServer('');
         reset();
       } else {
-        setMessage(`Error: ${response.data.error}`);
+        setErrorServer(response.data.error);
+        setMessageServer('');
       }
     } catch (error) {
-      setMessage(`Error: ${error.response.data.error}`);
+      setErrorServer(error.response.data.error);
+      setMessageServer('');
     }
   };
 
@@ -41,46 +50,57 @@ function UserCreate() {
             {...register('fullname', { required: true })}
             placeholder='Full Name'
             className={`${styles.input} ${errors.fullname ? styles.inputError : ''}`}
-          />
-          <input
-            {...register('username', { required: true })}
-            placeholder='Username'
-            className={`${styles.input} ${errors.username ? styles.inputError : ''}`}
+            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+            title={errors.fullname? "The field is required" : ""}
           />
           <input
             {...register('email', { required: true })}
             placeholder='Email'
             className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+            onChange={(e) => (e.target.value = e.target.value.toLowerCase())}
+            title={errors.email? "The field is required" : ""}
           />
           <input
             {...register('phone_number', { required: true })}
             placeholder='Phone Number'
             className={`${styles.input} ${errors.phone_number ? styles.inputError : ''}`}
+            title={errors.phone_number? "The field is required" : ""}
           />
           <input
             {...register('password', { required: true })}
             type='password'
             placeholder='Password'
             className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+            title={errors.password? "The field is required" : ""}
           />
           <input
             {...register('confirm_password', {
               required: true,
-              validate: (value) => value === password || styles.inputError,
+              validate: (value) => value === password || setErrorServer(`Password don't match`),
             })}
             type='password'
             placeholder='Confirm Password'
             className={`${styles.input} ${errors.confirm_password ? styles.inputError : ''}`}
+            title={errors.confirm_password? "The field is required" : ""}
           />
           <button type='submit' className={styles.button} disabled={!isDirty}>
             Register
           </button>
         </form>
-        {(errors.username || errors.email || errors.password || errors.fullname || errors.phone_number) && (
-          <span className={styles.error}>The field is required</span>
-        )}
-        {errors.confirm_password && <span className={styles.error}>Passwords do not match</span>}
-        {message && <div className={styles.message}>{message}</div>}
+        <div className={styles.messagesAll}>
+          {errorServer && (
+            <div>
+              <span className={styles.error}>{errorServer}</span>
+              <br />
+            </div>
+          )}
+          {messageServer && (
+            <div>
+              <span className={styles.message}>{messageServer}</span>
+              <br />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

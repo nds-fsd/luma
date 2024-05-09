@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let dbUrl = process.env.MONGO_URL;
-//let dbUrl = 'mongodb+srv://lumatic:lumatic@cluster0.ykxbhbr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 let mongodb;
 
