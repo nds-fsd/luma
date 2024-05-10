@@ -16,7 +16,10 @@
   }
   
   .navcontent {
+    
     margin-left: 10px;
+    text-decoration: none;
+    color: black;
   }
   
   .buttonlogin {
@@ -69,9 +72,31 @@
     width: 100%;
 }
 
-  
   .containerleft {
     flex: 1; 
     padding: 20px; 
   }
   
+  @media screen and (max-width: 768px) {
+    .logolumatic {
+        content: url('../../../images/logo-mobile.svg');
+        margin-top: 1px;
+    }
+
+    .buttonlogin {
+        display: none;
+    }
+
+    .iconlogin {
+      content: url('../../../images/icon-login.svg');
+      width: 18px; 
+      height: 18px;
+      margin-top: 5px;
+    }
+
+    .buttoneventos {
+      margin-right: 10px;
+    }
+
+}
+
