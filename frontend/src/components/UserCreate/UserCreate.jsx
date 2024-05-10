@@ -61,6 +61,13 @@ function UserCreate() {
             title={errors.email? "The field is required" : ""}
           />
           <input
+            {...register('birthdate', { required: true })}
+            placeholder='Birth Date'
+            type='date'
+            className={`${styles.input} ${errors.birthdate ? styles.inputError : ''}`}
+            title={errors.birthdate? "The field is required" : ""}
+          />
+          <input
             {...register('phone_number', { required: true })}
             placeholder='Phone Number'
             className={`${styles.input} ${errors.phone_number ? styles.inputError : ''}`}

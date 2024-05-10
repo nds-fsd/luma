@@ -18,7 +18,7 @@ const validateFullname = (fullname) => {
   return pattern.test(fullname);
 };
 
-
+//añadir birthdate
 const validateUserCreation = (req, res, next) => {
   const { fullname, email, phone_number, password } = req.body;
 
