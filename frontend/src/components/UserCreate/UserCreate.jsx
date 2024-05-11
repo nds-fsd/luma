@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
-import api from '../../services/api';
+import api from '../../utils/api';
 
 function UserCreate() {
-  const [messageServer, setMessageServer] = useState('');
   const [errorServer, setErrorServer] = useState('');
+  const [messageServer, setMessageServer] = useState('');
 
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
-    watch,
     reset,
+    watch,
   } = useForm();
   const password = watch('password', '');
 
@@ -23,7 +23,6 @@ function UserCreate() {
     setMessageServer('');
     try {
       const response = await api.post(`/api/user/register`, data);
-      console.log(response);
       if (response.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');
@@ -38,6 +37,11 @@ function UserCreate() {
     }
   };
 
+  const handleInputChange = () => {
+    setErrorServer('');
+    setMessageServer('');
+  };
+
   return (
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>
@@ -50,35 +54,43 @@ function UserCreate() {
             {...register('fullname', { required: true })}
             placeholder='Full Name'
             className={`${styles.input} ${errors.fullname ? styles.inputError : ''}`}
-            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-            title={errors.fullname? "The field is required" : ""}
+            onChange={handleInputChange}
+            title={errors.fullname ? 'The field is required' : ''}
           />
           <input
             {...register('email', { required: true })}
             placeholder='Email'
             className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-            onChange={(e) => (e.target.value = e.target.value.toLowerCase())}
-            title={errors.email? "The field is required" : ""}
+            onChange={handleInputChange}
+            title={errors.email ? 'The field is required' : ''}
           />
-          <input
-            {...register('birthdate', { required: true })}
-            placeholder='Birth Date'
-            type='date'
-            className={`${styles.input} ${errors.birthdate ? styles.inputError : ''}`}
-            title={errors.birthdate? "The field is required" : ""}
-          />
+          <div className={styles.dateInputContainer}>
+            <label htmlFor='birthdate' className={styles.placeholder}>
+              Birth Date
+            </label>
+            <input
+              {...register('birthdate', { required: true })}
+              placeholder='Birth Date'
+              type='date'
+              className={`${styles.dateInput} ${styles.input} ${errors.birthdate ? styles.inputError : ''}`}
+              onChange={handleInputChange}
+              title={errors.birthdate ? 'The field is required' : ''}
+            />
+          </div>
           <input
             {...register('phone_number', { required: true })}
             placeholder='Phone Number'
             className={`${styles.input} ${errors.phone_number ? styles.inputError : ''}`}
-            title={errors.phone_number? "The field is required" : ""}
+            onChange={handleInputChange}
+            title={errors.phone_number ? 'The field is required' : ''}
           />
           <input
             {...register('password', { required: true })}
             type='password'
             placeholder='Password'
             className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
-            title={errors.password? "The field is required" : ""}
+            onChange={handleInputChange}
+            title={errors.password ? 'The field is required' : ''}
           />
           <input
             {...register('confirm_password', {
@@ -88,7 +100,8 @@ function UserCreate() {
             type='password'
             placeholder='Confirm Password'
             className={`${styles.input} ${errors.confirm_password ? styles.inputError : ''}`}
-            title={errors.confirm_password? "The field is required" : ""}
+            onChange={handleInputChange}
+            title={errors.confirm_password ? 'The field is required' : ''}
           />
           <button type='submit' className={styles.button} disabled={!isDirty}>
             Register

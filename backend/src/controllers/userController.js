@@ -24,7 +24,6 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-
 exports.getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -39,7 +38,6 @@ exports.getUserById = async (req, res) => {
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
-
 
 exports.updateUser = async (req, res) => {
   try {
