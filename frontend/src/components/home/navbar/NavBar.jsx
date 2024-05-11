@@ -5,7 +5,7 @@ import logo from '../../../images/logoLumatic.svg';
 import iconLogin from '../../../images/icon-login.svg'; 
 
 const NavBar = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Estado para manejar si es móvil o no
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
         const handleResize = () => {
