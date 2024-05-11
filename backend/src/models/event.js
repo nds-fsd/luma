@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
       },
     creationDate: {type: Date, required: true},
     eventDate: { type: Date, required: true },
@@ -14,7 +14,7 @@ const eventSchema = new Schema({
     capacity: { type: Number, required: true },        
 });
 
-const Event = mongoose.model('event', eventSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
 
