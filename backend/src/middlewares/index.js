@@ -5,6 +5,7 @@ const validateEmail = (email) => {
 
 
 const validateDate = (eventDate) => {
+    console.log(eventDate, "Event Date")
     const pattern = /^\d{4}-\d{2}-\d{2}$/;
     return pattern.test(eventDate);
   };
@@ -13,10 +14,13 @@ const validateDate = (eventDate) => {
     return eventTitle.trim() !== '';
   };
   
-  const validatePrice = (eventPrice) => {
-    return !isNaN(eventPrice) && parseFloat(eventPrice) >= 0;  };
+const validatePrice = (eventPrice) => {
+    console.log("Event Price", eventPrice)
+    return !isNaN(eventPrice) && parseFloat(eventPrice) >= 0;
+};
   
-  const validateCapacity = (eventCapacity) => {
+const validateCapacity = (eventCapacity) => {
+    console.log("Event Capacity", eventCapacity)
     if (eventCapacity === "ilimitado") {
         return -1; 
     } else {
@@ -24,8 +28,11 @@ const validateDate = (eventDate) => {
     }
 };
   
-  const validateEventCreation = (req, res, next) => {
-    const { eventDate, eventTitle, eventPrice, eventCapacity } = req.body;
+const validateEventCreation = (req, res, next) => {
+  console.log(req.body);
+  const { eventDate, eventTitle, eventPrice, eventCapacity } = req.body;
+  console.log(typeof(eventPrice))
+  console.log(eventCapacity)
   
     if (!eventDate || !validateDate(eventDate)) {
       return res.status(400).json({ error: 'La fecha del evento es requerida' });
@@ -33,9 +40,18 @@ const validateDate = (eventDate) => {
     if (!eventTitle || !validateTitle(eventTitle)) {
       return res.status(400).json({ error: 'El título del evento es requerido' });
     }
-    if (!eventPrice || !validatePrice(eventPrice)) {
-      return res.status(400).json({ error: 'Debe establecerse un precio válido para la entrada' });
+    // if (!eventPrice || !validatePrice(eventPrice)) {
+    //   return res.status(400).json({ error: 'Debe establecerse un precio válido para la entrada' });
+  // }
+  
+  if (eventPrice === undefined || eventPrice === null) {
+    return res.status(400).json({ error: 'El precio del evento es requerido' });
+  } else {
+    if (!validatePrice(eventPrice)) {
+      return res.status(400).json({ error: 'El precio del evento no es válido' });
     }
+  }
+  
     if (eventCapacity === undefined || eventCapacity === null) {
         return res.status(400).json({ error: 'La capacidad del evento es requerida' });
     }
@@ -114,4 +130,5 @@ const formatDate = (dateString) => {
 module.exports = {
   validateEventCreation,
   validateUserCreation,
+
 };

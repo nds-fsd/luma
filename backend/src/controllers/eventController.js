@@ -1,4 +1,5 @@
 const formatDate = (dateString) => {
+    console.log(dateString)
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -15,7 +16,7 @@ res.json(allEvents)
 };
 
 const getEvent = async (req, res) => {
-    const allEvents = await Event.findById(req.params.id);
+    const allEvents = await Event.findById(req.params.id).populate('owner');
     res.json(allEvents);
 };
 
@@ -41,18 +42,17 @@ const deleteEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-
     const body = req.body;
-
-    console.log(body);
-
+    console.log(body.eventDate + ' ' + formatDate(body.eventDate));
+    const date = new Date(formatDate(body.eventDate));
+    const today = new Date();
     const data = {
         ...body,
-        owner: body.owner,
-        eventDate: formatDate(body.eventDate),
-        creationDate: formatDate(new Date())
+        owner: '663e94f4811fa622e1a85f27', 
+        eventDate: date,
+        creationDate: today
     };
-
+// formatDate(body.eventDate),
 
     console.log(data)
     // se crea una nueva instancia de evento, donde se guardaran los nuevos datos ingresados

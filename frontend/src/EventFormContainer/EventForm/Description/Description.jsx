@@ -19,9 +19,10 @@ const Description = ({ buttonColor }) => {
 
     //http://localhost:3001/api/events
     const onSubmit = async (data) => {
-        console.log(data)
+        console.log({ ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) })
+        console.log("EVENT DATE", data.eventDate)
         try {
-            const response = await api.post('/events', data);
+            const response = await api.post('/events', {...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice)});
 
         } catch (error) {
             console.error('Error while sending the POST request', error)
@@ -86,12 +87,12 @@ const Description = ({ buttonColor }) => {
                             className={Styles.inputPrice}
                             type="number"
                             min="1"
-                            {...register("quantity", { min: 1 })} // Aplica validación de mínimo 1
+                            {...register("eventCapacity", { min: 1 })} // Aplica validación de mínimo 1
                         />
                     )}
 
                     {/* Muestra error si la cantidad es requerida y no está definida */}
-                    {errors.quantity && <p className={Styles.error}>La cantidad es requerida</p>}
+                    {errors.eventCapacity && <p className={Styles.error}>La cantidad es requerida</p>}
                 </div>
 
                 <div className={Styles.divContainer}>
