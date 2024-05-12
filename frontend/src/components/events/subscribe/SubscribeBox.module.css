@@ -1,0 +1,33 @@
+.subscribe-box-container {
+    border: none;
+    font-family: 'roboto condensed', sans-serif;
+}
+
+.subscribe-input {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    flex: 1; 
+    font-family: 'roboto condensed', sans-serif;
+    opacity: 0.7;
+}
+
+.subscribe-button {
+    padding: 10px 20px;
+    background-color: white;
+    font-family: 'roboto condensed', sans-serif;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-button:hover {
+    border: none;
+    background-color: grey;
+    font-family: 'roboto condensed', sans-serif;
+}
