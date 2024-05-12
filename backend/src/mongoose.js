@@ -3,7 +3,9 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-let dbUrl = process.env.MONGO_URL;
+let dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
+
+
 let mongodb;
 
 exports.connectDB = async () => {
@@ -13,10 +15,9 @@ exports.connectDB = async () => {
     if (process.env.NODE_ENV === 'test') {
       mongodb = await MongoMemoryServer.create();
       dbUrl = mongodb.getUri();
-      console.log(dbUrl);
     }
 
-    await mongoose.connect(dbUrl); //url del mongo atlas
+    await mongoose.connect(dbUrl);
     const mongo = mongoose.connection;
     mongo.on('error', (error) => console.error(error));
   } catch (e) {
