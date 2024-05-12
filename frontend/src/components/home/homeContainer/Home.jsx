@@ -12,8 +12,7 @@ const Home = () => {
     const imgHome = isMobile ? imgHomeMobile : imgHomeDesktop;
 
   return (
-    <div>
-      <NavBar />
+
       <div className={styles.container}>
         <div className={styles.containerleft}>
           <h1 className={styles.title}>
@@ -23,7 +22,7 @@ const Home = () => {
             Crea una página para tu evento, invita a tus amigos y vende
             tickets. Organiza hoy mismo un evento memorable.
           </p>
-          <Link to="/crear-evento">
+          <Link to="/crear-evento" style={{ textDecoration: 'none' }}>
             <button className={styles.buttoncrearevento}>CREA TU PRIMER EVENTO</button>
           </Link>
         </div>
@@ -31,8 +30,7 @@ const Home = () => {
             <img src={imgHome} alt="Image event" />
         </div>
       </div>
-      <Footer />
-    </div>
+
   );
 };
 

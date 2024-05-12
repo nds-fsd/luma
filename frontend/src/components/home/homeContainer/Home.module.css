@@ -42,6 +42,9 @@ body {
   padding: 12px 10px 0px 10px;
 }
 
+link {
+  text-decoration: none;
+}
 
 .buttoncrearevento {
   text-decoration: none;

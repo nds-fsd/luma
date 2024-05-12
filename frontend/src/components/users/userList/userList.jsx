@@ -1,52 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import users from '../../../../public/users.json';
-//import { api } from "../../utils/apiWrapper";
+import api from '../../../utils/api';
+import styles from './userList.module.css'; 
 
-
-/*const getAllUsers = () => {
-  return api.get('/api/users')
-      .then(res => {
-          return res.data
-      })
-      .catch(e => console.log(e));
-}
-*/
-
-
-function UserList() {
-  const [user, setUser] = useState([]);
+function UserList() { 
+  const [users, setUsers] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    setUser(users);
-  }, []);
+    const fetchUsers = async () => {
+      try {
+        const response = await api.get('/api/user');
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
 
+    fetchUsers();
+  }, [refresh]); 
 
+  const deleteUser = async (id) => {
+    try {
+      await api.delete(`/api/user/${id}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setRefresh(!refresh); 
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
 
   return (
-    <div className="user-list">
-      <h1>Lista de Usuarios</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Foto de Perfil</th>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user.map((userData, index) => (
-            <tr key={index}>
-              <td>
-                <img src="ruta/a/imagen-predeterminada.jpg" alt="Foto de perfil" className="profile-pic" />
-              </td>
-              <td>{userData.fullname}</td>
-              <td>{userData.email}</td>
-              <td>{userData.email}</td>
-            </tr>
+    <div>
+      <h1 className={styles.title}>USER LIST</h1>
+      
+      <div className={styles.container}>
+    
+        <div className={styles.userContainer}>
+          {users.map((user, index) => (
+            <div key={user._id} className={styles.user}>
+              <p className={styles.textname}>{user.fullname}</p>
+              <p className={styles.text}>{user.email}</p>
+              <p className={styles.text}>{user.birthdate}</p>
+              <button className={styles.button} onClick={() => deleteUser(user._id)}>Delete</button>
+              {index % 5 === 4 && <br />}
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }
