@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../../utils/api';
-import styles from './userList.module.css'; 
+import styles from './UserList.module.css';
 
-function UserList() { 
+function UserList() {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
@@ -18,16 +18,16 @@ function UserList() {
     };
 
     fetchUsers();
-  }, [refresh]); 
+  }, [refresh]);
 
   const deleteUser = async (id) => {
     try {
       await api.delete(`/user/${id}`, {
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-      setRefresh(!refresh); 
+      setRefresh(!refresh);
     } catch (error) {
       console.error('Error deleting user:', error);
     }
@@ -36,16 +36,19 @@ function UserList() {
   return (
     <div>
       <h1 className={styles.title}>USER LIST</h1>
-      
+
       <div className={styles.container}>
-    
         <div className={styles.userContainer}>
           {users.map((user, index) => (
             <div key={user._id} className={styles.user}>
-              <Link to={`/user/${user._id}`} className={styles.textname}>{user.fullname}</Link>
+              <Link to={`/user/${user._id}`} className={styles.textname}>
+                {user.fullname}
+              </Link>
               <p className={styles.text}>{user.email}</p>
               <p className={styles.text}>{user.birthdate}</p>
-              <button className={styles.button} onClick={() => deleteUser(user._id)}>Delete</button>
+              <button className={styles.button} onClick={() => deleteUser(user._id)}>
+                Delete
+              </button>
               {index % 5 === 4 && <br />}
             </div>
           ))}

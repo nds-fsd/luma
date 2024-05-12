@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
-import api from '../../utils/api';
+import api from '../../../../utils/api';
 
 function UserCreate() {
   const [errorServer, setErrorServer] = useState('');
@@ -37,7 +37,14 @@ function UserCreate() {
     }
   };
 
-  const handleInputChange = () => {
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'fullname') {
+      event.target.value = value.toUpperCase();
+    }
+    if (name === 'email') {
+      event.target.value = value.toLowerCase();
+    }
     setErrorServer('');
     setMessageServer('');
   };
