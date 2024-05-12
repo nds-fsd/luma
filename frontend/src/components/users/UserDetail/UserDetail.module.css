@@ -1,0 +1,28 @@
+.container {  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .nametext {
+    font-family: "Roboto condensed", sans-serif;
+    font-size: 30px;
+    font-weight: 800px;
+  }
+
+  .textdata {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 700px;
+  }
+
+  /* Test */
