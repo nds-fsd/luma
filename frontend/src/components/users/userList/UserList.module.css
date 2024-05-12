@@ -1,14 +1,14 @@
 .userContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 150px;
+    justify-content: center;
+    margin-top: 70px;
     margin-bottom: 150px;
     align-items: center;
   }
   
   .user {
-    width: 300px; /* Ancho fijo */
+    width: 300px;
     height: 180px;
     margin: 10px;
     padding: 10px;
@@ -27,6 +27,7 @@
   .container {
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: #ffffff;
     height: auto;
   }
@@ -35,17 +36,31 @@
     font-family: "Roboto", sans-serif;
     color: rgb(0, 0, 0);
     text-align: center;
-    margin-bottom: 5px; /* Ajusta el margen inferior */
+    margin-bottom: 5px;
+    align-items: center;
   }
   
   .textname {
     font-family: "Roboto", sans-serif;
+    text-decoration: none;
     font-weight: 700;
     font-size: 15px;
     color: rgb(0, 0, 0);
     text-align: center;
-    margin-bottom: 5px; /* Ajusta el margen inferior */
+    margin-bottom: 5px; 
+    margin-top: 20px;
   }
+
+  .textname:hover {
+    color: rgb(99, 99, 99);
+    text-decoration: underline;
+  }
+  
+  .textname:active {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
   
   .button {
     width: 140px;

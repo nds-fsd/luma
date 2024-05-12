@@ -22,7 +22,7 @@ function UserCreate() {
     setErrorServer('');
     setMessageServer('');
     try {
-      const response = await api.post(`/api/user/register`, data);
+      const response = await api.post(`/user/register`, data);
       if (response.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');

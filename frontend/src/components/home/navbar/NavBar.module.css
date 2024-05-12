@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
+    background-color: white;
   }
   
   .logolumatic {
@@ -16,7 +17,6 @@
   }
   
   .navcontent {
-    
     margin-left: 10px;
     text-decoration: none;
     color: black;
