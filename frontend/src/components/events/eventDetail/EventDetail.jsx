@@ -2,7 +2,6 @@ import React from "react";
 import yogaImage from "../imagenes/yoga2.jpg";
 import styles from './EventDetail.module.css';
 import SubscribeBox from "../subscribe/Subscribe";
-import NavBar from "../navBar/NavBar"; 
 import locationGif from "../imagenes/location.png";
 import dateGif from "../imagenes/calendario.png";
 import organizationGif from "../imagenes/organizer.png";
@@ -14,9 +13,7 @@ import linkedinGif from "../imagenes/linkedin.png";
 const EventDetail = () => {
     return (
         <div>
-            <div className={styles["navBar-1"]}>
-                <NavBar />
-            </div>
+            
             <div className={styles.eventDetail}>
                 <div className={styles.eventDetailContent}>
                     <img src={yogaImage} alt="yogaImage" className={styles.eventImage} />

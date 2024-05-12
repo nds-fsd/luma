@@ -3,15 +3,12 @@ import Clock from "../clock/Clock";
 import EventList from "../eventList/EventList";
 import MiImagen from "../imagenes/Hotel-Vela.jpg"
 import SubscribeBox from "../subscribe/Subscribe";
-import NavBar from "../navBar/NavBar";
 import styles from './EventPage.module.css';
 
 const EventPage = () => {
   return (
     <div>
-      <div className={styles["navBar-1"]}>
-         <NavBar />
-      </div>
+      
       
       <div className={styles["event-page"]}>
 

@@ -6,9 +6,6 @@ import NavBar from './components/home/navbar/navbar';
 import Footer from './components/home/footer/Footer';
 import EventFormContainer from "./EventFormContainer/EventFormContainer";
 import Styles from './App.module.css'
-
-import React from "react";
-import { Routes, Route } from 'react-router-dom';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
 
@@ -20,7 +17,7 @@ function App() {
         </div>
          <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/event" element={<EventPage />} />
+                <Route path="/eventos" element={<EventPage />} />
                 <Route path="/cretateevent" element={          
                 <div className={Styles.container}>
                 <EventFormContainer /></div>} />
