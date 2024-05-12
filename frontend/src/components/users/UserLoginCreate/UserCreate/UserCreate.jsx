@@ -10,10 +10,11 @@ function UserCreate() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     reset,
     watch,
   } = useForm();
+
   const password = watch('password', '');
 
   const onSubmit = async (data) => {
@@ -21,6 +22,12 @@ function UserCreate() {
     data.email = data.email.toLowerCase();
     setErrorServer('');
     setMessageServer('');
+
+    if (data.password !== data.confirm_password) {
+      setErrorServer("Password don't match");
+      return;
+    }
+
     try {
       const response = await api.post(`/user/register`, data);
       if (response.data.success) {
@@ -49,6 +56,8 @@ function UserCreate() {
     setMessageServer('');
   };
 
+  const autocompleteValue = Math.random().toString(36).substring(2);
+
   return (
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>
@@ -58,57 +67,54 @@ function UserCreate() {
         <div className={styles.subtitle}>Regístrate, a continuación.</div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <input
-            {...register('fullname', { required: true })}
+            {...register('fullname')}
             placeholder='Full Name'
-            className={`${styles.input} ${errors.fullname ? styles.inputError : ''}`}
+            className={`${styles.input}`}
             onChange={handleInputChange}
-            title={errors.fullname ? 'The field is required' : ''}
+            autoComplete={autocompleteValue}
           />
           <input
-            {...register('email', { required: true })}
+            {...register('email')}
             placeholder='Email'
-            className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+            className={`${styles.input}`}
             onChange={handleInputChange}
-            title={errors.email ? 'The field is required' : ''}
+            autoComplete={autocompleteValue}
           />
           <div className={styles.dateInputContainer}>
             <label htmlFor='birthdate' className={styles.placeholder}>
               Birth Date
             </label>
             <input
-              {...register('birthdate', { required: true })}
+              {...register('birthdate')}
               placeholder='Birth Date'
               type='date'
-              className={`${styles.dateInput} ${styles.input} ${errors.birthdate ? styles.inputError : ''}`}
+              className={`${styles.input}`}
               onChange={handleInputChange}
-              title={errors.birthdate ? 'The field is required' : ''}
+              autoComplete={autocompleteValue}
             />
           </div>
           <input
-            {...register('phone_number', { required: true })}
+            {...register('phone_number')}
             placeholder='Phone Number'
-            className={`${styles.input} ${errors.phone_number ? styles.inputError : ''}`}
+            className={`${styles.input}`}
             onChange={handleInputChange}
-            title={errors.phone_number ? 'The field is required' : ''}
+            autoComplete={autocompleteValue}
           />
           <input
-            {...register('password', { required: true })}
+            {...register('password')}
             type='password'
             placeholder='Password'
-            className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+            className={`${styles.input}`}
             onChange={handleInputChange}
-            title={errors.password ? 'The field is required' : ''}
+            autoComplete={autocompleteValue}
           />
           <input
-            {...register('confirm_password', {
-              required: true,
-              validate: (value) => value === password || setErrorServer(`Password don't match`),
-            })}
+            {...register('confirm_password')}
             type='password'
             placeholder='Confirm Password'
-            className={`${styles.input} ${errors.confirm_password ? styles.inputError : ''}`}
+            className={`${styles.input}`}
             onChange={handleInputChange}
-            title={errors.confirm_password ? 'The field is required' : ''}
+            autoComplete={autocompleteValue}
           />
           <button type='submit' className={styles.button} disabled={!isDirty}>
             Register
