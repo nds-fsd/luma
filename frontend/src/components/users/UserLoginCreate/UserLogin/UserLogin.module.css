@@ -122,6 +122,11 @@ h2 {
   text-decoration: none;
 }
 
+.error {
+  margin-left: 5px;
+  color: #fff;
+}
+
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
   .innerContainer {

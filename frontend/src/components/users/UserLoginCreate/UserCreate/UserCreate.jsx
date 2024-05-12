@@ -88,7 +88,8 @@ function UserCreate() {
               {...register('birthdate')}
               placeholder='Birth Date'
               type='date'
-              className={`${styles.input}`}
+              className={`${styles.input} ${styles.dateInput}`}
+              id='dateInput'
               onChange={handleInputChange}
               autoComplete={autocompleteValue}
             />
