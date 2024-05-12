@@ -59,4 +59,3 @@ function UserList() {
 }
 
 export default UserList;
-  /* Test */

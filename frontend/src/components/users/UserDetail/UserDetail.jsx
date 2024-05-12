@@ -33,6 +33,6 @@ function UserDetail() {
 
     </div>
   );
-}  /* Test */
+}  
 
 export default UserDetail;
