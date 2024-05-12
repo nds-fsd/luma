@@ -1,20 +1,7 @@
 const express = require('express');
+const eventRouter = require('./eventRouter');
 const userRouter = require('./userRouter');
-
-const router = express.Router();
-
-router.use('/user', userRouter);
-
-module.exports = router;
-
-
-/*const express = require('express');
-const EventRouter = require('/eventRouter')
-const userRouter = require('./userRouter');
-const router = express.Router();
-
-MainRouter.use('/events', EventRouter);
-MainRouter.use('/user', userRouter);
-
-module.exports = router;
-*/
+const MainRouter = express.Router();
+MainRouter.use('/events', eventRouter);
+MainRouter.use('/user', userRouter)
+module.exports = MainRouter;
