@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import imgHomeDesktop from "../../../images/imgHome.png";
 import imgHomeMobile from "../../../images/img-mobile.png";
 import styles from "./Home.module.css";
-import Footer from "../footer/Footer";
-import NavBar from "../navbar/navbar";
+
 
 
 const Home = () => {
