@@ -1,0 +1,73 @@
+.event-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    height: 100vh; 
+}
+
+.encabezado {
+    text-align: left;
+    margin-top: 300px; 
+    margin-left: 300px;
+}
+
+.encabezado img {
+    width: 1500px;
+    height: 1100px;
+    border-radius: 10px;
+    opacity: 0.6;
+    position: absolute;
+    top: 80%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: -1; 
+}
+
+.encabezado .titulo-header {
+    font-family: 'roboto condensed', sans-serif;
+    font-size: 35px;
+    color: grey;
+    
+}
+
+.titulo-barcelona {
+    font-family: 'roboto condensed', sans-serif;
+    font-size: 40px;
+    color: black;
+}
+
+.clock-container {
+    font-family: 'roboto condensed', sans-serif;
+    font-size: 20px;
+    margin-left: auto; 
+    
+}
+
+.texto-p {
+    font-family: 'roboto condensed', sans-serif;
+    color: black;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-left: auto; 
+}
+
+hr {
+    color: black;
+    width: 40%;
+    margin-left: 5px;
+    margin-top: 30px;
+}
+
+.titulo-eventos {
+    font-family: 'roboto condensed', sans-serif;
+    font-size: 40px;
+}
+
+.main {
+    width: 100%;
+    text-align: left;
+    margin-top: 80px; 
+    margin-left: 300px;
+}
+
+
