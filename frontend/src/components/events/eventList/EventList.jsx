@@ -11,6 +11,7 @@ const EventList = () => {
             organizadoPor: "It's Five Yoga",
             localizacion: "Baldomero BCN",
             imagen: yogaImage
+
         },
         {
             hora: "19h",
@@ -20,6 +21,9 @@ const EventList = () => {
             imagen: runImage
         }
     ];
+ // tengo que hacer un fetch a: http://localhost:3001/api/events
+ // para eventDetail page tengo que pasar el id del evento en la url. 
+ // eventDetail page --> voy a recuperar el id del evento de la url y voy a hacer un fetch a --> http://localhost:3001/api/events/id
 
     return (
         <div className={styles.eventList}>
