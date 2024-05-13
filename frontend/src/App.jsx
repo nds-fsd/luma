@@ -8,6 +8,8 @@ import Footer from './components/home/Footer/Footer';
 import Pages from './components/Pages/Pages';
 import EventFormContainer from './components/EventFormContainer/EventFormContainer';
 import Styles from './App.module.css';
+import EventPage from './components/events/eventPage/EventPage';
+import EventDetail from './components/events/eventDetail/EventDetail';
 
 function App() {
   return (
@@ -17,7 +19,7 @@ function App() {
       </div>
       <Routes>
         <Route exact path='/' element={<Home />} />
-        <Route path='/event' element={<h1>HOLA</h1>} />
+        <Route path='/event' element={<EventPage/>} />
         <Route
           path='/createevent'
           element={
@@ -30,6 +32,7 @@ function App() {
         <Route path='/pages' element={<Pages />} />
         <Route path='/userlist' element={<UserList />} />
         <Route path='user/:userId' element={<UserDetail />} />
+        <Route path='/eventdetail' element={<EventDetail />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
