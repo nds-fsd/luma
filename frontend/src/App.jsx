@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import UserLogin from './components/UserLogin/UserLogin';
 import UserCreate from './components/UserCreate/UserCreate';
-import EventFormContainer from "./EventFormContainer/EventFormContainer";
+import EventFormContainer from "./components/EventFormContainer/EventFormContainer";
 import Styles from './App.module.css'
 const queryClient = new QueryClient();
 

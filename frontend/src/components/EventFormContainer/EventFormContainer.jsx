@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import EventForm from './EventForm/EventForm';
+import EventForm from './eventForm/EventForm';
 import Styles from './EventFormContainer.module.css'
 
 const EventFormContainer = () => {

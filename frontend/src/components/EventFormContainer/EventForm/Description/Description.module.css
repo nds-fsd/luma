@@ -143,3 +143,9 @@
     gap: 15px;
 
 }
+
+.errors {
+    font-family: "Roboto";
+    font-size: 0.8em;
+    color: red;
+}
