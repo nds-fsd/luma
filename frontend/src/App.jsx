@@ -6,7 +6,7 @@ import UserLoginCreate from './components/users/UserLoginCreate/UserLoginCreate'
 import NavBar from './components/home/NavBar/NavBar';
 import Footer from './components/home/Footer/Footer';
 import Pages from './components/Pages/Pages';
-import EventFormContainer from './EventFormContainer/EventFormContainer';
+import EventFormContainer from './components/EventFormContainer/EventFormContainer';
 import Styles from './App.module.css';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route path='/event' element={<h1>HOLA</h1>} />
         <Route
-          path='/cretateevent'
+          path='/createevent'
           element={
             <div className={Styles.container}>
               <EventFormContainer />

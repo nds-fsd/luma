@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import api from '../../../utils/api'
+import api from '../../../../utils/api'
 
 const Description = ({ buttonColor }) => {
 
@@ -22,7 +22,7 @@ const Description = ({ buttonColor }) => {
         console.log({ ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) })
         console.log("EVENT DATE", data.eventDate)
         try {
-            const response = await api.post('/events', {...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice)});
+            const response = await api.post('/events', { ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) });
 
         } catch (error) {
             console.error('Error while sending the POST request', error)
@@ -36,10 +36,11 @@ const Description = ({ buttonColor }) => {
                     <label htmlFor="date" className={Styles.labels}>Fecha del evento </label>
                     <input type="date" {...register("eventDate", { required: true })} className={Styles.inputDate} />
                 </div>
-                {/* {errors.creationDate && <p className={Styles.labels}>La fecha del evento es requerida</p>} */}
+                {errors.eventDate && <p className={Styles.errors}>La fecha del evento es requerida</p>}
                 <div className={Styles.divContainer}>
                     <input type="text" placeholder={"Título del evento"} {...register("eventTitle", { required: true })} className={Styles.inputTitle} />
                 </div>
+                {errors.eventTitle && <p className={Styles.errors}>El título del evento es requerido</p>}
                 <div className={Styles.divContainer}>
                     <textarea
                         {...register("eventDescription")}
@@ -56,6 +57,8 @@ const Description = ({ buttonColor }) => {
                         className={Styles.inputPrice}
                     /> €
                 </div>
+                {errors.eventPrice && <p className={Styles.errors}>El precio de la entrada es requerido</p>}
+
                 <div className={Styles.capacityContainer}>
                     <label htmlFor="ilimitado" className={Styles.labels}>Capacidad</label>
                     <div>
@@ -77,6 +80,7 @@ const Description = ({ buttonColor }) => {
                             value="definir_cantidad"
                             {...register("eventCapacity")}
                             onChange={handleRadioChange}
+                            checked={showQuantityInput}
                             className={Styles.radio}
                         />
                         <label htmlFor="definir_cantidad" className={Styles.labels}>Establecer límite</label>
@@ -87,14 +91,11 @@ const Description = ({ buttonColor }) => {
                             className={Styles.inputPrice}
                             type="number"
                             min="1"
-                            {...register("eventCapacity", { min: 1 })} // Aplica validación de mínimo 1
+                            {...register("eventCapacity", { min: 1 }, {required: true})} // Aplica validación de mínimo 1
                         />
                     )}
-
-                    {/* Muestra error si la cantidad es requerida y no está definida */}
-                    {errors.eventCapacity && <p className={Styles.error}>La cantidad es requerida</p>}
                 </div>
-
+                {errors.eventCapacity && <p className={Styles.errors}>Se debe establecer la capacidad del evento</p>}
                 <div className={Styles.divContainer}>
                     <input type="submit" value="Crear evento" className={Styles.inputSubmit} style={{ backgroundColor: buttonColor.backgroundColor, borderColor: buttonColor.borderColor }} />
 
