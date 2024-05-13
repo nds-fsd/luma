@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-
 import { Routes, Route } from 'react-router-dom';
 import UserLogin from './components/UserLogin/UserLogin';
 import UserCreate from './components/UserCreate/UserCreate';
@@ -18,11 +17,29 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <>
-      {/*<UserLogin> ya existe el componente pero aún en construcción, tanto el frontend como el backend.*/}
-      {/* <UserCreate /> */}
-          <div className={Styles.container}>
-            <EventFormContainer />
-        </div>
+      <div>
+        <NavBar />
+      </div>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/event' element={<h1>HOLA</h1>} />
+        <Route
+          path='/cretateevent'
+          element={
+            <div className={Styles.container}>
+              <EventFormContainer />
+            </div>
+          }
+        />
+        <Route path='/login' element={<UserLoginCreate />} />
+        <Route path='/pages' element={<Pages />} />
+        <Route path='/userlist' element={<UserList />} />
+        <Route path='user/:userId' element={<UserDetail />} />
+        <Route path='*' element={<h1>Page not found</h1>} />
+      </Routes>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }
