@@ -67,9 +67,6 @@ const UserLogin = () => {
             <button type='submit' className={styles.button}>
               {`Continuar con el ${inputType === 'email' ? 'correo electrónico' : 'teléfono'}`}
             </button>
-            <button type='button' className={styles.buttonGoogle}>
-              Iniciar sesión con Google
-            </button>
             <div className={styles.containerRegisterUser}>
               <button onClick={openUserCreate} className={styles.link}>
                 Registro de Usuario

@@ -3,17 +3,41 @@ const User = require('../models/userModel');
 exports.registerUser = async (req, res) => {
   try {
     const { fullname, email, birthdate, phone_number, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    
+    // Verificar si ya existe un usuario con el mismo correo electrónico
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
       return res.status(400).json({ error: 'User with this email already exists' });
     }
-    const user = new User({ fullname, email, birthdate, phone_number, password });
+
+    // Verificar si ya existe un usuario con el mismo número de teléfono
+    const existingUserByPhone = await User.findOne({ phone_number });
+    if (existingUserByPhone) {
+      return res.status(400).json({ error: 'User with this phone number already exists' });
+    }
+
+    // Define el valor por defecto de role
+    const role = 'CREATOR';
+    //const profile_picture = ''; // Puedes establecer un valor por defecto para la foto de perfil si es necesario
+
+    const user = new User({
+      fullname,
+      email,
+      birthdate,
+      phone_number,
+      role,  // Asigna el rol por defecto
+      profile_picture,
+      password
+    });
+
     await user.save();
     res.status(201).json({ success: true, message: 'User registered successfully' });
   } catch (err) {
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
+
+
 
 exports.getAllUsers = async (req, res) => {
   try {

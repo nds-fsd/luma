@@ -102,6 +102,13 @@ function UserCreate() {
             autoComplete={autocompleteValue}
           />
           <input
+            {...register('profile_picture')}
+            placeholder='Link Profile Picture'
+            className={`${styles.input}`}
+            onChange={handleInputChange}
+            autoComplete={autocompleteValue}
+          />
+          <input
             {...register('password')}
             type='password'
             placeholder='Password'
