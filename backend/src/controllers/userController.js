@@ -1,33 +1,33 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 exports.registerUser = async (req, res) => {
   try {
-    const { fullname, email, birthdate, phone_number, password } = req.body;
-    
-    // Verificar si ya existe un usuario con el mismo correo electrónico
+    const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
+
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
       return res.status(400).json({ error: 'User with this email already exists' });
     }
 
-    // Verificar si ya existe un usuario con el mismo número de teléfono
     const existingUserByPhone = await User.findOne({ phone_number });
     if (existingUserByPhone) {
       return res.status(400).json({ error: 'User with this phone number already exists' });
     }
 
-    // Define el valor por defecto de role
     const role = 'CREATOR';
-    //const profile_picture = ''; // Puedes establecer un valor por defecto para la foto de perfil si es necesario
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
       fullname,
       email,
       birthdate,
       phone_number,
-      role,  // Asigna el rol por defecto
+      role,
       profile_picture,
-      password
+      password: hashedPassword,
     });
 
     await user.save();
@@ -36,8 +36,6 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
-
-
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -97,5 +95,57 @@ exports.deleteUser = async (req, res) => {
     res.json({ success: true, message: 'User deleted successfully' });
   } catch (err) {
     res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log('Contraseña recibida en el backend:', password);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+    const token = jwt.sign(
+      { userId: user._id, fullname: user.fullname, email: user.email, picture: user.profile_picture, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h',
+      }
+    );
+    res.status(200).json({ success: true, picture: user.profile_picture, role: user.role, token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
+exports.getUserData = async (req, res) => {
+  try {
+    const token = await req.headers.authorization.split(' ')[1];
+    console.log('pasa');
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ message: 'Token inválido' });
+      } else {
+        const userData = {
+          fullName: decodedToken.fullname,
+          email: decodedToken.email,
+          id: decodedToken.userId,
+          picture: decodedToken.picture,
+          role: decodedToken.role,
+        };
+
+        res.json(userData);
+      }
+    });
+  } catch (error) {
+    console.error('Error en getUserData:', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
   }
 };

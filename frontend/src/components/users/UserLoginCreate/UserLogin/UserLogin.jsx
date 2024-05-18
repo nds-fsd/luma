@@ -7,7 +7,8 @@ const UserLogin = () => {
   const [inputType, setInputType] = useState('email');
   const [isUserCreateOpen, setIsUserCreateOpen] = useState(false);
 
-  const openUserCreate = () => {
+  const openUserCreate = (event) => {
+    event.preventDefault();
     setIsUserCreateOpen(true);
   };
 
@@ -32,13 +33,12 @@ const UserLogin = () => {
 
   return (
     <div className={styles.outerContainer}>
-      {!isUserCreateOpen && ( 
-      <div className={styles.innerContainer}>
-        <div className={styles.title}>
-          <h2>Bienvenidos a Lumatic</h2>
-        </div>
-        <div className={styles.subtitle}>Por favor, inicia sesión o regístrate a continuación.</div>
-      
+      {!isUserCreateOpen && (
+        <div className={styles.innerContainer}>
+          <div className={styles.title}>
+            <h2>Bienvenidos a Lumatic</h2>
+          </div>
+          <div className={styles.subtitle}>Por favor, inicia sesión o regístrate a continuación.</div>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.formGroup}>
               <div className={styles.text}>
@@ -73,10 +73,8 @@ const UserLogin = () => {
               </button>
             </div>
           </form>
-       
-        
-      </div>
-       )}
+        </div>
+      )}
       {isUserCreateOpen && <UserCreate onClose={closeUserCreate} />}
     </div>
   );

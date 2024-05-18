@@ -41,9 +41,11 @@ function UserList() {
         <div className={styles.userContainer}>
           {users.map((user, index) => (
             <div key={user._id} className={styles.user}>
+              <img style={{ height: '120px', width: '120px', borderRadius: '50px 0 50px 0' }} src={user.profile_picture} alt={`Foto del usuario: ${user.fullname}`} />
               <Link to={`/user/${user._id}`} className={styles.textname}>
                 {user.fullname}
               </Link>
+              <h4>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
               <p className={styles.text}>{user.email}</p>
               <p className={styles.text}>{user.birthdate}</p>
               <button className={styles.button} onClick={() => deleteUser(user._id)}>
