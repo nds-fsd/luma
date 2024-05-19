@@ -56,17 +56,17 @@ const UserLogin = ({ handleLogin }) => {
                 </p>
               </div>
               <div className={styles.text}>
-                <p onClick={() => handleInputChange('phone')} className={inputType === 'phone' ? styles.selected : ''}>
+                <p onClick={() => handleInputChange('phone_number')} className={inputType === 'phone_number' ? styles.selected : ''}>
                   Usar número telefónico
                 </p>
               </div>
             </div>
             <div className={styles.formGroup}>
               <input
-                type={inputType === 'phone' ? 'tel' : 'email'}
+                type={inputType === 'phone_number' ? 'tel' : 'email'}
                 placeholder={inputType === 'email' ? 'you@email.com' : '+34 675 21 56 50'}
-                id={inputType === 'email' ? 'email' : 'phone'}
-                {...register(inputType === 'email' ? 'email' : 'phone', { required: true })}
+                id={inputType === 'email' ? 'email' : 'phone_number'}
+                {...register(inputType === 'email' ? 'email' : 'phone_number', { required: true })}
                 autoComplete="email"
                 className={styles.input}
               />
