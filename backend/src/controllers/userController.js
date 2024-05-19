@@ -117,10 +117,10 @@ exports.loginUser = async (req, res) => {
         expiresIn: '1h',
       }
     );
-    res.status(200).json({ success: true, picture: user.profile_picture, role: user.role, token });
+    res.status(200).json({ success: true, token });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(500).json({ success: false, error: 'Internal server error  aaaaa' });
   }
 };
 
@@ -131,13 +131,13 @@ exports.getUserData = async (req, res) => {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
-        return res.status(401).json({ message: 'Token inválido' });
+        return res.status(401).json({ message: 'Invalid Token' });
       } else {
         const userData = {
           fullName: decodedToken.fullname,
           email: decodedToken.email,
           id: decodedToken.userId,
-          picture: decodedToken.picture,
+          picTure: decodedToken.picture,
           role: decodedToken.role,
         };
 

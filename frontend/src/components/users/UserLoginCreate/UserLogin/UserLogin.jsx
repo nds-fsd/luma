@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserLogin.module.css';
-import UserCreate from '../UserCreate/UserCreate'; 
+import UserCreate from '../UserCreate/UserCreate';
+import api from '../../../../utils/api';
+import { setUserSession } from '../../../../utils/localStorage.utils';
 
-const UserLogin = () => {
+const UserLogin = ({ handleLogin }) => {
   const [inputType, setInputType] = useState('email');
   const [isUserCreateOpen, setIsUserCreateOpen] = useState(false);
 
@@ -26,9 +28,16 @@ const UserLogin = () => {
     setInputType(type);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Aquí enviar los datos del nuevo usuario al backend
+  const onSubmit = async (data) => {
+    try {
+      const response = await api.post('/user/login', data);
+      if (response?.data.token) {
+        setUserSession(response.data);
+        handleLogin();
+      }
+    } catch (error) {
+      console.error('Error occurred while logging in:', error);
+    }
   };
 
   return (
@@ -56,13 +65,30 @@ const UserLogin = () => {
               <input
                 type={inputType === 'phone' ? 'tel' : 'email'}
                 placeholder={inputType === 'email' ? 'you@email.com' : '+34 675 21 56 50'}
-                id='username'
-                {...register('username', { required: true })}
+                id={inputType === 'email' ? 'email' : 'phone'}
+                {...register(inputType === 'email' ? 'email' : 'phone', { required: true })}
+                autoComplete="email"
                 className={styles.input}
               />
               {errors.username && (
                 <span className={styles.error}>{inputType === 'email' ? 'Email' : 'Phone'} is required</span>
               )}
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters',
+                  },
+                })}
+                placeholder='Password'
+                type='password'
+                autoComplete="current-password"
+                className={styles.input}
+              />
+              {errors.password && <span className={styles.error}>{errors.password.message}</span>}
             </div>
             <button type='submit' className={styles.button}>
               {`Continuar con el ${inputType === 'email' ? 'correo electrónico' : 'teléfono'}`}

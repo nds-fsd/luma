@@ -1,9 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import UserLogin from './UserLogin/UserLogin';
-import UserCreate from './UserCreate/UserCreate';
 
-const UserLoginCreate = () => {
+const UserLoginCreate = ({ handleLogin }) => {
   const { handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -13,7 +12,7 @@ const UserLoginCreate = () => {
 
   return (
     <div>
-      <UserLogin onSubmit={handleSubmit(onSubmit)} />
+      <UserLogin onSubmit={handleSubmit(onSubmit)} handleLogin={handleLogin}/>
     </div>
   );
 };

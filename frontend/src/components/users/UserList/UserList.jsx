@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../../utils/api';
 import styles from './UserList.module.css';
@@ -41,7 +41,11 @@ function UserList() {
         <div className={styles.userContainer}>
           {users.map((user, index) => (
             <div key={user._id} className={styles.user}>
-              <img style={{ height: '120px', width: '120px', borderRadius: '50px 0 50px 0' }} src={user.profile_picture} alt={`Foto del usuario: ${user.fullname}`} />
+              <img
+                style={{ height: '120px', width: '120px', borderRadius: '50px 0 50px 0' }}
+                src={user.profile_picture}
+                alt={`Foto del usuario: ${user.fullname}`}
+              />
               <Link to={`/user/${user._id}`} className={styles.textname}>
                 {user.fullname}
               </Link>
