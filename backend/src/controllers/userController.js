@@ -101,39 +101,39 @@ exports.deleteUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, phone_number, password } = req.body;
-    console.log('Datos recibidos en el backend:', { email, phone_number, password });
+    console.log('Data received in the backend:', { email, phone_number, password });
 
-    // Verificar que se haya proporcionado uno de los identificadores
+   
     if (!email && !phone_number) {
-      return res.status(400).json({ error: 'Debe proporcionar un correo electrónico o número de teléfono' });
+      return res.status(400).json({ error: 'You must provide an email or phone number' });
     }
 
-    // Buscar usuario por correo electrónico o número de teléfono
+
     const user = await User.findOne({
       $or: [{ email }, { phone_number }]
     });
 
     if (!user) {
-      return res.status(400).json({ error: 'Correo electrónico, número de teléfono o contraseña inválidos' });
+      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      return res.status(400).json({ error: 'Correo electrónico, número de teléfono o contraseña inválidos' });
+      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
     }
 
     const token = jwt.sign(
       { userId: user._id, fullname: user.fullname, email: user.email, picture: user.profile_picture, role: user.role },
       process.env.JWT_SECRET,
       {
-        expiresIn: '1h',
+        expiresIn: '4h',
       }
     );
 
     res.status(200).json({ success: true, token });
   } catch (err) {
-    console.error('Error en el servidor:', err);
-    res.status(500).json({ success: false, error: 'Error interno del servidor' });
+    console.error('Server error:', err);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 };
 
@@ -160,7 +160,7 @@ exports.getUserData = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Error en getUserData:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    console.error('Error in getUserData:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };

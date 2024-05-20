@@ -13,6 +13,9 @@ import EventDetail from './components/events/eventDetail/EventDetail';
 import { getUserToken, removeSession } from './utils/localStorage.utils';
 import { getUserTokenData } from './utils/tokenData';
 import { useState, useEffect } from 'react';
+import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
+import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
+import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
 
 function App() {
   const navigate = useNavigate();
@@ -21,6 +24,7 @@ function App() {
   const [userFullName, setUserFullName] = useState('');
   const [userPicture, setUserPicture] = useState('');
   const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -31,6 +35,7 @@ function App() {
           setUserFullName(userData.fullName);
           setUserPicture(userData.picTure);
           setUserId(userData.iD);
+          setUserRole(userData.role);
         }
       } catch (error) {
         console.error('Error al obtener los datos del usuario:', error);
@@ -42,17 +47,29 @@ function App() {
     } else {
       setUserFullName('');
       setUserPicture('');
+      setUserId('');
+      setUserRole('');
     }
   }, [isAuthenticated]);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
     setDropdownOpen(false);
-    return <Navigate to='/eventdetail' />;
+    navigate(`/discoverevents`);
   };
 
   const handleGoToOwnProfile = () => {
     navigate(`/user/${userId}`);
+    setDropdownOpen(false);
+  };
+
+  const handleGoToEventId = () => {
+    navigate(`/city/2`);
+    setDropdownOpen(false);
+  };
+
+  const handleGoToConfiguration = () => {
+    navigate(`/admin`);
     setDropdownOpen(false);
   };
 
@@ -70,9 +87,11 @@ function App() {
           handleLogout={handleLogout}
           userPicture={userPicture}
           userFullName={userFullName}
+          userRole={userRole}
           handleGoToOwnProfile={handleGoToOwnProfile}
           isDropdownOpen={isDropdownOpen}
           setDropdownOpen={setDropdownOpen}
+          handleGoToConfiguration={handleGoToConfiguration}
         />
       </div>
       <Routes>
@@ -91,9 +110,20 @@ function App() {
           element={isAuthenticated ? <Navigate to='/createevent' /> : <UserLoginCreate handleLogin={handleLogin} />}
         />
         <Route path='/pages' element={<Pages />} />
+        <Route
+          path='/admin'
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole}>
+              <AddCityForm />
+            </ProtectedRoute>
+          }
+        />
         <Route path='/userlist' element={<UserList />} />
         <Route path='/user/:userId' element={<UserDetail />} />
+        <Route path='/eventcreate' element={<EventFormContainer />} />
+        <Route path='/city/2' element={<EventPage />} />
         <Route path='/eventdetail' element={<EventDetail />} />
+        <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>

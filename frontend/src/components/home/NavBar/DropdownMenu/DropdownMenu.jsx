@@ -3,8 +3,10 @@ import styles from './DropdownMenu.module.css';
 
 const DropdownMenu = ({
   handleLogout,
+  handleGoToConfiguration,
   userPicture,
   userFullName,
+  userRole,
   handleGoToOwnProfile,
   isDropdownOpen,
   setDropdownOpen,
@@ -21,14 +23,14 @@ const DropdownMenu = ({
   return (
     <div className={styles.dropdown}>
       <div onClick={toggleDropdown} className={styles.dropdownButton}>
-        <img className={styles.dropdownIcon} src={userPicture} alt={`Foto del usuario`} />
+        <img className={styles.dropdownIcon} src={userPicture} alt="Foto del usuario" />
       </div>
       {isDropdownOpen && (
         <div className={styles.dropdownContent}>
           <button onClick={() => handleOptionClick('Option 1')} className={styles.dropdownItem}>
             <div className={styles.contentMain}>
               <div>
-                <img className={styles.dropdownIcon} src={userPicture} alt={`Foto del usuario`} />
+                <img className={styles.dropdownIcon} src={userPicture} alt="Foto del usuario" />
               </div>
               <div className={styles.infoDropDown}>
                 <h4>{userFullName}</h4>
@@ -39,9 +41,11 @@ const DropdownMenu = ({
           <button onClick={handleGoToOwnProfile} className={styles.dropdownItem}>
             Ver Perfil
           </button>
-          <button onClick={() => handleOptionClick('Option 2')} className={styles.dropdownItem}>
-            Configuración
-          </button>
+          {userRole === 'ADMIN' && (
+            <button onClick={handleGoToConfiguration} className={styles.dropdownItem}>
+              Configuración
+            </button>
+          )}
           <button onClick={handleLogout} className={styles.dropdownItem}>
             Cerrar Sesión
           </button>

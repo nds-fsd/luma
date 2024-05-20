@@ -8,11 +8,13 @@ import DropdownMenu from './DropdownMenu/DropdownMenu'; // Importa el componente
 const NavBar = ({
   IsAuthenticated,
   handleLogout,
+  handleGoToConfiguration,
   userPicture,
   userFullName,
   handleGoToOwnProfile,
   isDropdownOpen,
   setDropdownOpen,
+  userRole
 }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -35,15 +37,17 @@ const NavBar = ({
         </Link>
       </div>
       <nav className={styles.nav}>
-        <Link to='/eventos' className={styles.navcontent}>
+        <Link to='/discoverevents' className={styles.navcontent}>
           <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
         </Link>
 
         {IsAuthenticated ? (
           <DropdownMenu
             handleLogout={handleLogout}
+            handleGoToConfiguration={handleGoToConfiguration}
             userPicture={userPicture}
             userFullName={userFullName}
+            userRole={userRole}
             handleGoToOwnProfile={handleGoToOwnProfile}
             isDropdownOpen={isDropdownOpen}
             setDropdownOpen={setDropdownOpen}
