@@ -10,11 +10,13 @@ import EventFormContainer from './components/EventFormContainer/EventFormContain
 import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
+import HomePage from './components/HomePage/HomePage'
 
 function App() {
   return (
     <>
-      <div>
+    <HomePage/>
+      {/* <div>
         <NavBar />
       </div>
       <Routes>
@@ -36,8 +38,8 @@ function App() {
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
-        <Footer />
-      </div>
+        <Footer /> 
+      </div>*/}
     </>
   );
 }

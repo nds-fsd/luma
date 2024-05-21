@@ -1,8 +1,8 @@
 import Description from "./Description/Description";
 import ImgPicker from "./ImgPicker/ImgPicker";
-import Styles from './EventForm.module.css'
+import Styles from './EditEventForm.module.css'
 
-const EventForm = ({ onColorChange, backgroundColor, buttonColor }) => {
+const EditEventForm = ({ onColorChange, backgroundColor, buttonColor }) => {
 
     return (
         <div className={Styles.formContainer}>
@@ -19,4 +19,4 @@ const EventForm = ({ onColorChange, backgroundColor, buttonColor }) => {
     )
 }
 
-export default EventForm;
+export default EditEventForm;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import api from '../../../../utils/api'
+import api from '../../../../../utils/api'
 
 const Description = () => {
 

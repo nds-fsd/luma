@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import EventForm from './EventForm/EventForm';
-import Styles from './EventFormContainer.module.css'
+import Styles from './EditEventFormContainer.module.css'
+import EditEventForm from './EditEventForm/EditEventForm';
 
-const EventFormContainer = () => {
+const EditEventFormContainer = () => {
 
     const themes = {
         violet: {
@@ -53,7 +53,7 @@ const EventFormContainer = () => {
 
     return (
         <div className={Styles.container} style={{ backgroundColor }}>
-            <EventForm
+            <EditEventForm
                 onColorChange={handleColorChange}
                 backgroundColor={backgroundColor}
                 buttonColor={buttonColor}
@@ -61,4 +61,4 @@ const EventFormContainer = () => {
         </div>
     )
 }
-export default EventFormContainer;
+export default EditEventFormContainer;
