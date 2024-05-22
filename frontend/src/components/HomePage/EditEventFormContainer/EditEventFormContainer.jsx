@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Styles from './EditEventFormContainer.module.css'
 import EditEventForm from './EditEventForm/EditEventForm';
+import { useLocation } from 'react-router-dom';
 
 const EditEventFormContainer = () => {
+const location= useLocation();
+const event = location.state?.event;
 
     const themes = {
         violet: {
@@ -57,6 +60,7 @@ const EditEventFormContainer = () => {
                 onColorChange={handleColorChange}
                 backgroundColor={backgroundColor}
                 buttonColor={buttonColor}
+                event={event}
             />
         </div>
     )

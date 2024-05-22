@@ -48,7 +48,8 @@ const createEvent = async (req, res) => {
     const today = new Date();
     const data = {
         ...body,
-        owner: '663e94f4811fa622e1a85f27',
+        owner: '66459e778c8e490a0960c784',
+        eventLocation: '664e39771e15f4265b4a9a95',
         eventDate: date,
         creationDate: today
     };

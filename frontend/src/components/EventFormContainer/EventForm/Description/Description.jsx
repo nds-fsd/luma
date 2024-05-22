@@ -67,7 +67,6 @@ const Description = () => {
                             className={Styles.inputLocation}
                             onChange={(e) => {
                                 register('eventLocation', { required: true });
-                                // Agrega cualquier otra lógica que necesites aquí
                             }}
                         >
                             <option value="barcelona">Barcelona</option>
@@ -120,7 +119,7 @@ const Description = () => {
                             className={Styles.inputPrice}
                             type="number"
                             min="1"
-                            {...register("eventCapacity", { min: 1 }, { required: true })} // Aplica validación de mínimo 1
+                            {...register("eventCapacity", { min: 1 }, { required: true })}
                         />
                     )}
                 </div>

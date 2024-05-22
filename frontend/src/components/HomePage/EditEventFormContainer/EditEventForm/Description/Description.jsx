@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
 import api from '../../../../../utils/api'
+import { useNavigate } from 'react-router-dom';
 
-const Description = () => {
+const Description = ({ event }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    const navigate = useNavigate();
 
     const [showQuantityInput, setShowQuantityInput] = useState(false)
 
@@ -17,17 +20,39 @@ const Description = () => {
         }
     };
 
-    //http://localhost:3001/api/events
-    const onSubmit = async (data) => {
-        console.log({ ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) })
-        console.log("EVENT DATE", data.eventDate)
-        try {
-            const response = await api.post('/events', { ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) });
-
-        } catch (error) {
-            console.error('Error while sending the POST request', error)
+    useEffect(() => {
+        if (event) {
+            setValue('eventDate', event.eventDate.split('T')[0]);
+            setValue('eventStartTime', event.eventStartTime);
+            setValue('eventEndTime', event.eventEndTime);
+            setValue('eventTitle', event.eventTitle);
+            setValue('eventDescription', event.eventDescription);
+            setValue('eventLocation', event.eventLocation);
+            setValue('eventPrice', event.eventPrice);
+            
+            if (event.eventCapacity && event.eventCapacity !== 'ilimitado') {
+                setShowQuantityInput(true);
+                setValue('eventCapacity', event.eventCapacity);
+            }
         }
-    }
+    }, [event, setValue]);
+
+        const onSubmit = async (data) => {
+            const eventData = {
+                ...data,
+                eventCapacity: parseInt(data.eventCapacity) || 'ilimitado',  
+                eventPrice: parseInt(data.eventPrice)
+            };
+
+            console.log(eventData)
+                
+            try {
+                const response = await api.patch(`/events/${event._id}`, eventData);
+                navigate('/homepage');
+            } catch (error) {
+                console.error('Error al enviar la solicitud PATCH', error);
+            }
+        };    
 
     return (
         <div className={Styles.descriptionContainer}>
@@ -67,7 +92,6 @@ const Description = () => {
                             className={Styles.inputLocation}
                             onChange={(e) => {
                                 register('eventLocation', { required: true });
-                                // Agrega cualquier otra lógica que necesites aquí
                             }}
                         >
                             <option value="barcelona">Barcelona</option>
@@ -120,13 +144,13 @@ const Description = () => {
                             className={Styles.inputPrice}
                             type="number"
                             min="1"
-                            {...register("eventCapacity", { min: 1 }, { required: true })} // Aplica validación de mínimo 1
+                            {...register("eventCapacity", { min: 1 }, { required: true })}
                         />
                     )}
                 </div>
                 {errors.eventCapacity && <p className={Styles.errors}>Se debe establecer la capacidad del evento</p>}
                 <div className={Styles.divContainer}>
-                    <input type="submit" value="CREAR EVENTO" className={Styles.inputSubmit} />
+                    <input type="submit" value="ACTUALIZAR EVENTO" className={Styles.inputSubmit} />
 
                 </div>
 

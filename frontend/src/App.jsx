@@ -11,12 +11,13 @@ import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
 import HomePage from './components/HomePage/HomePage'
+import Description from './components/HomePage/EditEventFormContainer/EditEventForm/Description/Description';
+import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
 
 function App() {
   return (
     <>
-    <HomePage/>
-      {/* <div>
+      <div>
         <NavBar />
       </div>
       <Routes>
@@ -35,11 +36,13 @@ function App() {
         <Route path='/userlist' element={<UserList />} />
         <Route path='user/:userId' element={<UserDetail />} />
         <Route path='/eventdetail' element={<EventDetail />} />
+        <Route path='/editevent' element={<EditEventFormContainer />} />
+        <Route path='/homepage' element={<HomePage />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
         <Footer /> 
-      </div>*/}
+      </div>
     </>
   );
 }

@@ -21,6 +21,9 @@ function Pages() {
         <Link to="/userlist" style={{ textDecoration: 'none' }}>
             <button className={styles.button}>LISTA DE USUARIOS</button>
         </Link>
+        <Link to="/homepage" style={{ textDecoration: 'none' }}>
+            <button className={styles.button}>HOMEPAGE</button>
+        </Link>
     </div>
   );
 }

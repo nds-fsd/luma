@@ -1,38 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQueryClient, useQuery, QueryClient } from 'react-query';
-import styles from './HomePage.module.css';
-import api from '../../utils/api';
-import party from './party.png'
-import { Link, useNavigate } from 'react-router-dom';
+import styles from './MyEvent.module.css';
+import api from '../../../utils/api';
+import party from '../party.png'
+import { Link } from 'react-router-dom';
 
+const MyEvent = () => {
 
-const HomePage = () => {
     const queryClient = useQueryClient();
-    const navigate = useNavigate();
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    
+
     const getEvents = async () => {
         const res = await api.get('/events');
         return res.data;
     };
 
     const { data: events, isLoading, isError, error } = useQuery('events', getEvents);
+    
+    useEffect(() => {
+        if (!isLoading && !isError) {
+            queryClient.invalidateQueries('events'); 
+        }
+    }, [isLoading,isError,queryClient]);
 
-
-    const deleteEvent = async (id) => {
+    const handleDelete = async (id) => {
         try {
             await api.delete(`/events/${id}`);
-            queryClient.invalidateQueries('events');
-            console.log(`Evento con ID ${id} eliminado.`);
         } catch (e) {
-            console.log(`Error eliminando evento con ID ${id}: `, e);
+            console.log(e);
         }
     };
 
-    const handleEditEvent = (event) => {
-        setSelectedEvent(event);
-        navigate('/editevent', { state: { event } });
-    }
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -49,27 +46,22 @@ const HomePage = () => {
 
     return (
         <>
-            <div className={styles.myEventsContainer}>
-                <div className={styles.title}>
-                  <h1>MIS EVENTOS</h1>  
-                </div>
-                
+            <div className={styles.myEventContainer}>
+                <h1>MIS EVENTOS</h1>
                 {events.map((event, index) => (
                 <div key={index} className={styles.event}>
                     <div className={styles.leftPart}>
                         <img src={party} className={styles.eventImg} alt="Event image" />
                         <div className={styles.datosEvento}>{formatDate(event.eventDate)}</div>
-                        <div className={styles.datosEvento}>{event.eventStartTime} - {event.eventEndTime}</div>
                     </div>
                     <div className={styles.rightPart}>
                         <div className={styles.rightPartUp}>
                             <div className={styles.datosEvento}>{event.eventTitle}</div>
                             <div className={styles.datosEvento}>ORGANIZADO POR: {event.owner && event.owner.fullname}</div>
-                            <div className={styles.datosEvento}>UBICACIÓN: {event.eventLocation && event.eventLocation}</div>
                         </div>
                         <div className={styles.rightPartDown}>
-                            <button className={styles.deleteEvent} onClick={() => deleteEvent(event._id)}>ELIMINAR EVENTO</button>
-                           <button className={styles.editEvent} onClick={() => handleEditEvent(event)}>EDITAR EVENTO</button>
+                            <button className={styles.deleteEvent} onClick={() => handleDelete(event.id)}>ELIMINAR EVENTO</button>
+                           <Link to='/editevent'><button className={styles.editEvent}>EDITAR EVENTO</button></Link> 
                         </div>
                     </div>
                 </div>
@@ -80,4 +72,5 @@ const HomePage = () => {
     )
 }
 
-export default HomePage;
+export default MyEvent;
+
