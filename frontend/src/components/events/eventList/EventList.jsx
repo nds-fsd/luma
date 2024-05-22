@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
-import styles from './EventList.module.css'; 
+import styles from './EventList.module.css';
 // import yogaImage from "../imagenes/yoga2.jpg";
-// import runImage from "../imagenes/running.jpg";
+// import runImage from "../imagenes/running.jpg"; 
 import api from '../../../utils/api';
 
 function EventList() {
@@ -23,24 +23,30 @@ function EventList() {
       
     return (
         <div className={styles.eventList}>
-            {events.map((events, index) => (
+            {events.map((event, index) => (
                 <div key={index} className={styles.event}>
                     <div className={`${styles.eventItem} ${styles.hora}`}>
-                        <span>{events.eventDate}</span> 
+                        <span>{new Date(event.eventDate).toLocaleDateString()}</span> 
                     </div>                    
-                    {/* <div className={`${styles.eventItem} ${styles.nombre}`}>
-                        <span>{evento.nombre}</span>
+                    <div className={`${styles.eventItem} ${styles.nombre}`}>
+                        <span>{event.eventTitle}</span>
                     </div>
                     <div className={`${styles.eventItem} ${styles.organizadoPor}`}>
                         <span className={styles.label}>Organizado por: </span>
-                        <span>{evento.organizadoPor}</span>
+                        <span>{event.owner}</span>
                     </div>
-                    <div className={`${styles.eventItem} ${styles.localizacion}`}>
-                        <span>{evento.localizacion}</span>
+                    <div className={`${styles.eventItem} ${styles.descripcion}`}>
+                        <span>{event.eventDescription}</span>
                     </div>
-                    <div className={styles.eventImage}>
-                        <img src={evento.imagen} alt={evento.nombre} style={{ width: '120px', height: '120px', borderRadius: '10px', marginLeft: '320px', marginTop: '-110px' }} /> 
-                    </div> */}
+                    <div className={`${styles.eventItem} ${styles.precio}`}>
+                        <span className={styles.label}>Precio: </span>
+                        <span>{event.eventPrice}</span>
+                    </div>
+                    <div className={`${styles.eventItem} ${styles.capacidad}`}>
+                        <span className={styles.label}>Capacidad: </span>
+                        <span>{event.eventCapacity}</span>
+                    </div>
+                   
                 </div>
             ))}
         </div>

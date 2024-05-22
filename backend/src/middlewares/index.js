@@ -122,6 +122,7 @@ const formatDate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
+
 module.exports = {
   validateEventCreation,
   validateUserCreation,

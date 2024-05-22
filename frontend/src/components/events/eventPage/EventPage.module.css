@@ -1,73 +1,115 @@
 .event-page {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
-    height: 100vh; 
+    min-height: 100vh;
+    padding: 0 20px; /* Añadir padding para margen lateral */
 }
 
 .encabezado {
     text-align: left;
-    margin-top: 300px; 
-    margin-left: 300px;
+    background-image: url('../imagenes/Hotel-Vela.jpg');
+    background-size: cover;
+    height: 50vh; /* Altura relativa */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
 }
 
-.encabezado img {
-    width: 1500px;
-    height: 1100px;
-    border-radius: 10px;
-    opacity: 0.6;
-    position: absolute;
-    top: 80%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    z-index: -1; 
-}
-
-.encabezado .titulo-header {
+.titulo-header {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 35px;
-    color: grey;
-    
+    font-size: 5vw; /* Unidades relativas */
+    color: #E6EEEE;
 }
 
 .titulo-barcelona {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 40px;
+    font-size: 6vw; /* Unidades relativas */
     color: black;
 }
 
-.clock-container {
+.custom-clock {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 20px;
-    margin-left: auto; 
-    
+    font-size: 4vw; /* Unidades relativas */
+    color: #fff;
+    margin-top: 20px;
 }
 
 .texto-p {
     font-family: 'roboto condensed', sans-serif;
     color: black;
-    font-size: 20px;
-    margin-top: 40px;
-    margin-left: auto; 
+    font-size: 3vw; /* Unidades relativas */
+    margin-top: 20px;
+}
+
+.subscribe-container {
+    margin-top: 25px;
 }
 
 hr {
     color: black;
-    width: 40%;
-    margin-left: 5px;
-    margin-top: 30px;
+    width: 100%; /* Ancho relativo */
+    margin-top: 20px;
 }
 
 .titulo-eventos {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 40px;
+    font-size: 6vw; 
+    margin-left: 200px;
 }
 
 .main {
-    width: 100%;
+    min-height: 100vh;
     text-align: left;
-    margin-top: 80px; 
-    margin-left: 300px;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .encabezado {
+        height: 600px; 
+    }
+
+    .titulo-header {
+        font-size: 40px; 
+        margin-left: 500px;
+        margin-top: 120px;
+    }
+
+    .titulo-barcelona {
+        font-size: 45px; 
+    }
+
+    .custom-clock {
+        font-size: 25px; 
+        margin-left: 500px;
+    }
+
+    .texto-p {
+        font-size: 25px; 
+        margin-left: 500px;
+    }
+
+    .subscribe-container {
+        margin-left: 500px;
+        width: 90%;
+    }
+
+    hr {
+        width: 40%;
+        margin-left: 500px;
+    }
+
+    .titulo-eventos {
+        font-size: 40px;
+        margin-left: 500px;
+    }
+
+    .main {
+        margin-left: 1px;
+    }
 }
 
 
