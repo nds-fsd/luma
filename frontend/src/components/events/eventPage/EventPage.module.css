@@ -3,14 +3,14 @@
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
-    padding: 0 20px; /* Añadir padding para margen lateral */
+    padding: 0 20px; 
 }
 
 .encabezado {
     text-align: left;
     background-image: url('../imagenes/Hotel-Vela.jpg');
     background-size: cover;
-    height: 50vh; /* Altura relativa */
+    height: 50vh; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,19 +20,19 @@
 
 .titulo-header {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 5vw; /* Unidades relativas */
+    font-size: 5vw; 
     color: #E6EEEE;
 }
 
 .titulo-barcelona {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 6vw; /* Unidades relativas */
+    font-size: 6vw; 
     color: black;
 }
 
 .custom-clock {
     font-family: 'roboto condensed', sans-serif;
-    font-size: 4vw; /* Unidades relativas */
+    font-size: 4vw; 
     color: #fff;
     margin-top: 20px;
 }
@@ -40,7 +40,7 @@
 .texto-p {
     font-family: 'roboto condensed', sans-serif;
     color: black;
-    font-size: 3vw; /* Unidades relativas */
+    font-size: 3vw; 
     margin-top: 20px;
 }
 
@@ -50,7 +50,7 @@
 
 hr {
     color: black;
-    width: 100%; /* Ancho relativo */
+    width: 100%; 
     margin-top: 20px;
 }
 
@@ -74,42 +74,44 @@ hr {
 
     .titulo-header {
         font-size: 40px; 
-        margin-left: 500px;
+        margin-left: 280px;
         margin-top: 120px;
+        text-align: left;
     }
 
     .titulo-barcelona {
-        font-size: 45px; 
+        font-size: 45px;
+        
+        
     }
 
     .custom-clock {
         font-size: 25px; 
-        margin-left: 500px;
+        margin-left: 280px;
+        color: #F9E7F6;
     }
 
     .texto-p {
         font-size: 25px; 
-        margin-left: 500px;
+        margin-left: 280px;
     }
 
     .subscribe-container {
-        margin-left: 500px;
+        margin-left: 280px;
         width: 90%;
     }
 
     hr {
         width: 40%;
-        margin-left: 500px;
+        margin-left: 280px;
     }
 
     .titulo-eventos {
         font-size: 40px;
-        margin-left: 500px;
+        margin-left: -200px;
     }
 
-    .main {
-        margin-left: 1px;
-    }
+    
 }
 
 
