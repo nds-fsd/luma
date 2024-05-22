@@ -1,5 +1,5 @@
-import Description from "./description/Description";
-import ImgPicker from "./imgPicker/ImgPicker";
+import Description from "./Description/Description";
+import ImgPicker from "./ImgPicker/ImgPicker";
 import Styles from './EventForm.module.css'
 
 const EventForm = ({ onColorChange, backgroundColor, buttonColor }) => {

@@ -7,10 +7,7 @@ import styles from './EventPage.module.css';
 const EventPage = () => {
   return (
     <div>
-      
-      
-      <div className={styles["event-page"]}>
-
+      <div className={styles['event-page']}>
         <div className={styles.encabezado}>
           <div>         
             <h1 className={styles["titulo-header"]}>
@@ -36,7 +33,7 @@ const EventPage = () => {
         </div>
 
         <main className={styles.main}>
-          <h1 className={styles["titulo-eventos"]}>Upcoming Events</h1>
+          <h1 className={styles['titulo-eventos']}>Upcoming Events</h1>
           <div>
             <EventList />
           </div>
@@ -44,6 +41,6 @@ const EventPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default EventPage;

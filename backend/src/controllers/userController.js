@@ -1,13 +1,35 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 exports.registerUser = async (req, res) => {
   try {
-    const { fullname, email, birthdate, phone_number, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
+
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
       return res.status(400).json({ error: 'User with this email already exists' });
     }
-    const user = new User({ fullname, email, birthdate, phone_number, password });
+
+    const existingUserByPhone = await User.findOne({ phone_number });
+    if (existingUserByPhone) {
+      return res.status(400).json({ error: 'User with this phone number already exists' });
+    }
+
+    const role = 'CREATOR';
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({
+      fullname,
+      email,
+      birthdate,
+      phone_number,
+      role,
+      profile_picture,
+      password: hashedPassword,
+    });
+
     await user.save();
     res.status(201).json({ success: true, message: 'User registered successfully' });
   } catch (err) {
@@ -73,5 +95,72 @@ exports.deleteUser = async (req, res) => {
     res.json({ success: true, message: 'User deleted successfully' });
   } catch (err) {
     res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, phone_number, password } = req.body;
+    console.log('Data received in the backend:', { email, phone_number, password });
+
+   
+    if (!email && !phone_number) {
+      return res.status(400).json({ error: 'You must provide an email or phone number' });
+    }
+
+
+    const user = await User.findOne({
+      $or: [{ email }, { phone_number }]
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, fullname: user.fullname, email: user.email, picture: user.profile_picture, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '4h',
+      }
+    );
+
+    res.status(200).json({ success: true, token });
+  } catch (err) {
+    console.error('Server error:', err);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+};
+
+
+
+exports.getUserData = async (req, res) => {
+  try {
+    const token = await req.headers.authorization.split(' ')[1];
+    console.log('pasa');
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ message: 'Invalid Token' });
+      } else {
+        const userData = {
+          fullName: decodedToken.fullname,
+          email: decodedToken.email,
+          id: decodedToken.userId,
+          picTure: decodedToken.picture,
+          role: decodedToken.role,
+        };
+
+        res.json(userData);
+      }
+    });
+  } catch (error) {
+    console.error('Error in getUserData:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
