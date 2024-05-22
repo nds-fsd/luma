@@ -1,50 +1,52 @@
-import React from "react";
-import styles from './EventList.module.css'; 
-import yogaImage from "../imagenes/yoga2.jpg";
-import runImage from "../imagenes/running.jpg";
+import React, { useState, useEffect } from 'react'; 
+import styles from './EventList.module.css';
+// import yogaImage from "../imagenes/yoga2.jpg";
+// import runImage from "../imagenes/running.jpg"; 
+import api from '../../../utils/api';
 
-const EventList = () => {
-    const eventos = [
-        {
-            hora: "11h",
-            nombre: "YOGA AND BRUNCH", 
-            organizadoPor: "It's Five Yoga",
-            localizacion: "Baldomero BCN",
-            imagen: yogaImage
-
-        },
-        {
-            hora: "19h",
-            nombre: "INTRO AL RUNNING",
-            organizadoPor: "Runners BCN",
-            localizacion: "Arc de Triomf",
-            imagen: runImage
-        }
-    ];
- // tengo que hacer un fetch a: http://localhost:3001/api/events
- // para eventDetail page tengo que pasar el id del evento en la url. 
- // eventDetail page --> voy a recuperar el id del evento de la url y voy a hacer un fetch a --> http://localhost:3001/api/events/id
-
+function EventList() {
+    const [events, setEvents] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+  
+    useEffect(() => {
+        const getEvents = async () => {
+          try {
+            const response = await api.get('/events');
+            setEvents(response.data);
+          } catch (error) {
+            console.error('Error fetching events:', error);
+          }
+        };
+      
+        getEvents();
+      }, [refresh]);
+      
     return (
         <div className={styles.eventList}>
-            {eventos.map((evento, index) => (
+            {events.map((event, index) => (
                 <div key={index} className={styles.event}>
                     <div className={`${styles.eventItem} ${styles.hora}`}>
-                        <span>{evento.hora}</span> 
-                    </div>
+                        <span>{new Date(event.eventDate).toLocaleDateString()}</span> 
+                    </div>                    
                     <div className={`${styles.eventItem} ${styles.nombre}`}>
-                        <span>{evento.nombre}</span>
+                        <span>{event.eventTitle}</span>
                     </div>
                     <div className={`${styles.eventItem} ${styles.organizadoPor}`}>
                         <span className={styles.label}>Organizado por: </span>
-                        <span>{evento.organizadoPor}</span>
+                        <span>{event.owner}</span>
                     </div>
-                    <div className={`${styles.eventItem} ${styles.localizacion}`}>
-                        <span>{evento.localizacion}</span>
+                    <div className={`${styles.eventItem} ${styles.descripcion}`}>
+                        <span>{event.eventDescription}</span>
                     </div>
-                    <div className={styles.eventImage}>
-                        <img src={evento.imagen} alt={evento.nombre} style={{ width: '120px', height: '120px', borderRadius: '10px', marginLeft: '320px', marginTop: '-110px' }} /> 
+                    <div className={`${styles.eventItem} ${styles.precio}`}>
+                        <span className={styles.label}>Precio: </span>
+                        <span>{event.eventPrice}</span>
                     </div>
+                    <div className={`${styles.eventItem} ${styles.capacidad}`}>
+                        <span className={styles.label}>Capacidad: </span>
+                        <span>{event.eventCapacity}</span>
+                    </div>
+                   
                 </div>
             ))}
         </div>

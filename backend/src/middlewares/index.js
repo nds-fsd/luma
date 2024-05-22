@@ -77,7 +77,7 @@ const validateFullname = (fullname) => {
 };
 
 const validateUserCreation = (req, res, next) => {
-  const { fullname, email, phone_number, password, birthdate } = req.body;
+  const { fullname, email, phone_number, password, birthdate, profile_picture } = req.body;
 
   if (!fullname) {
     return res.status(400).json({ error: 'Fullname is required' });
@@ -93,6 +93,9 @@ const validateUserCreation = (req, res, next) => {
   }
   if (!birthdate) {
     return res.status(400).json({ error: 'Birthdate is required' });
+  }
+  if (!profile_picture) {
+    return res.status(400).json({ error: 'Picture is required' });
   }
   if (!phone_number) {
     return res.status(400).json({ error: 'Phone number is required' });
@@ -121,6 +124,7 @@ const formatDate = (dateString) => {
   const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
 
 module.exports = {
   validateEventCreation,

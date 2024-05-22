@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from "react";
+import styles from './Clock.module.css';
 
-const Clock = ({ timeZone }) => {
-  const [time, setTime] = useState(new Date());
+const Clock = ({ timeZone, className }) => {
+  const [time, setTime] = useState('');
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+    const updateClock = () => {
+      const now = new Date();
+      const options = {
+        timeZone,
+        hour12: false, 
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      };
+      const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
+      setTime(timeString);
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    updateClock();
+    const intervalId = setInterval(updateClock, 1000);
 
-  const formattedTime = time.toLocaleTimeString("es-ES", { timeZone }); 
+    return () => clearInterval(intervalId);
+  }, [timeZone]);
 
   return (
-    <div>
-      <p>{formattedTime}</p>
+    <div className={`${styles.clock} ${className}`}>
+      {time}
     </div>
   );
 };

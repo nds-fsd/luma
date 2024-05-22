@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
 import api from '../../../../utils/api';
 
-function UserCreate() {
+function UserCreate({ onClose }) {
   const [errorServer, setErrorServer] = useState('');
   const [messageServer, setMessageServer] = useState('');
 
@@ -102,6 +102,13 @@ function UserCreate() {
             autoComplete={autocompleteValue}
           />
           <input
+            {...register('profile_picture')}
+            placeholder='Link Profile Picture'
+            className={`${styles.input}`}
+            onChange={handleInputChange}
+            autoComplete={autocompleteValue}
+          />
+          <input
             {...register('password')}
             type='password'
             placeholder='Password'
@@ -135,6 +142,9 @@ function UserCreate() {
             </div>
           )}
         </div>
+        <button onClick={onClose} className={styles.link}>
+          Volver atrás
+        </button>
       </div>
     </div>
   );

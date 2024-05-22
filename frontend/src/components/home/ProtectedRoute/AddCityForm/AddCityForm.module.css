@@ -1,0 +1,48 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #444;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #616060;
+}
+
+.cityLogo {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+h1 {
+  text-align: center;
+}

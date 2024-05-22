@@ -2,12 +2,33 @@ import { useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
 import api from '../../../../utils/api'
+import { useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 const Description = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [showQuantityInput, setShowQuantityInput] = useState(false)
+
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    const [selectedEvent, setSelectedEvent] = useState(null);
+
+    const getCities = async () => {
+        const res = await api.get('/city');
+        return res.data;
+    };
+
+    const { data: cities, isLoading, isError, error } = useQuery('City', getCities);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error: {error.message}</div>;
+    }
 
     const handleRadioChange = (event) => {
         if (event.target.value === "definir_cantidad") {
@@ -17,13 +38,12 @@ const Description = () => {
         }
     };
 
-    //http://localhost:3001/api/events
     const onSubmit = async (data) => {
         console.log({ ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) })
         console.log("EVENT DATE", data.eventDate)
         try {
             const response = await api.post('/events', { ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) });
-
+            navigate('/homepage');
         } catch (error) {
             console.error('Error while sending the POST request', error)
         }
@@ -69,9 +89,8 @@ const Description = () => {
                                 register('eventLocation', { required: true });
                             }}
                         >
-                            <option value="barcelona">Barcelona</option>
-                            <option value="madrid">Madrid</option>
-                            <option value="valencia">Valencia</option>
+                            {cities.map((city, index) => (<option key={index} value={city._id}>{city.cityName}</option>))}
+
                         </select>
                     </div>
                     <div className={Styles.divContainer}>
