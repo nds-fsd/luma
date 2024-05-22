@@ -100,9 +100,11 @@ function App() {
         <Route
           path='/createevent'
           element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
             <div className={Styles.container}>
               <EventFormContainer />
             </div>
+          </ProtectedRoute>
           }
         />
         <Route

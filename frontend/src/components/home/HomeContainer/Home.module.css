@@ -7,11 +7,12 @@ body {
 .title {
   font-size: 100px;
   line-height: 95px;
-  font-weight: 900;
+  font-weight: 850;
   font-style: normal;
   letter-spacing: -2px;
   font-family: "Roboto Condensed", sans-serif;
   margin-right: 170px;
+  text-align: left;
 
 }
 
