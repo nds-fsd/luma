@@ -16,6 +16,9 @@ import { useState, useEffect } from 'react';
 import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
+import HomePage from './components/HomePage/HomePage'
+import Description from './components/HomePage/EditEventFormContainer/EditEventForm/Description/Description';
+import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
 
 function App() {
   const navigate = useNavigate();
@@ -124,10 +127,12 @@ function App() {
         <Route path='/city/2' element={<EventPage />} />
         <Route path='/eventdetail' element={<EventDetail />} />
         <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
+        <Route path='/editevent' element={<EditEventFormContainer />} />
+        <Route path='/homepage' element={<HomePage />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
-        <Footer />
+        <Footer /> 
       </div>
     </>
   );

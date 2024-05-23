@@ -5,34 +5,34 @@ const formatDate = (dateString) => {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  };
+};
 
 const Event = require('../Models/event')
 
 const getEvents = async (req, res) => {
-    const queryStrings = req.query || {};
-const allEvents = await Event.find(queryStrings);
-res.json(allEvents)
+        const queryStrings = req.query || {};
+        const allEvents = await Event.find(queryStrings).populate('owner', 'fullname');
+        res.json(allEvents)
 };
 
 const getEvent = async (req, res) => {
-    const allEvents = await Event.findById(req.params.id).populate('owner');
+    const allEvents = await Event.findById(req.params.id).populate('owner', 'fullname');
     res.json(allEvents);
 };
 
 const updateEvent = async (req, res) => {
-    const allEvents = await Event.findByIdAndUpdate(req.params.id,req.body, {
+    const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
         new: true
-      });
+    });
     console.log(allEvents);
     res.json(allEvents);
 };
 
 const patchEvent = async (req, res) => {
-    const allEvents = await Event.findByIdAndUpdate(req.params.id,req.body, {
+    const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         upsert: true
-      });
+    });
     res.json(allEvents);
 };
 
@@ -48,11 +48,12 @@ const createEvent = async (req, res) => {
     const today = new Date();
     const data = {
         ...body,
-        owner: '663e94f4811fa622e1a85f27', 
+        owner: '66459e778c8e490a0960c784',
+        eventLocation: '664e39771e15f4265b4a9a95',
         eventDate: date,
         creationDate: today
     };
-// formatDate(body.eventDate),
+    // formatDate(body.eventDate),
 
     console.log(data)
     // se crea una nueva instancia de evento, donde se guardaran los nuevos datos ingresados
