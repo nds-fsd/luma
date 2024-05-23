@@ -66,11 +66,6 @@ function App() {
     setDropdownOpen(false);
   };
 
-  const handleGoToEventId = () => {
-    navigate(`/city/2`);
-    setDropdownOpen(false);
-  };
-
   const handleGoToConfiguration = () => {
     navigate(`/admin`);
     setDropdownOpen(false);
@@ -124,7 +119,7 @@ function App() {
         <Route path='/userlist' element={<UserList />} />
         <Route path='/user/:userId' element={<UserDetail />} />
         <Route path='/eventcreate' element={<EventFormContainer />} />
-        <Route path='/city/2' element={<EventPage />} />
+        <Route path='/city/:cityId' element={<EventPage />} />
         <Route path='/eventdetail' element={<EventDetail />} />
         <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
         <Route path='/editevent' element={<EditEventFormContainer />} />

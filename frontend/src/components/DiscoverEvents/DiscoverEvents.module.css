@@ -10,9 +10,15 @@
   text-align: justify;
 }
 
-.containerContent p {
+.containerContent h3 {
   padding: 10px;
   font-size: 18px;
+  font-family: 'roboto condensed', sans-serif;
+}
+
+.containerContent p {
+  padding: 10px;
+  font-size: 16px;
   font-family: 'roboto condensed', sans-serif;
 }
 
@@ -40,6 +46,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  min-width: 50px;
 }
 
 .cityContainer:hover {
@@ -53,6 +60,7 @@
   height: 70px;
   margin-top: 15px;
   margin-left: 5px;
+  max-width: 40%;
 }
 
 .cityLogo {
@@ -65,7 +73,7 @@
 }
 
 .cityName {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
   margin: 0;
@@ -91,7 +99,6 @@ h2 {
   }
 }
 
-
 .featuredSection {
   display: flex;
   flex-direction: column;
@@ -109,7 +116,7 @@ h2 {
   margin-bottom: 2rem;
 }
 
-.featuredHeader h3 {
+.featuredHeader h {
   font-size: 1.2rem;
   color: #333;
   margin: 0;
@@ -125,7 +132,7 @@ h2 {
 
 .eventGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
 }
 
@@ -158,27 +165,8 @@ h2 {
 }
 
 .textContainer {
-  padding: 1rem;
+  width: 80%;
   text-align: center;
-  flex: 1;
-}
-
-.eventTitle {
-  font-size: 1.2rem;
-  color: #333;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.eventDescription {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.5rem 0 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .subscribeButton {
@@ -197,4 +185,11 @@ h2 {
 
 .subscribeButton:hover {
   background-color: #5f5e5e;
+}
+
+.eventTitle,
+.eventDescription {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
