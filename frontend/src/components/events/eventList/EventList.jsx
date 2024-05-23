@@ -33,7 +33,7 @@ function EventList() {
                     </div>
                     <div className={`${styles.eventItem} ${styles.organizadoPor}`}>
                         <span className={styles.label}>Organizado por: </span>
-                        <span>{event.owner}</span>
+                        <span>{event.owner.fullname}</span>
                     </div>
                     <div className={`${styles.eventItem} ${styles.descripcion}`}>
                         <span>{event.eventDescription}</span>
@@ -46,6 +46,7 @@ function EventList() {
                         <span className={styles.label}>Capacidad: </span>
                         <span>{event.eventCapacity}</span>
                     </div>
+
                    
                 </div>
             ))}
