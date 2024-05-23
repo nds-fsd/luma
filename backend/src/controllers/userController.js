@@ -126,7 +126,7 @@ exports.loginUser = async (req, res) => {
       { userId: user._id, fullname: user.fullname, email: user.email, picture: user.profile_picture, role: user.role },
       process.env.JWT_SECRET,
       {
-        expiresIn: '4h',
+        expiresIn: '24h',
       }
     );
 
@@ -142,7 +142,6 @@ exports.loginUser = async (req, res) => {
 exports.getUserData = async (req, res) => {
   try {
     const token = await req.headers.authorization.split(' ')[1];
-    console.log('pasa');
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {

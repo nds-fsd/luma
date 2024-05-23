@@ -1,3 +1,13 @@
+/* AddCityForm.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -36,13 +46,40 @@
   background-color: #616060;
 }
 
+h1 {
+  text-align: center;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.table {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
 .cityLogo {
   width: 50px;
   height: 50px;
   margin-left: 10px;
   vertical-align: middle;
-}
-
-h1 {
-  text-align: center;
 }

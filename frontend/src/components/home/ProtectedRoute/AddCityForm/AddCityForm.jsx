@@ -1,61 +1,98 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import styles from './AddCityForm.module.css';
+import api from '../../../../utils/api';
 
 const AddCityForm = () => {
-  const [cityName, setCityName] = useState('');
-  const [cityLogo, setCityLogo] = useState('');
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [cities, setCities] = useState([]);
+  const [messageServer, setMessageServer] = useState('');
+  const [errorServer, setErrorServer] = useState('');
 
-  const handleAddCity = (cityName, cityLogo) => {
-    setCities([...cities, { name: cityName, logo: cityLogo }]);
-  };
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await api.get('/city');  
+        setCities(response.data);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (cityName.trim() && cityLogo.trim()) {
-      handleAddCity(cityName, cityLogo);
-      setCityName('');
-      setCityLogo('');
+    fetchCities();
+  }, []);
+
+  const onSubmit = async (data) => {
+    reset();
+
+    try {
+      const response = await api.post(`/city`, data);
+      console.log(response.data);
+      if (response.data) {
+        setMessageServer(response.data.message);
+        setErrorServer('');
+        setCities([...cities, { cityName: data.cityName, cityLogo: data.cityLogo }]);
+        reset();
+      } else {
+        setErrorServer(response.data.error);
+        setMessageServer('');
+      }
+    } catch (error) {
+      setErrorServer(error.response ? error.response.data.error : 'Server error');
+      setMessageServer('');
     }
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Lista de Ciudades</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <label htmlFor='cityName' className={styles.label}>
           Nombre de la ciudad:
         </label>
         <input
           type='text'
           id='cityName'
-          value={cityName}
-          onChange={(e) => setCityName(e.target.value)}
+          {...register('cityName', { required: 'Este campo es obligatorio' })}
           className={styles.input}
           placeholder='Introduce el nombre de la ciudad'
         />
+        {errors.cityName && <p className={styles.error}>{errors.cityName.message}</p>}
+        
         <label htmlFor='cityLogo' className={styles.label}>
           Link del Logo:
         </label>
         <input
           type='text'
           id='cityLogo'
-          value={cityLogo}
-          onChange={(e) => setCityLogo(e.target.value)}
+          {...register('cityLogo', { required: 'Este campo es obligatorio' })}
           className={styles.input}
           placeholder='Introduce el link del logo de la ciudad'
         />
+        {errors.cityLogo && <p className={styles.error}>{errors.cityLogo.message}</p>}
+        
         <button type='submit' className={styles.button}>
           Añadir Ciudad
         </button>
       </form>
-      <ul>
-        {cities.map((city, index) => (
-          <li key={index}>
-            {city.name} <img src={city.logo} alt={`${city.name} logo`} className={styles.cityLogo} />
-          </li>
-        ))}
-      </ul>
+      {messageServer && <p className={styles.success}>{messageServer}</p>}
+      {errorServer && <p className={styles.error}>{errorServer}</p>}
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Nombre de la ciudad</th>
+            <th>Logo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cities.map((city, index) => (
+            <tr key={index}>
+              <td>{city.cityName}</td>
+              <td><img src={city.cityLogo} alt={`${city.cityName} logo`} className={styles.cityLogo} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
