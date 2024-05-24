@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import EventForm from './EventForm/EventForm';
 import UserLogin from '../users/UserLoginCreate/UserLogin/UserLogin';
 import Styles from './EventFormContainer.module.css';
 
-const EventFormContainer = () => {
+const EventFormContainer = ({  IsAuthenticated }) => {
   const themes = {
     violet: {
       backgroundColor: 'rgb(199, 159, 236)',
@@ -42,7 +42,7 @@ const EventFormContainer = () => {
     }
   };
 
-  const [backgroundColor, setBackgroundColor] = useState(themes.violet.backgroundColor);
+  const [backgroundColor, setBackgroundColor] = useState('');
   const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(true);
@@ -53,7 +53,7 @@ const EventFormContainer = () => {
   };
 
   const handleLogin = () => {
-    setIsUserLoggedIn(true);
+    setIsUserLoggedIn(IsAuthenticated);
     setShowLoginPopup(false);
   };
 
@@ -68,7 +68,7 @@ const EventFormContainer = () => {
         backgroundColor={backgroundColor}
         buttonColor={buttonColor}
       />
-      {!isUserLoggedIn && showLoginPopup && (
+      {!IsAuthenticated && showLoginPopup && (
         <UserLogin handleLogin={handleLogin} closePopup={closeLoginPopup} />
       )}
     </div>

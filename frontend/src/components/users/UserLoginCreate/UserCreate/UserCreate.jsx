@@ -62,7 +62,7 @@ function UserCreate({ onClose }) {
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>
         <div className={styles.title}>
-          <h2  style={{ color: 'white' }}>Bienvenidos a Lumatic</h2>
+          <h2 style={{ color: 'white' }}>Bienvenidos a Lumatic</h2>
         </div>
         <div className={styles.subtitle}>Regístrate, a continuación.</div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

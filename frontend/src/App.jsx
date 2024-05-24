@@ -5,7 +5,6 @@ import UserDetail from './components/users/UserDetail/UserDetail';
 import UserLoginCreate from './components/users/UserLoginCreate/UserLoginCreate';
 import NavBar from './components/home/NavBar/NavBar';
 import Footer from './components/home/Footer/Footer';
-import Pages from './components/Pages/Pages';
 import EventFormContainer from './components/EventFormContainer/EventFormContainer';
 import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
@@ -95,12 +94,12 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route path='/event' element={<EventPage />} />
         <Route
-          path='/createevent'
-          element={<EventFormContainer />}
+          path='/eventcreate'
+          element={<EventFormContainer  IsAuthenticated={isAuthenticated}/>}
         />
         <Route
           path='/login'
-          element={isAuthenticated ? <Navigate to='/createevent' /> : <UserLoginCreate handleLogin={handleLogin} />}
+          element={isAuthenticated ? <Navigate to='/eventcreate' /> : <UserLoginCreate handleLogin={handleLogin} />}
         />
         <Route
           path='/admin'
