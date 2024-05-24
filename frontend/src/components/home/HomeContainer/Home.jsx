@@ -21,7 +21,7 @@ const Home = () => {
             Crea una página para tu evento, invita a tus amigos y vende
             tickets. Organiza hoy mismo un evento memorable.
           </p>
-          <Link to="/eventcreate" style={{ textDecoration: 'none' }}>
+          <Link to="/createevent" style={{ textDecoration: 'none' }}>
             <button className={styles.buttoncrearevento}>CREA TU PRIMER EVENTO</button>
           </Link>
         </div>
