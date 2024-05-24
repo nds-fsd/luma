@@ -99,13 +99,7 @@ function App() {
         <Route path='/event' element={<EventPage />} />
         <Route
           path='/createevent'
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <div className={Styles.container}>
-              <EventFormContainer />
-            </div>
-          </ProtectedRoute>
-          }
+          element={<EventFormContainer />}
         />
         <Route
           path='/login'
@@ -122,7 +116,6 @@ function App() {
         />
         <Route path='/userlist' element={<UserList />} />
         <Route path='/user/:userId' element={<UserDetail />} />
-        <Route path='/eventcreate' element={<EventFormContainer />} />
         <Route path='/city/2' element={<EventPage />} />
         <Route path='/eventdetail' element={<EventDetail />} />
         <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
