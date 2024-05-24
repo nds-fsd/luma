@@ -62,14 +62,15 @@ const validateEventCreation = (req, res, next) => {
 };
 
 const validatePassword = (password) => {
-  const pattern = new RegExp(/^.{5,}$/);
+  const pattern = new RegExp(/^.{8,}$/);
   return pattern.test(password);
 };
 
-const validateSpanishPhoneNumber = (phoneNumber) => {
-  const spanishPhoneRegex = /^(?:\+?34)?[69]\d{8}$/;
-  return spanishPhoneRegex.test(phoneNumber);
+const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^(?:(?:\+|00)([1-9]\d{0,2}))?[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})$/;
+  return phoneRegex.test(phoneNumber);
 };
+
 
 const validateFullname = (fullname) => {
   const pattern = /^[a-zA-Z\s]+$/;
@@ -100,8 +101,8 @@ const validateUserCreation = (req, res, next) => {
   if (!phone_number) {
     return res.status(400).json({ error: 'Phone number is required' });
   }
-  if (!validateSpanishPhoneNumber(phone_number)) {
-    return res.status(400).json({ error: 'Invalid spanish phone number format' });
+  if (!validatePhoneNumber(phone_number)) {
+    return res.status(400).json({ error: 'Invalid phone number format' });
   }
   if (!password) {
     return res.status(400).json({ error: 'Password is required' });
@@ -110,12 +111,24 @@ const validateUserCreation = (req, res, next) => {
     return res.status(400).json({ error: 'Password must be greater than 4 characters' });
   }
 
+  const currentDate = new Date();
+  const userBirthdate = new Date(birthdate);
+  const userAge = currentDate.getFullYear() - userBirthdate.getFullYear();
+  const monthDiff = currentDate.getMonth() - userBirthdate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < userBirthdate.getDate())) {
+    userAge--;
+  }
+  if (userAge < 18) {
+    return res.status(400).json({ error: 'You must be at least 18 years old to sign up' });
+  }
+
   const formattedBirthdate = formatDate(birthdate);
 
   req.body.birthdate = formattedBirthdate;
 
   next();
 };
+
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);

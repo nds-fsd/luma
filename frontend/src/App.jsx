@@ -16,8 +16,7 @@ import { useState, useEffect } from 'react';
 import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
-import HomePage from './components/HomePage/HomePage'
-import Description from './components/HomePage/EditEventFormContainer/EditEventForm/Description/Description';
+import HomePage from './components/HomePage/HomePage';
 import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
 
 function App() {
@@ -58,7 +57,7 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     setDropdownOpen(false);
-    navigate(`/discoverevents`);
+    navigate(`/home`);
   };
 
   const handleGoToOwnProfile = () => {
@@ -107,12 +106,18 @@ function App() {
           path='/login'
           element={isAuthenticated ? <Navigate to='/createevent' /> : <UserLoginCreate handleLogin={handleLogin} />}
         />
-        <Route path='/pages' element={<Pages />} />
         <Route
           path='/admin'
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole}>
-              <AddCityForm />
+              <div className={Styles.protectedRoute}>
+                <div>
+                  <AddCityForm />
+                </div>
+                <div>
+                  <UserList />
+                </div>
+              </div>
             </ProtectedRoute>
           }
         />
@@ -120,14 +125,14 @@ function App() {
         <Route path='/user/:userId' element={<UserDetail />} />
         <Route path='/eventcreate' element={<EventFormContainer />} />
         <Route path='/city/:cityId' element={<EventPage />} />
-        <Route path='/eventdetail' element={<EventDetail />} />
-        <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
+        <Route path='/event/:eventId' element={<EventDetail />} />
+        <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile} />} />
         <Route path='/editevent' element={<EditEventFormContainer />} />
-        <Route path='/homepage' element={<HomePage />} />
+        <Route path='/home' element={<HomePage />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
-        <Footer /> 
+        <Footer />
       </div>
     </>
   );

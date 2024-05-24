@@ -114,12 +114,12 @@ exports.loginUser = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
+      return res.status(400).json({ error: 'Invalid email or phone number' });
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      return res.status(400).json({ error: 'Invalid email, phone number, or password' });
+      return res.status(400).json({ error: 'Invalid password!' });
     }
 
     const token = jwt.sign(
@@ -136,7 +136,6 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 };
-
 
 
 exports.getUserData = async (req, res) => {

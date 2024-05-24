@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
 }
 
 .innerContainer {
@@ -132,4 +132,13 @@ h2 {
   .innerContainer {
     padding: 10px; /* Reducir el espacio interno */
   }
+}
+
+.logo {
+  height: 80px;
+  width: 80px;
+}
+
+.subtitleLogo {
+  display: flex;
 }

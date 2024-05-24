@@ -35,8 +35,7 @@ function UserList() {
 
   return (
     <div>
-      <h1 className={styles.title}>USER LIST</h1>
-
+      <h1 className={styles.title}>Lista de Usuarios</h1>
       <div className={styles.container}>
         <div className={styles.userContainer}>
           {users.map((user, index) => (

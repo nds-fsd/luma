@@ -43,7 +43,7 @@ const EventFormContainer = () => {
             
         }
     
-    const [backgroundColor, setBackgroundColor] = useState('rgb(199, 159, 236)');
+    const [backgroundColor, setBackgroundColor] = useState('');
     const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor)
 
     const handleColorChange = (color) => {

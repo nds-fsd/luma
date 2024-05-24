@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import styles from './UserLogin.module.css';
 import UserCreate from '../UserCreate/UserCreate';
 import api from '../../../../utils/api';
+import logo from '../../../../images/Lumatic.svg';
 import { setUserSession } from '../../../../utils/localStorage.utils';
 
 const UserLogin = ({ handleLogin }) => {
   const [inputType, setInputType] = useState('email');
   const [isUserCreateOpen, setIsUserCreateOpen] = useState(false);
+  const [backendError, setBackendError] = useState('');
 
   const openUserCreate = (event) => {
     event.preventDefault();
@@ -26,6 +28,7 @@ const UserLogin = ({ handleLogin }) => {
 
   const handleInputChange = (type) => {
     setInputType(type);
+    setBackendError('');
   };
 
   const onSubmit = async (data) => {
@@ -37,6 +40,7 @@ const UserLogin = ({ handleLogin }) => {
       }
     } catch (error) {
       console.error('Error occurred while logging in:', error);
+      setBackendError(error.response?.data?.error || 'An unexpected error occurred');
     }
   };
 
@@ -45,9 +49,14 @@ const UserLogin = ({ handleLogin }) => {
       {!isUserCreateOpen && (
         <div className={styles.innerContainer}>
           <div className={styles.title}>
-            <h2>Bienvenidos a Lumatic</h2>
+            <h2 style={{ color: 'white' }}>Bienvenidos a Lumatic</h2>
           </div>
-          <div className={styles.subtitle}>Por favor, inicia sesión o regístrate a continuación.</div>
+          <div className={styles.subtitleLogo}>
+            <div className={styles.subtitle}>Por favor, inicia sesión o regístrate a continuación.</div>
+            <div>
+              <img src={logo} className={styles.logo} alt="Lumatic logo" />
+            </div>
+          </div>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.formGroup}>
               <div className={styles.text}>
@@ -56,7 +65,10 @@ const UserLogin = ({ handleLogin }) => {
                 </p>
               </div>
               <div className={styles.text}>
-                <p onClick={() => handleInputChange('phone_number')} className={inputType === 'phone_number' ? styles.selected : ''}>
+                <p
+                  onClick={() => handleInputChange('phone_number')}
+                  className={inputType === 'phone_number' ? styles.selected : ''}
+                >
                   Usar número telefónico
                 </p>
               </div>
@@ -67,11 +79,13 @@ const UserLogin = ({ handleLogin }) => {
                 placeholder={inputType === 'email' ? 'you@email.com' : '+34 675 21 56 50'}
                 id={inputType === 'email' ? 'email' : 'phone_number'}
                 {...register(inputType === 'email' ? 'email' : 'phone_number', { required: true })}
-                autoComplete="email"
+                autoComplete='email'
                 className={styles.input}
               />
-              {errors.username && (
-                <span className={styles.error}>{inputType === 'email' ? 'Email' : 'Phone'} is required</span>
+              {errors[inputType === 'email' ? 'email' : 'phone_number'] && (
+                <span className={styles.error}>
+                  {inputType === 'email' ? 'Email' : 'Phone'} is required &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
               )}
             </div>
             <div className={styles.formGroup}>
@@ -85,11 +99,12 @@ const UserLogin = ({ handleLogin }) => {
                 })}
                 placeholder='Password'
                 type='password'
-                autoComplete="current-password"
+                autoComplete='current-password'
                 className={styles.input}
               />
               {errors.password && <span className={styles.error}>{errors.password.message}</span>}
             </div>
+            {backendError && <span className={styles.error}>{backendError}</span>}
             <button type='submit' className={styles.button}>
               {`Continuar con el ${inputType === 'email' ? 'correo electrónico' : 'teléfono'}`}
             </button>
