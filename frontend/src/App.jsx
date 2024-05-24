@@ -9,8 +9,8 @@ import EventFormContainer from './components/EventFormContainer/EventFormContain
 import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
-import { getUser, getUserToken, removeSession } from './utils/localStorage.utils';
-import { useState, useEffect } from 'react';
+import { getUserSession, getUserToken, removeSession } from './utils/localStorage.utils';
+import { useState } from 'react';
 import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
@@ -22,8 +22,15 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const user = getUser();
+  const user = getUserSession() || {};
 
+  const userPicture = user && user.profile_picture ? user.profile_picture : '';
+
+  const userFullName = user && user.fullname ? user.fullname : '';
+
+  const userRole = user && user.role ? user.role : '';
+
+  const userId = user._id;
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -32,7 +39,7 @@ function App() {
   };
 
   const handleGoToOwnProfile = () => {
-    navigate(`/user/${user._id}`);
+    navigate(`/user/${userId}`);
     setDropdownOpen(false);
   };
 
@@ -53,9 +60,9 @@ function App() {
         <NavBar
           IsAuthenticated={isAuthenticated}
           handleLogout={handleLogout}
-          userPicture={user.profile_picture}
-          userFullName={user.fullname}
-          userRole={user.role}
+          userPicture={userPicture}
+          userFullName={userFullName}
+          userRole={userRole}
           handleGoToOwnProfile={handleGoToOwnProfile}
           isDropdownOpen={isDropdownOpen}
           setDropdownOpen={setDropdownOpen}
@@ -65,10 +72,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/event' element={<EventPage />} />
-        <Route
-          path='/eventcreate'
-          element={<EventFormContainer  IsAuthenticated={isAuthenticated}/>}
-        />
+        <Route path='/eventcreate' element={<EventFormContainer IsAuthenticated={isAuthenticated} />} />
         <Route
           path='/login'
           element={isAuthenticated ? <Navigate to='/eventcreate' /> : <UserLoginCreate handleLogin={handleLogin} />}
@@ -76,7 +80,7 @@ function App() {
         <Route
           path='/admin'
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated} userRole={user.role}>
+            <ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole}>
               <div className={Styles.protectedRoute}>
                 <div>
                   <AddCityForm />

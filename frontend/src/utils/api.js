@@ -7,7 +7,9 @@ const userToken = getUserToken()
 
 const api = axios.create({
   baseURL,
-  headers: {"Authorization": `Bearer ${userToken}` }
+  headers: {
+    Authorization: `Bearer ${userToken}`
+  }
 });
 
 export default api;

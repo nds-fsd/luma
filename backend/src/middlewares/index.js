@@ -1,9 +1,6 @@
 const UserModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
-const validateEmail = (email) => {
-  const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
-  return pattern.test(email);
-};
+
 
 
 const jwtMiddleware = (req, res, next) => {
@@ -22,11 +19,14 @@ const jwtMiddleware = (req, res, next) => {
       req.user = user;
 
       next();
-
     }
   });
-
 }
+
+const validateEmail = (email) => {
+  const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  return pattern.test(email);
+};
 
 const validateDate = (eventDate) => {
   console.log(eventDate, 'Event Date');
