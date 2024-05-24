@@ -22,6 +22,14 @@ const getStorageObject = (key) => {
     return null;
   };
 
+  export const getUser = () => {
+    const session = getStorageObject('user-session');
+    if (session) {
+      return session.user;
+    }
+    return null;
+  };
+
   export const getUserSessionPicture = () => {
     const session = getStorageObject('user-session');
     if (session) {

@@ -9,8 +9,7 @@ import EventFormContainer from './components/EventFormContainer/EventFormContain
 import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
-import { getUserToken, removeSession } from './utils/localStorage.utils';
-import { getUserTokenData } from './utils/tokenData';
+import { getUser, getUserToken, removeSession } from './utils/localStorage.utils';
 import { useState, useEffect } from 'react';
 import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
@@ -22,36 +21,9 @@ function App() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [userFullName, setUserFullName] = useState('');
-  const [userPicture, setUserPicture] = useState('');
-  const [userId, setUserId] = useState('');
-  const [userRole, setUserRole] = useState('');
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = getUserToken();
-        if (token) {
-          const userData = await getUserTokenData(token);
-          setUserFullName(userData.fullName);
-          setUserPicture(userData.picTure);
-          setUserId(userData.iD);
-          setUserRole(userData.role);
-        }
-      } catch (error) {
-        console.error('Error al obtener los datos del usuario:', error);
-      }
-    };
+  const user = getUser();
 
-    if (isAuthenticated) {
-      fetchUserData();
-    } else {
-      setUserFullName('');
-      setUserPicture('');
-      setUserId('');
-      setUserRole('');
-    }
-  }, [isAuthenticated]);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -60,7 +32,7 @@ function App() {
   };
 
   const handleGoToOwnProfile = () => {
-    navigate(`/user/${userId}`);
+    navigate(`/user/${user._id}`);
     setDropdownOpen(false);
   };
 
@@ -81,9 +53,9 @@ function App() {
         <NavBar
           IsAuthenticated={isAuthenticated}
           handleLogout={handleLogout}
-          userPicture={userPicture}
-          userFullName={userFullName}
-          userRole={userRole}
+          userPicture={user.profile_picture}
+          userFullName={user.fullname}
+          userRole={user.role}
           handleGoToOwnProfile={handleGoToOwnProfile}
           isDropdownOpen={isDropdownOpen}
           setDropdownOpen={setDropdownOpen}
@@ -104,7 +76,7 @@ function App() {
         <Route
           path='/admin'
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole}>
+            <ProtectedRoute isAuthenticated={isAuthenticated} userRole={user.role}>
               <div className={Styles.protectedRoute}>
                 <div>
                   <AddCityForm />

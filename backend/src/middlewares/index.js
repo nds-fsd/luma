@@ -1,5 +1,5 @@
 const UserModel = require("../models/userModel");
-
+const jwt = require('jsonwebtoken');
 const validateEmail = (email) => {
   const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
   return pattern.test(email);
@@ -22,7 +22,7 @@ const jwtMiddleware = (req, res, next) => {
       req.user = user;
 
       next();
-  
+
     }
   });
 
@@ -138,7 +138,7 @@ const validateUserCreation = (req, res, next) => {
 
   const currentDate = new Date();
   const userBirthdate = new Date(birthdate);
-  const userAge = currentDate.getFullYear() - userBirthdate.getFullYear();
+  let userAge = currentDate.getFullYear() - userBirthdate.getFullYear();
   const monthDiff = currentDate.getMonth() - userBirthdate.getMonth();
   if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < userBirthdate.getDate())) {
     userAge--;
