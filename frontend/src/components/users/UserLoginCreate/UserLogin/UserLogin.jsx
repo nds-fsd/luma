@@ -78,7 +78,7 @@ const UserLogin = ({ handleLogin }) => {
               <div className={styles.formGroup}>
                 <input
                   type={inputType === 'phone_number' ? 'tel' : 'email'}
-                  placeholder={inputType === 'email' ? 'tucorreo@ejemplo.com' : '+34 675 21 56 50'}
+                  placeholder={inputType === 'email' ? 'you@email.com' : '+34 675 21 56 50'}
                   id={inputType === 'email' ? 'email' : 'phone_number'}
                   {...register(inputType === 'email' ? 'email' : 'phone_number', { required: true })}
                   autoComplete='email'
@@ -86,7 +86,7 @@ const UserLogin = ({ handleLogin }) => {
                 />
                 {errors[inputType === 'email' ? 'email' : 'phone_number'] && (
                   <span className={styles.error}>
-                    {inputType === 'email' ? 'Correo electrónico' : 'Teléfono'} es requerido
+                    {inputType === 'email' ? 'Email' : 'Phone Number'} is required!
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
                 )}
@@ -94,13 +94,13 @@ const UserLogin = ({ handleLogin }) => {
               <div className={styles.formGroup}>
                 <input
                   {...register('password', {
-                    required: 'La contraseña es requerida',
+                    required: 'Password is required!',
                     minLength: {
                       value: 8,
                       message: 'La contraseña debe tener al menos 8 caracteres',
                     },
                   })}
-                  placeholder='Contraseña'
+                  placeholder='Password'
                   type='password'
                   autoComplete='current-password'
                   className={styles.input}
