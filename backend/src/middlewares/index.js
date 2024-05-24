@@ -1,7 +1,32 @@
+const UserModel = require("../models/userModel");
+
 const validateEmail = (email) => {
   const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
   return pattern.test(email);
 };
+
+
+const jwtMiddleware = (req, res, next) => {
+  const headers = req.headers;
+
+  const authorization = headers.authorization;
+
+  const token =  authorization.split(" ")[1];
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+    if (err) {
+      return res.status(401).json({ message: 'Invalid Token' });
+    } else {
+
+      const user = UserModel.findById(decodedToken.userId);
+
+      req.user = user;
+
+      next();
+  
+    }
+  });
+
+}
 
 const validateDate = (eventDate) => {
   console.log(eventDate, 'Event Date');
@@ -140,6 +165,7 @@ const formatDate = (dateString) => {
 
 
 module.exports = {
+  jwtMiddleware,
   validateEventCreation,
   validateUserCreation,
 };

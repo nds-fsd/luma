@@ -130,7 +130,7 @@ exports.loginUser = async (req, res) => {
       }
     );
 
-    res.status(200).json({ success: true, token });
+    res.status(200).json({ user, token });
   } catch (err) {
     console.error('Server error:', err);
     res.status(500).json({ success: false, error: 'Internal Server Error' });

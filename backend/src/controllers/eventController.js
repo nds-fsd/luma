@@ -43,12 +43,13 @@ const deleteEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
     const body = req.body;
+    const user = req.user;
     console.log(body.eventDate + ' ' + formatDate(body.eventDate));
     const date = new Date(formatDate(body.eventDate));
     const today = new Date();
     const data = {
         ...body,
-        owner: '66459e778c8e490a0960c784',
+        owner: user._id,
         eventLocation: '664e39771e15f4265b4a9a95',
         eventDate: date,
         creationDate: today
