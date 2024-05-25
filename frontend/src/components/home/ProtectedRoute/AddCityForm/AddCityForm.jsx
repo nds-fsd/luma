@@ -53,7 +53,7 @@ const AddCityForm = () => {
         <input
           type='text'
           id='cityName'
-          {...register('cityName', { required: 'Este campo es obligatorio' })}
+          {...register('cityName', { required: 'The field is required!' })}
           className={styles.input}
           placeholder='Introduce el nombre de la ciudad'
         />
@@ -65,14 +65,24 @@ const AddCityForm = () => {
         <input
           type='text'
           id='cityLogo'
-          {...register('cityLogo', { required: 'Este campo es obligatorio' })}
+          {...register('cityLogo', { required: 'The field is required!' })}
           className={styles.input}
           placeholder='Introduce el link del logo de la ciudad'
         />
-        {errors.cityLogo && <p className={styles.error}>{errors.cityLogo.message}</p>}
+        <label htmlFor='cityWallpaper' className={styles.label}>
+          Link del Wallpaper:
+        </label>
+        <input
+          type='text'
+          id='cityWallpaper'
+          {...register('cityWallpaper', { required: 'The field is required!' })}
+          className={styles.input}
+          placeholder='Introduce el link del wallpaper de la ciudad'
+        />
+        {errors.cityLogo && <p className={styles.error}>{errors.cityWallpaper.message}</p>}
         
         <button type='submit' className={styles.button}>
-          Añadir Ciudad
+          Añadir Wallpaper
         </button>
       </form>
       {messageServer && <p className={styles.success}>{messageServer}</p>}

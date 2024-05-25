@@ -31,7 +31,7 @@ const DiscoverEvents = () => {
       }
     };
 
-    // Llamamos a las funciones de fetch
+
     const fetchData = async () => {
       await Promise.all([fetchCities(), fetchEvents()]);
       setLoading(false);

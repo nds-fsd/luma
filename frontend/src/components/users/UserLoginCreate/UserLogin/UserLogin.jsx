@@ -86,7 +86,7 @@ const UserLogin = ({ handleLogin }) => {
                 />
                 {errors[inputType === 'email' ? 'email' : 'phone_number'] && (
                   <span className={styles.error}>
-                    {inputType === 'email' ? 'Email' : 'Phone Number'} is required!
+                    {inputType === 'email' ? 'Email' : 'Phone'} is required!
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
                 )}
