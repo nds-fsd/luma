@@ -22,21 +22,10 @@ const getStorageObject = (key) => {
     return null;
   };
 
-  export const getUserSessionPicture = () => {
+  export const getUserSession = () => {
     const session = getStorageObject('user-session');
     if (session) {
-      return session.picture;
-    }
-    return null;
-  };
-
-
-  export const getUserRole = () => {
-    const session = getStorageObject('user-session');
-    if (session) {
-      console.log(session.role);
-      return session.role;
-
+      return session.user;
     }
     return null;
   };

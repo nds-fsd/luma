@@ -7,7 +7,7 @@ const formatDate = (dateString) => {
     return `${year}-${month}-${day}`;
 };
 
-const Event = require('../Models/event')
+const Event = require('../models/event');
 
 const getEvents = async (req, res) => {
         const queryStrings = req.query || {};
@@ -43,32 +43,31 @@ const deleteEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
     const body = req.body;
-    console.log(body.eventDate + ' ' + formatDate(body.eventDate));
+    const user = req.user;
+
+    if (!user) {
+        return res.status(400).json({ error: 'User must be authenticated to create an event' });
+    }
+
     const date = new Date(formatDate(body.eventDate));
     const today = new Date();
     const data = {
         ...body,
-        owner: '66459e778c8e490a0960c784',
-        eventLocation: '664e39771e15f4265b4a9a95',
+        owner: user._id,
         eventDate: date,
-        creationDate: today
+        creationDate: today,
     };
-    // formatDate(body.eventDate),
 
-    console.log(data)
-    // se crea una nueva instancia de evento, donde se guardaran los nuevos datos ingresados
-    const newEvent = new Event(data);
+    console.log('Backend:',data)
 
-    //para gurdarlo en la base de datos
     try {
-        console.log('Guardando evento');
+        const newEvent = new Event(data);
         await newEvent.save();
         res.json(newEvent);
     } catch (error) {
-        console.log(error);
+        console.error('Error while creating event', error);
         res.status(500).json(error);
     }
-
 };
 
 module.exports = {

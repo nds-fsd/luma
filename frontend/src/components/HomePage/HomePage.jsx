@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useQueryClient, useQuery, QueryClient } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import styles from './HomePage.module.css';
 import api from '../../utils/api';
 import party from './party.png'
 import { useNavigate } from 'react-router-dom';
 
 
-const HomePage = ({ userId }) => {
+const HomePage = ({ isAuthenticated, userId }) => {
 
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const HomePage = ({ userId }) => {
         navigate('/editevent', { state: { event } });
     }
 
-   const userEvents = events ? events.filter(event => event.owner._id === userId) : [];
+    const userEvents = events ? events.filter(event => event.owner && event.owner._id === userId) : [];
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -53,32 +53,31 @@ const HomePage = ({ userId }) => {
     return (
         <>
             <div className={styles.myEventsContainer}>
-                <div className={styles.title}>
-                    <h1>MIS EVENTOS</h1>
-                </div>
-
-                {userEvents.map((event, index) => (
-                    <div key={index} className={styles.event}>
-                        <div className={styles.leftPart}>
-                            <img src={party} className={styles.eventImg} alt="Event image" />
-                            <div className={styles.datosEvento}>{formatDate(event.eventDate)}</div>
-                            <div className={styles.datosEvento}>{event.eventStartTime} - {event.eventEndTime}</div>
-                        </div>
-                        <div className={styles.rightPart}>
-                            <div className={styles.rightPartUp}>
-                                <div className={styles.datosEvento}>{event.eventTitle}</div>
-                                <div className={styles.datosEvento}>ORGANIZADO POR: {event.owner && event.owner.fullname}</div>
-                                <div className={styles.datosEvento}>UBICACIÓN: {event.eventLocation && event.eventLocation.cityName}</div>
-                            </div>
-                            <div className={styles.rightPartDown}>
-                                <button className={styles.deleteEvent} onClick={() => deleteEvent(event._id)}>ELIMINAR EVENTO</button>
-                                <button className={styles.editEvent} onClick={() => handleEditEvent(event)}>EDITAR EVENTO</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+            <div className={styles.title}>
+                <h1>MIS EVENTOS</h1>
             </div>
 
+            {userEvents.map((event, index) => (
+                <div key={index} className={styles.event}>
+                    <div className={styles.leftPart}>
+                        <img src={party} className={styles.eventImg} alt="Event" />
+                        <div className={styles.datosEvento}>{formatDate(event.eventDate)}</div>
+                        <div className={styles.datosEvento}>{event.eventStartTime} - {event.eventEndTime}</div>
+                    </div>
+                    <div className={styles.rightPart}>
+                        <div className={styles.rightPartUp}>
+                            <div className={styles.datosEvento}>{event.eventTitle}</div>
+                            <div className={styles.datosEvento}>ORGANIZADO POR: {event.owner && event.owner.fullname}</div>
+                            <div className={styles.datosEvento}>UBICACIÓN: {event.eventLocation && event.eventLocation.cityName}</div>
+                        </div>
+                        <div className={styles.rightPartDown}>
+                            <button className={styles.deleteEvent} onClick={() => deleteEvent(event._id)}>ELIMINAR EVENTO</button>
+                            <button className={styles.editEvent} onClick={() => handleEditEvent(event)}>EDITAR EVENTO</button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
         </>
     )
 }

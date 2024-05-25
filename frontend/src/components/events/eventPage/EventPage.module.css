@@ -1,117 +1,160 @@
 .event-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 0 20px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+.headerWallpaper {
+  display: flex;
+}
+
+.blue-background {
+  background-color: rgba(87, 167, 236, 0.658);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  width: 50%;
 }
 
 .encabezado {
-    text-align: left;
-    background-image: url('../imagenes/Hotel-Vela.jpg');
-    background-size: cover;
-    height: 50vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
+  background-size: cover;
+  height: 50vh;
+  width: 50%;
 }
 
 .titulo-header {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 5vw; 
-    color: #E6EEEE;
+  margin-left: 20%;
+  text-align: left;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 4vw;
+  color: #e6eeee;
 }
 
-.titulo-barcelona {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 6vw; 
-    color: black;
+.titulo-ciudad {
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 6vw;
+  color: black;
 }
 
 .custom-clock {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 4vw; 
-    color: #fff;
-    margin-top: 20px;
+  margin-left: 20%;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 3vw;
+  color: #fff;
+  margin-top: 20px;
 }
 
 .texto-p {
-    font-family: 'roboto condensed', sans-serif;
-    color: black;
-    font-size: 3vw; 
-    margin-top: 20px;
+  margin-left: 20%;
+  font-family: 'roboto condensed', sans-serif;
+  color: black;
+  font-size: 2vw;
+  margin-top: 20px;
 }
 
 .subscribe-container {
-    margin-top: 25px;
-}
-
-hr {
-    color: black;
-    width: 100%; 
-    margin-top: 20px;
+  margin-left: 20%;
+  margin-top: 25px;
 }
 
 .titulo-eventos {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 6vw; 
-    margin-left: 200px;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 5vw;
+  margin-left: 200px;
 }
 
 .main {
+  min-height: 100vh;
+  text-align: left;
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .headerWallpaper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .encabezado {
+    height: 200px;
+    min-width: 400px;
+  }
+  .blue-background {
+    background-color: rgba(87, 167, 236, 0.658);
+    min-width: 350px;
+    padding-left: 50px;
+    height: 250px;
+  }
+
+  .titulo-header {
+    margin-left: 0;
+    margin-top: 30px;
+    text-align: left;
+  }
+
+  .custom-clock {
+    margin-left: 0;
+    margin-top: 6px;
+  }
+
+  .texto-p {
+    margin-left: 0;
+    font-size: 3vw;
+    margin-top: 5px;
+  }
+
+  .subscribe-container {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+
+  .titulo-eventos {
+    text-align: left;
+  }
+
+  .main {
+    min-width: 450px;
     min-height: 100vh;
     text-align: left;
     margin-top: 50px;
     padding: 0 20px;
+  }
 }
 
 @media (min-width: 768px) {
-    .encabezado {
-        height: 600px; 
-    }
+  .titulo-header {
+    font-size: 2vw;
+    margin-top: 30px;
+    text-align: left;
+  }
 
-    .titulo-header {
-        font-size: 40px; 
-        margin-left: 280px;
-        margin-top: 120px;
-        text-align: left;
-    }
+  .titulo-ciudad {
+    font-size: 4vw;
+  }
 
-    .titulo-barcelona {
-        font-size: 45px;
-        
-        
-    }
+  .custom-clock {
+    font-size: 1vw;
+  }
 
-    .custom-clock {
-        font-size: 25px; 
-        margin-left: 280px;
-        color: #F9E7F6;
-    }
+  .texto-p {
+    font-size: 2vw;
+    margin-top: 5px;
+  }
 
-    .texto-p {
-        font-size: 25px; 
-        margin-left: 280px;
-    }
+  .titulo-eventos {
+    text-align: left;
+    font-size: 3vw;
+    margin-left: 500px;
+  }
 
-    .subscribe-container {
-        margin-left: 280px;
-        width: 90%;
-    }
-
-    hr {
-        width: 40%;
-        margin-left: 280px;
-    }
-
-    .titulo-eventos {
-        font-size: 40px;
-        margin-left: -200px;
-    }
-
-    
+  .main {
+    min-width: 450px;
+    min-height: 100vh;
+    text-align: left;
+    margin-top: 50px;
+    padding: 0 20px;
+  }
 }
-
-

@@ -1,49 +1,56 @@
 .eventList {
-  width: 80%; 
-  max-width: 500px; 
+  width: 80%;
+  max-width: 500px;
   cursor: pointer;
-  
 }
 
 .event {
-    font-family: 'roboto condensed', sans-serif;
-    padding: 10px 20px;
-    border: none;
-    margin-top: 40px;
-    background-color: #E6E8E8 ;
-    border-radius: 10px;
+  font-family: 'roboto condensed', sans-serif;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 40px;
+  background-color: #e6e8e8;
+  border-radius: 10px;
 }
 
 .eventItem {
-    margin-bottom: 5px;
-    font-family: 'roboto condensed', sans-serif;
+  margin-bottom: 5px;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .hora {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 22px;
-    color: black;
-    opacity: 0.7;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 22px;
+  color: black;
+  opacity: 0.7;
+  text-decoration: none;
 }
 
 .nombre {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 22px;
-    color: black;
-    font-weight: bold;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 22px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .organizadoPor {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 22px;
-    color: black;
-    opacity: 0.7;    
-
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 22px;
+  color: black;
+  opacity: 0.7;
+  text-decoration: none;
 }
 
 .localizacion {
-    font-family: 'roboto condensed', sans-serif;
-    font-size: 22px;
-    color: BLACK;
-    opacity: 0.7;
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 22px;
+  color: BLACK;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.eventLink {
+    color: black;
+    text-decoration: none;
 }
