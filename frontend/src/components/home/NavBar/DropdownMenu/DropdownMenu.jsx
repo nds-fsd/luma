@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './DropdownMenu.module.css';
 
 const DropdownMenu = ({
@@ -11,6 +11,8 @@ const DropdownMenu = ({
   isDropdownOpen,
   setDropdownOpen,
 }) => {
+  const dropdownRef = useRef(null);
+
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -20,8 +22,21 @@ const DropdownMenu = ({
     setDropdownOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef, setDropdownOpen]);
+
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} ref={dropdownRef}>
       <div onClick={toggleDropdown} className={styles.dropdownButton}>
         <img className={styles.dropdownIcon} src={userPicture} alt="Foto del usuario" />
       </div>

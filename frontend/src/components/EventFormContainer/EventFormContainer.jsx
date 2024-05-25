@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import EventForm from './EventForm/EventForm';
 import UserLogin from '../users/UserLoginCreate/UserLogin/UserLogin';
 import Styles from './EventFormContainer.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const EventFormContainer = ({  IsAuthenticated }) => {
+const EventFormContainer = ({ IsAuthenticated }) => {
+  const navigate = useNavigate();
   const themes = {
     violet: {
       backgroundColor: 'rgb(199, 159, 236)',
@@ -44,8 +46,7 @@ const EventFormContainer = ({  IsAuthenticated }) => {
 
   const [backgroundColor, setBackgroundColor] = useState('');
   const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [showLoginPopup, setShowLoginPopup] = useState(true);
+  const [showLoginPopup, setShowLoginPopup] = useState(!IsAuthenticated);
 
   const handleColorChange = (color) => {
     setBackgroundColor(themes[color].backgroundColor);
@@ -53,12 +54,8 @@ const EventFormContainer = ({  IsAuthenticated }) => {
   };
 
   const handleLogin = () => {
-    setIsUserLoggedIn(IsAuthenticated);
     setShowLoginPopup(false);
-  };
-
-  const closeLoginPopup = () => {
-    setShowLoginPopup(false);
+    navigate(0); // Esto forzará la recarga de la página completa
   };
 
   return (
@@ -69,7 +66,7 @@ const EventFormContainer = ({  IsAuthenticated }) => {
         buttonColor={buttonColor}
       />
       {!IsAuthenticated && showLoginPopup && (
-        <UserLogin handleLogin={handleLogin} closePopup={closeLoginPopup} />
+        <UserLogin handleLogin={handleLogin} closePopup={() => setShowLoginPopup(false)} />
       )}
     </div>
   );
