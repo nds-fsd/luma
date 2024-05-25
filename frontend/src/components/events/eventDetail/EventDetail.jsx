@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '../../../utils/api';
 import yogaImage from "../imagenes/yoga2.jpg";
 import styles from './EventDetail.module.css';
 import SubscribeBox from "../subscribe/Subscribe";
@@ -10,7 +12,25 @@ import webGif from "../imagenes/web.png";
 import linkedinGif from "../imagenes/linkedin.png";
 
 
-const EventDetail = () => {
+
+function EventDetail() {
+        const [events, setEvents] = useState(null);
+        const { eventsId } = useParams();
+      
+        useEffect(() => {
+          const fetchEvents = async () => {
+            try {
+              const response = await api.get(`/events/${eventsId}`);
+              setEvents(response.data);
+            } catch (error) {
+              console.error('Error fetching event details:', error);
+            }
+          };
+      
+          fetchEvents();
+        }, [eventsId]);
+    
+    
     return (
         <div>
             
