@@ -1,0 +1,100 @@
+.myEventsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1 {
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.myEventContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.event {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    width: 40%;
+    border: 2px solid black;
+    border-radius: 1.5rem;
+    margin: 1% 0%;
+
+}
+
+.leftPart {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 25vh;
+    width: 20%;
+    padding-left: 5%;
+}
+
+.rightPart {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 25vh;
+    width: 80%;
+    padding: 5%;
+}
+
+.rightPartUp {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: 15vh;
+    width: 100%;
+}
+
+.rightPartDown {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 15vh;
+    width: 100%;
+}
+
+.eventImg {
+    width: 150px;
+    height: 150px;
+}
+
+.datosEvento {
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 1.5em;
+    padding: 2% 0%;
+}
+
+.deleteEvent,
+.editEvent {
+    width: 140px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 35px;
+    font-size: 14px;
+    font-family: 'roboto condensed', sans-serif;
+    cursor: pointer;
+    border: none;
+    margin: 0% 2%;
+    padding: 2%;
+}

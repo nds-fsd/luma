@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './NavBar.module.css';
 import logo from '../../../images/logoLumatic.svg';
 import iconLogin from '../../../images/icon-login.svg';
-import DropdownMenu from './DropdownMenu/DropdownMenu'; // Importa el componente DropdownMenu
+import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 const NavBar = ({
   IsAuthenticated,
@@ -14,7 +14,7 @@ const NavBar = ({
   handleGoToOwnProfile,
   isDropdownOpen,
   setDropdownOpen,
-  userRole
+  userRole,
 }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -37,10 +37,23 @@ const NavBar = ({
         </Link>
       </div>
       <nav className={styles.nav}>
-        <Link to='/discoverevents' className={styles.navcontent}>
-          <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
-        </Link>
-
+        {IsAuthenticated ? (
+          <>
+            <Link to='/home' className={styles.navcontent}>
+              <button className={styles.buttoneventos}>EVENTOS</button>
+            </Link>
+            <Link to='/discoverevents' className={styles.navcontent}>
+              <button className={styles.buttoneventos}>DESCUBRIR</button>
+            </Link>
+            <Link to='/eventcreate' className={styles.navcontent}>
+              <button className={styles.buttoneventos}>CREAR EVENTO</button>
+            </Link>
+          </>
+        ) : (
+          <Link to='/discoverevents' className={styles.navcontent}>
+            <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
+          </Link>
+        )}
         {IsAuthenticated ? (
           <DropdownMenu
             handleLogout={handleLogout}

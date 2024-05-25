@@ -1,34 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import api from '../../../../utils/api'
-import { useQuery, useQueryClient } from 'react-query';
+import api from '../../../../../utils/api'
 import { useNavigate } from 'react-router-dom';
 
-const Description = () => {
+const Description = ({ event }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    const navigate = useNavigate();
 
     const [showQuantityInput, setShowQuantityInput] = useState(false)
-
-    const queryClient = useQueryClient();
-    const navigate = useNavigate();
-    const [selectedEvent, setSelectedEvent] = useState(null);
-
-    const getCities = async () => {
-        const res = await api.get('/city');
-        return res.data;
-    };
-
-    const { data: cities, isLoading, isError, error } = useQuery('City', getCities);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (isError) {
-        return <div>Error: {error.message}</div>;
-    }
 
     const handleRadioChange = (event) => {
         if (event.target.value === "definir_cantidad") {
@@ -38,16 +20,39 @@ const Description = () => {
         }
     };
 
-    const onSubmit = async (data) => {
-        console.log({ ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) })
-        console.log("EVENT DATE", data.eventDate)
-        try {
-            const response = await api.post('/events', { ...data, eventCapacity: parseInt(data.eventCapacity), eventPrice: parseInt(data.eventPrice) });
-            navigate('/homepage');
-        } catch (error) {
-            console.error('Error while sending the POST request', error)
+    useEffect(() => {
+        if (event) {
+            setValue('eventDate', event.eventDate.split('T')[0]);
+            setValue('eventStartTime', event.eventStartTime);
+            setValue('eventEndTime', event.eventEndTime);
+            setValue('eventTitle', event.eventTitle);
+            setValue('eventDescription', event.eventDescription);
+            setValue('eventLocation', event.eventLocation);
+            setValue('eventPrice', event.eventPrice);
+            
+            if (event.eventCapacity && event.eventCapacity !== 'ilimitado') {
+                setShowQuantityInput(true);
+                setValue('eventCapacity', event.eventCapacity);
+            }
         }
-    }
+    }, [event, setValue]);
+
+        const onSubmit = async (data) => {
+            const eventData = {
+                ...data,
+                eventCapacity: parseInt(data.eventCapacity) || 'ilimitado',  
+                eventPrice: parseInt(data.eventPrice)
+            };
+
+            console.log(eventData)
+                
+            try {
+                const response = await api.patch(`/events/${event._id}`, eventData);
+                navigate('/homepage');
+            } catch (error) {
+                console.error('Error al enviar la solicitud PATCH', error);
+            }
+        };    
 
     return (
         <div className={Styles.descriptionContainer}>
@@ -89,8 +94,9 @@ const Description = () => {
                                 register('eventLocation', { required: true });
                             }}
                         >
-                            {cities.map((city, index) => (<option key={index} value={city._id}>{city.cityName}</option>))}
-
+                            <option value="barcelona">Barcelona</option>
+                            <option value="madrid">Madrid</option>
+                            <option value="valencia">Valencia</option>
                         </select>
                     </div>
                     <div className={Styles.divContainer}>
@@ -144,7 +150,7 @@ const Description = () => {
                 </div>
                 {errors.eventCapacity && <p className={Styles.errors}>Se debe establecer la capacidad del evento</p>}
                 <div className={Styles.divContainer}>
-                    <input type="submit" value="CREAR EVENTO" className={Styles.inputSubmit} />
+                    <input type="submit" value="ACTUALIZAR EVENTO" className={Styles.inputSubmit} />
 
                 </div>
 

@@ -2,13 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 70px;
-    margin-bottom: 150px;
     align-items: center;
   }
   
   .user {
-    width: 300px;
+    width: 250px;
     height: 350px;
     margin: 10px;
     padding: 10px;
