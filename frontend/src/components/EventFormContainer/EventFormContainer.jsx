@@ -2,7 +2,7 @@ import { useState } from 'react';
 import EventForm from './EventForm/EventForm';
 import Styles from './EventFormContainer.module.css'
 
-const EventFormContainer = () => {
+const EventFormContainer = ({userId}) => {
 
     const themes = {
         violet: {
@@ -43,7 +43,7 @@ const EventFormContainer = () => {
             
         }
     
-    const [backgroundColor, setBackgroundColor] = useState('rgb(199, 159, 236)');
+    const [backgroundColor, setBackgroundColor] = useState();
     const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor)
 
     const handleColorChange = (color) => {
@@ -57,6 +57,7 @@ const EventFormContainer = () => {
                 onColorChange={handleColorChange}
                 backgroundColor={backgroundColor}
                 buttonColor={buttonColor}
+                userId={userId}
             />
         </div>
     )

@@ -11,12 +11,12 @@ const Event = require('../Models/event')
 
 const getEvents = async (req, res) => {
         const queryStrings = req.query || {};
-        const allEvents = await Event.find(queryStrings).populate('owner', 'fullname');
+        const allEvents = await Event.find(queryStrings).populate('owner').populate('eventLocation').exec();
         res.json(allEvents)
 };
 
 const getEvent = async (req, res) => {
-    const allEvents = await Event.findById(req.params.id).populate('owner', 'fullname');
+    const allEvents = await Event.findById(req.params.id).populate('owner').populate('eventLocation').exec();
     res.json(allEvents);
 };
 

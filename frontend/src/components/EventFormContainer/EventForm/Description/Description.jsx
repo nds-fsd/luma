@@ -5,7 +5,7 @@ import api from '../../../../utils/api'
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-const Description = () => {
+const Description = ({userId}) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 

@@ -123,12 +123,12 @@ function App() {
         />
         <Route path='/userlist' element={<UserList />} />
         <Route path='/user/:userId' element={<UserDetail />} />
-        <Route path='/eventcreate' element={<EventFormContainer />} />
+        <Route path='/eventcreate' element={<EventFormContainer userId={userId}/>} />
         <Route path='/city/2' element={<EventPage />} />
         <Route path='/eventdetail' element={<EventDetail />} />
         <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile}/>} />
         <Route path='/editevent' element={<EditEventFormContainer />} />
-        <Route path='/homepage' element={<HomePage />} />
+        <Route path='/homepage' element={<HomePage userId={userId} />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>
