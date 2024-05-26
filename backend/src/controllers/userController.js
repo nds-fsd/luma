@@ -148,6 +148,26 @@ exports.loginUser = (req, res) => {
 
 
 
+exports.getUserSubscriptions = (req, res) => {
+  const userId = req.user._id;
+
+  User.findById(userId)
+    .populate('subscribedEvents')
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json({ subscribedEvents: user.subscribedEvents.map(event => event._id) });
+    })
+    .catch(error => {
+      console.error('Error fetching user subscriptions:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    });
+};
+
+
+
+
 /*
 exports.getUserData = async (req, res) => {
   try {

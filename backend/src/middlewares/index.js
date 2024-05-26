@@ -2,26 +2,32 @@ const UserModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 
 
-
-const jwtMiddleware = (req, res, next) => {
+const jwtMiddleware = async (req, res, next) => {
   const headers = req.headers;
-
   const authorization = headers.authorization;
 
-  const token =  authorization.split(" ")[1];
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-    if (err) {
-      return res.status(401).json({ message: 'Invalid Token' });
-    } else {
+  if (!authorization) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
-      const user = UserModel.findById(decodedToken.userId);
+  const token = authorization.split(" ")[1];
 
-      req.user = user;
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Token decoded:', decodedToken);
 
-      next();
+    const user = await UserModel.findById(decodedToken.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-  });
-}
+
+    req.user = user;
+    next();
+  } catch (err) {
+    console.log('Invalid token');
+    return res.status(401).json({ message: 'Invalid Token' });
+  }
+};
 
 const validateEmail = (email) => {
   const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);

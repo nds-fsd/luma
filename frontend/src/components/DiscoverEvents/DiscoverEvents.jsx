@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
+import { getUserToken } from '../../utils/localStorage.utils';
 
-const DiscoverEvents = () => {
+const DiscoverEvents = ({ IsAuthenticated }) => {
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userSubscriptions, setUserSubscriptions] = useState([]);
+  const [subscriptionStatus, setSubscriptionStatus] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -31,7 +36,6 @@ const DiscoverEvents = () => {
       }
     };
 
-
     const fetchData = async () => {
       await Promise.all([fetchCities(), fetchEvents()]);
       setLoading(false);
@@ -39,6 +43,25 @@ const DiscoverEvents = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (IsAuthenticated) {
+      const fetchUserSubscriptions = async () => {
+        const token = getUserToken();
+        try {
+          console.log('Fetching user subscriptions');
+          const response = await api.get('/user/subscriptions', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          setUserSubscriptions(response.data.subscribedEvents);
+        } catch (error) {
+          console.error('Error fetching user subscriptions:', error);
+        }
+      };
+
+      fetchUserSubscriptions();
+    }
+  }, [IsAuthenticated]);
 
   useEffect(() => {
     if (cities.length > 0 && events.length > 0) {
@@ -49,6 +72,36 @@ const DiscoverEvents = () => {
       setCityEvents(groupedEvents);
     }
   }, [cities, events]);
+
+  const handleSubscribe = async (eventId) => {
+    if (!IsAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
+    const token = getUserToken();
+    try {
+      const isSubscribed = userSubscriptions.includes(eventId);
+      let response;
+
+      if (isSubscribed) {
+        response = await api.post(`/events/${eventId}/unsubscribe`, {}, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setUserSubscriptions(userSubscriptions.filter(id => id !== eventId));
+        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Unsubscribed successfully' });
+      } else {
+        response = await api.post(`/events/${eventId}/subscribe`, {}, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setUserSubscriptions([...userSubscriptions, eventId]);
+        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Subscribed successfully' });
+      }
+    } catch (error) {
+      console.error('Error subscribing/unsubscribing to event:', error);
+      setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Action failed' });
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -116,7 +169,12 @@ const DiscoverEvents = () => {
                 <h4 className={styles.eventTitle}>{event.eventTitle}</h4>
                 <p className={styles.eventDescription}>{event.eventDescription}</p>
               </div>
-              <button className={styles.subscribeButton}>Suscribirse</button>
+              <button 
+                className={`${styles.subscribeButton} ${userSubscriptions.includes(event._id.toString()) ? styles.subscribed : ''}`}
+                onClick={() => handleSubscribe(event._id)}
+              >
+                {userSubscriptions.includes(event._id.toString()) ? '✓ Suscrito' : 'Suscribirse'}
+              </button>
             </div>
           ))}
         </div>

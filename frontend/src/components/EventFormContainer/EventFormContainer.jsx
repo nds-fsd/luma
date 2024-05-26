@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import EventForm from './EventForm/EventForm';
 import UserLogin from '../users/UserLoginCreate/UserLogin/UserLogin';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Styles from './EventFormContainer.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,6 +48,7 @@ const EventFormContainer = ({ IsAuthenticated }) => {
   const [backgroundColor, setBackgroundColor] = useState('');
   const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
   const [showLoginPopup, setShowLoginPopup] = useState(!IsAuthenticated);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleColorChange = (color) => {
     setBackgroundColor(themes[color].backgroundColor);
@@ -55,11 +57,15 @@ const EventFormContainer = ({ IsAuthenticated }) => {
 
   const handleLogin = () => {
     setShowLoginPopup(false);
-    navigate(0); // Esto forzará la recarga de la página completa
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate(0); // Esto forzará la recarga de la página completa
+    }, 500); // Retraso para mostrar el spinner antes de la recarga
   };
 
   return (
     <div className={Styles.container} style={{ backgroundColor }}>
+      {isLoading && <LoadingSpinner />}
       <EventForm
         onColorChange={handleColorChange}
         backgroundColor={backgroundColor}

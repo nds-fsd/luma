@@ -1,3 +1,6 @@
+const Event = require('../models/event');
+const User = require('../models/userModel');
+
 const formatDate = (dateString) => {
     console.log(dateString)
     const date = new Date(dateString);
@@ -7,7 +10,6 @@ const formatDate = (dateString) => {
     return `${year}-${month}-${day}`;
 };
 
-const Event = require('../models/event');
 
 const getEvents = async (req, res) => {
         const queryStrings = req.query || {};
@@ -50,7 +52,7 @@ const createEvent = async (req, res) => {
     const data = {
         ...body,
         owner: user._id,
-        eventLocation: '664e39771e15f4265b4a9a95',
+        eventLocation: city._id,
         eventDate: date,
         creationDate: today
     };
@@ -72,7 +74,69 @@ const createEvent = async (req, res) => {
 
 };
 
+const subscribeToEvent = async (req, res) => {
+    try {
+      console.log('Request received to subscribe to event');
+      const userId = req.user._id;
+      const eventId = req.params.eventId;
+  
+      console.log(`User ID: ${userId}, Event ID: ${eventId}`);
+  
+      if (!eventId) {
+        console.log('No event ID provided');
+        return res.status(400).json({ message: 'Event ID is required' });
+      }
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        console.log('User not found');
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      if (user.subscribedEvents.includes(eventId)) {
+        console.log('Already subscribed to this event');
+        return res.status(400).json({ message: 'Already subscribed to this event' });
+      }
+  
+      user.subscribedEvents.push(eventId);
+      await user.save();
+  
+      res.json({ message: 'Subscribed successfully' });
+    } catch (error) {
+      console.error('Error subscribing to event:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+  // Backend: controlador para desuscribirse
+const unsubscribeFromEvent = async (req, res) => {
+    try {
+      const userId = req.user._id;
+      const eventId = req.params.eventId;
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const eventIndex = user.subscribedEvents.indexOf(eventId);
+      if (eventIndex > -1) {
+        user.subscribedEvents.splice(eventIndex, 1);
+        await user.save();
+        res.json({ message: 'Unsubscribed successfully' });
+      } else {
+        res.status(400).json({ message: 'Not subscribed to this event' });
+      }
+    } catch (error) {
+      console.error('Error unsubscribing from event:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+  
+
 module.exports = {
+    subscribeToEvent,
+    unsubscribeFromEvent,
     getEvents,
     getEvent,
     updateEvent,

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   role: String,
   profile_picture: String,
   password: String,
-
+  subscribedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }] // New field
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -10,5 +10,7 @@ eventRouter.post('/', jwtMiddleware, validateEventCreation, eventController.crea
 eventRouter.put('/:id', eventController.updateEvent);
 eventRouter.patch('/:id', eventController.patchEvent);
 eventRouter.delete('/:id',  eventController.deleteEvent);
+eventRouter.post('/:eventId/subscribe', jwtMiddleware, eventController.subscribeToEvent);
+eventRouter.post('/:eventId/unsubscribe', jwtMiddleware, eventController.unsubscribeFromEvent);
 
 module.exports = eventRouter;

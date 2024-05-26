@@ -72,10 +72,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/event' element={<EventPage />} />
-        <Route
-          path='/eventcreate'
-          element={<EventFormContainer  IsAuthenticated={isAuthenticated}/>}
-        />
+        <Route path='/eventcreate' element={<EventFormContainer IsAuthenticated={isAuthenticated} />} />
         <Route
           path='/login'
           element={isAuthenticated ? <Navigate to='/eventcreate' /> : <UserLoginCreate handleLogin={handleLogin} />}
@@ -99,7 +96,10 @@ function App() {
         <Route path='/user/:userId' element={<UserDetail />} />
         <Route path='/city/:cityId' element={<EventPage />} />
         <Route path='/event/:eventId' element={<EventDetail />} />
-        <Route path='/discoverevents' element={<DiscoverEvents handleGoToOwnProfile={handleGoToOwnProfile} />} />
+        <Route
+          path='/discoverevents'
+          element={<DiscoverEvents IsAuthenticated={isAuthenticated} />}
+        />
         <Route path='/editevent' element={<EditEventFormContainer />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='*' element={<h1>Page not found</h1>} />
