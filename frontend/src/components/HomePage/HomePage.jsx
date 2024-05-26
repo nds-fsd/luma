@@ -6,7 +6,7 @@ import party from './party.png'
 import { useNavigate } from 'react-router-dom';
 
 
-const HomePage = ({ isAuthenticated, userId }) => {
+const HomePage = ({ userId }) => {
 
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ const HomePage = ({ isAuthenticated, userId }) => {
             {userEvents.map((event, index) => (
                 <div key={index} className={styles.event}>
                     <div className={styles.leftPart}>
-                        <img src={party} className={styles.eventImg} alt="Event" />
+                        <img src={event.eventPicture} className={styles.eventImg} alt="Event" />
                         <div className={styles.datosEvento}>{formatDate(event.eventDate)}</div>
                         <div className={styles.datosEvento}>{event.eventStartTime} - {event.eventEndTime}</div>
                     </div>

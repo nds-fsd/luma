@@ -1,66 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Styles from './EditEventFormContainer.module.css'
 import EditEventForm from './EditEventForm/EditEventForm';
 import { useLocation } from 'react-router-dom';
 
 const EditEventFormContainer = () => {
+
 const location= useLocation();
 const event = location.state?.event;
-
-    const themes = {
-        violet: {
-            backgroundColor: 'rgb(199, 159, 236)',
-            buttonColor: {
-                backgroundColor: 'blueviolet',
-                borderColor: 'blueviolet'
-            }
-        },
-        pink: {
-            backgroundColor: 'rgb(255,192,203)',
-            buttonColor: {
-                backgroundColor: 'rgb(255, 0, 208)',
-                borderColor: 'rgb(255, 0, 208)'
-            }
-        },
-        gold: {
-            backgroundColor: 'rgb(242, 217, 75)',
-            buttonColor: {
-                backgroundColor: 'brown',
-                borderColor: 'brown'
-            }
-        },
-        orange: {
-            backgroundColor: 'rgb(216, 118, 82)',
-            buttonColor: {
-                backgroundColor: 'orangered',
-                borderColor: 'orangered'
-            }
-        },
-        green: {
-            backgroundColor: 'rgb(156, 216, 82)',
-            buttonColor: {
-                backgroundColor: 'green',
-                borderColor: 'green'
-            }
-        }
-            
-        }
+const [selectedImage, setSelectedImage] = useState('');
     
-    const [backgroundColor, setBackgroundColor] = useState('rgb(199, 159, 236)');
-    const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor)
-
-    const handleColorChange = (color) => {
-        setBackgroundColor(themes[color].backgroundColor);
-        setButtonColor(themes[color].buttonColor)
-    };
+useEffect(() => {
+    if (event && event.eventPicture) {
+        setSelectedImage(event.eventPicture);
+    }
+}, [event]);
 
     return (
-        <div className={Styles.container} style={{ backgroundColor }}>
+        <div className={Styles.container} >
             <EditEventForm
-                onColorChange={handleColorChange}
-                backgroundColor={backgroundColor}
-                buttonColor={buttonColor}
                 event={event}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
             />
         </div>
     )

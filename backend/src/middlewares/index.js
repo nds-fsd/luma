@@ -12,8 +12,8 @@ const jwtMiddleware = async (req, res, next) => {
     return res.status(401).json({ message: 'Authorization header missing' });
   }
 
-  const token =  authorization.split(" ")[1];
-  
+  const token = authorization.split(" ")[1];
+
   jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
     if (err) {
       return res.status(401).json({ message: 'Invalid Token' });
@@ -31,7 +31,7 @@ const jwtMiddleware = async (req, res, next) => {
     }
   });
 }
-  
+
 
 
 const validateEmail = (email) => {
@@ -56,16 +56,39 @@ const validatePrice = (eventPrice) => {
 
 const validateCapacity = (eventCapacity) => {
   console.log('Event Capacity', eventCapacity);
-  if (eventCapacity === 'ilimitado') {
-    return -1;
+  if (eventCapacity === -1) {
+    return true;
   } else {
     return !isNaN(eventCapacity) && parseInt(eventCapacity) >= 0;
   }
 };
 
+const validateImage = (eventPicture) => {
+  console.log('Event Picture', eventPicture);
+  
+  const urlPattern = new RegExp(/^(http|https):\/\/[^\s$.?#].[^\s]*$/);
+  const base64Pattern = new RegExp(/^data:image\/(jpeg|png|gif|bmp|webp);base64,[a-zA-Z0-9+/=]+$/);
+  const maxSize = 5 * 1024 * 1024;
+
+  if (urlPattern.test(eventPicture)) {
+    return eventPicture;
+  } else if (base64Pattern.test(eventPicture)) {
+    const base64Size = (eventPicture.length * (3/4)) - ((eventPicture.endsWith('==')) ? 2 : (eventPicture.endsWith('=')) ? 1 : 0);
+    if (base64Size <= maxSize) {
+      return eventPicture;
+    } else {
+      console.error("la imagen excede el tamaño máximo permitido");
+      return null;
+    }
+  } else {
+    console.error("URl o formato de imagen inválido");
+    return null;
+  }
+};
+
 const validateEventCreation = (req, res, next) => {
   console.log(req.body);
-  const { eventDate, eventTitle, eventPrice, eventCapacity } = req.body;
+  const { eventDate, eventTitle, eventPrice, eventCapacity, eventPicture } = req.body;
   console.log(typeof eventPrice);
   console.log(eventCapacity);
 
@@ -85,6 +108,10 @@ const validateEventCreation = (req, res, next) => {
     if (!validatePrice(eventPrice)) {
       return res.status(400).json({ error: 'El precio del evento no es válido' });
     }
+  }
+
+  if (!eventPicture || !validateImage(eventPicture)) {
+    return res.status(400).json({ error: 'Debe seleccionar una imagen válida' });
   }
 
   if (eventCapacity === undefined || eventCapacity === null) {

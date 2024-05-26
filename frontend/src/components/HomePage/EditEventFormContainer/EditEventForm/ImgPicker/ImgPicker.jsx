@@ -1,28 +1,36 @@
-import party from './party.png';
-import birthday from './birthday.png';
-import christmas from './christmas.png';
-import green from './green.png';
-import halloween from './halloween.png';
 import Styles from './ImgPicker.module.css';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-const ImgPicker = ({onColorChange, backgroundColor}) => {
-    const [selectedImage, setSelectedImage] = useState(party)
+const ImgPicker = ({selectedImage, setSelectedImage}) => {
 
-    const handleImageClick = (imageUrl, color) =>{
-        setSelectedImage(imageUrl);
-        onColorChange(color)
+    const {formState: { errors } } = useForm();
 
-    }
+    //  const handleImageClick = (imageUrl, color) => {
+    //      setSelectedImage(imageUrl);
+    //      onColorChange(color)
+
+    //  }
+
+    const handleImageChange = (event) => {
+        const base64Url = event.target.value;
+        if (base64Url.startsWith("data:image")) {
+            setSelectedImage(base64Url);
+        } else {
+            console.error("Invalid base64 image URL");
+        }
+    };
+
     return (
         <div className={Styles.ImageContainer}>
-            <img src={selectedImage} alt="Imagen de fiesta" className={Styles.eventImage} />
+            <img src={selectedImage} alt="Selected event" className={Styles.eventImage} />
             <div className={Styles.imagePicker}>
-                <div onClick={()=> handleImageClick(party, 'violet')}><img src={party} alt="Imagen de fiesta" className={Styles.imgSelect} /></div>
-                <div onClick={()=> handleImageClick(birthday, 'pink')}><img src={birthday} alt="Imagen de fiesta" className={Styles.imgSelect} /></div>
-                <div onClick={()=> handleImageClick(christmas, 'gold')}><img src={christmas} alt="Imagen de fiesta" className={Styles.imgSelect} /></div>
-                <div onClick={()=> handleImageClick(halloween, 'orange')}><img src={halloween} alt="Imagen de fiesta" className={Styles.imgSelect} /></div>
-                <div onClick={()=> handleImageClick(green, 'green')}><img src={green} alt="Imagen de fiesta" className={Styles.imgSelect} /></div>
+                <label htmlFor="texty" className={Styles.labels}>Seleccionar una imagen</label>
+                <input
+                    type="text"
+                    className={Styles.input}
+                    onChange={handleImageChange}
+                />
+                {errors.eventPicture && <p className={Styles.errors}>La imagen del evento es requerida</p>}
             </div>
         </div>
     )

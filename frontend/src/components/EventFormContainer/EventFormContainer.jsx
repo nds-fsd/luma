@@ -11,52 +11,52 @@ const EventFormContainer = ({ isAuthenticated }) => {
   const user = getUserSession();
   const userId = user ? user._id : null;
   
-  const themes = {
-    violet: {
-      backgroundColor: 'rgb(199, 159, 236)',
-      buttonColor: {
-        backgroundColor: 'blueviolet',
-        borderColor: 'blueviolet'
-      }
-    },
-    pink: {
-      backgroundColor: 'rgb(255,192,203)',
-      buttonColor: {
-        backgroundColor: 'rgb(255, 0, 208)',
-        borderColor: 'rgb(255, 0, 208)'
-      }
-    },
-    gold: {
-      backgroundColor: 'rgb(242, 217, 75)',
-      buttonColor: {
-        backgroundColor: 'brown',
-        borderColor: 'brown'
-      }
-    },
-    orange: {
-      backgroundColor: 'rgb(216, 118, 82)',
-      buttonColor: {
-        backgroundColor: 'orangered',
-        borderColor: 'orangered'
-      }
-    },
-    green: {
-      backgroundColor: 'rgb(156, 216, 82)',
-      buttonColor: {
-        backgroundColor: 'green',
-        borderColor: 'green'
-      }
-    }
-  };
+  // const themes = {
+  //   violet: {
+  //     backgroundColor: 'rgb(199, 159, 236)',
+  //     buttonColor: {
+  //       backgroundColor: 'blueviolet',
+  //       borderColor: 'blueviolet'
+  //     }
+  //   },
+  //   pink: {
+  //     backgroundColor: 'rgb(255,192,203)',
+  //     buttonColor: {
+  //       backgroundColor: 'rgb(255, 0, 208)',
+  //       borderColor: 'rgb(255, 0, 208)'
+  //     }
+  //   },
+  //   gold: {
+  //     backgroundColor: 'rgb(242, 217, 75)',
+  //     buttonColor: {
+  //       backgroundColor: 'brown',
+  //       borderColor: 'brown'
+  //     }
+  //   },
+  //   orange: {
+  //     backgroundColor: 'rgb(216, 118, 82)',
+  //     buttonColor: {
+  //       backgroundColor: 'orangered',
+  //       borderColor: 'orangered'
+  //     }
+  //   },
+  //   green: {
+  //     backgroundColor: 'rgb(156, 216, 82)',
+  //     buttonColor: {
+  //       backgroundColor: 'green',
+  //       borderColor: 'green'
+  //     }
+  //   }
+  // };
 
-  const [backgroundColor, setBackgroundColor] = useState('');
-  const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
+  // const [backgroundColor, setBackgroundColor] = useState('');
+  // const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
   const [showLoginPopup, setShowLoginPopup] = useState(!isAuthenticated);
 
-  const handleColorChange = (color) => {
-    setBackgroundColor(themes[color].backgroundColor);
-    setButtonColor(themes[color].buttonColor);
-  };
+  // const handleColorChange = (color) => {
+  //   setBackgroundColor(themes[color].backgroundColor);
+  //   setButtonColor(themes[color].buttonColor);
+  // };
 
   const handleLogin = () => {
     setShowLoginPopup(false);
@@ -64,11 +64,11 @@ const EventFormContainer = ({ isAuthenticated }) => {
   };
 
   return (
-    <div className={Styles.container} style={{ backgroundColor }}>
+    <div className={Styles.container}>
       <EventForm
-        onColorChange={handleColorChange}
-        backgroundColor={backgroundColor}
-        buttonColor={buttonColor}
+        // onColorChange={handleColorChange}
+        // backgroundColor={backgroundColor}
+        // buttonColor={buttonColor}
         isAuthenticated={isAuthenticated}
         userId={userId}
       />

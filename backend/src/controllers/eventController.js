@@ -7,7 +7,7 @@ const formatDate = (dateString) => {
     return `${year}-${month}-${day}`;
 };
 
-const Event = require('../models/event');
+const Event = require('../models/eventModel');
 
 const getEvents = async (req, res) => {
         const queryStrings = req.query || {};

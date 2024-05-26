@@ -1,23 +1,33 @@
 import Description from "./Description/Description";
 import ImgPicker from "./ImgPicker/ImgPicker";
 import Styles from './EventForm.module.css'
+import { useState } from 'react';
+import party from './ImgPicker/party.png';
+import Lumatic from '../../../images/lumatic.ico'
 
-const EventForm = ({ onColorChange, backgroundColor, buttonColor, userId, isAuthenticated }) => {
+
+const EventForm = ({ userId, isAuthenticated }) => {
+
+    const [selectedImage, setSelectedImage] = useState(Lumatic)
 
     return (
         <div className={Styles.formContainer}>
             <ImgPicker
-                onColorChange={onColorChange}
-                backgroundColor={backgroundColor}
+                // onColorChange={onColorChange}
+                // backgroundColor={backgroundColor}
                 isAuthenticated={isAuthenticated}
                 userId={userId}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
             />
             <Description
-                onColorChange={onColorChange}
-                backgroundColor={backgroundColor}
-                buttonColor={buttonColor}
+                // onColorChange={onColorChange}
+                // backgroundColor={backgroundColor}
+                // buttonColor={buttonColor}
                 userId={userId}
                 isAuthenticated={isAuthenticated}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
             />
         </div>
     )

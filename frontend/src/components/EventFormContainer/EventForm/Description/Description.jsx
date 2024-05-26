@@ -5,8 +5,8 @@ import api from '../../../../utils/api';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-const Description = ({ isAuthenticated, userId }) => {
-    
+const Description = ({ selectedImage, userId }) => {
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showQuantityInput, setShowQuantityInput] = useState(false);
     const queryClient = useQueryClient();
@@ -26,17 +26,18 @@ const Description = ({ isAuthenticated, userId }) => {
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
-      
+
     const handleRadioChange = (event) => {
-        setShowQuantityInput(event.target.value === "definir_cantidad");
+        setShowQuantityInput(event.target.value === "quantity");
     };
 
     const onSubmit = async (data) => {
         const eventData = {
             ...data,
-            eventCapacity: parseInt(data.eventCapacity),
+            eventCapacity: data.eventCapacity === 'ilimitado' ? -1 : parseInt(data.eventCapacity),
             eventPrice: parseInt(data.eventPrice),
-            owner: userId
+            owner: userId,
+            eventPicture: selectedImage
         };
         console.log('eventData: ', eventData)
         try {
@@ -45,7 +46,7 @@ const Description = ({ isAuthenticated, userId }) => {
 
         } catch (error) {
             if (error.response) {
-                console.error('Error response:', error.response.data); 
+                console.error('Error response:', error.response.data);
             } else {
                 console.error('Error while sending the POST request', error);
             }
@@ -109,6 +110,7 @@ const Description = ({ isAuthenticated, userId }) => {
                 {errors.eventPrice && <p className={Styles.errors}>El precio de la entrada es requerido</p>}
                 <div className={Styles.capacityContainer}>
                     <label htmlFor="ilimitado" className={Styles.labels}>Capacidad</label>
+                    <div className={Styles.capacityBorder}>
                     <div>
                         <input
                             type="radio"
@@ -124,14 +126,14 @@ const Description = ({ isAuthenticated, userId }) => {
                     <div>
                         <input
                             type="radio"
-                            id="definir_cantidad"
-                            value="definir_cantidad"
+                            id="quantity"
+                            value="quantity"
                             {...register("eventCapacity")}
                             onChange={handleRadioChange}
                             checked={showQuantityInput}
                             className={Styles.radio}
                         />
-                        <label htmlFor="definir_cantidad" className={Styles.labels}>Establecer límite</label>
+                        <label htmlFor="quantity" className={Styles.labels}>Establecer límite</label>
                     </div>
                     {showQuantityInput && (
                         <input
@@ -141,6 +143,7 @@ const Description = ({ isAuthenticated, userId }) => {
                             {...register("eventCapacity", { min: 1 }, { required: true })}
                         />
                     )}
+                    </div>
                 </div>
                 {errors.eventCapacity && <p className={Styles.errors}>Se debe establecer la capacidad del evento</p>}
                 <div className={Styles.divContainer}>
