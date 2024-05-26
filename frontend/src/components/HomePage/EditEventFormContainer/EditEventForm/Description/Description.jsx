@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import api from '../../../../../utils/api'
 import { useNavigate } from 'react-router-dom';
 
-const Description = ({ event }) => {
+const Description = ({ event, selectedImage, setSelectedImage }) => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
@@ -29,7 +29,7 @@ const Description = ({ event }) => {
             setValue('eventDescription', event.eventDescription);
             setValue('eventLocation', event.eventLocation);
             setValue('eventPrice', event.eventPrice);
-            
+
             if (event.eventCapacity && event.eventCapacity !== 'ilimitado') {
                 setShowQuantityInput(true);
                 setValue('eventCapacity', event.eventCapacity);
@@ -37,22 +37,21 @@ const Description = ({ event }) => {
         }
     }, [event, setValue]);
 
-        const onSubmit = async (data) => {
-            const eventData = {
-                ...data,
-                eventCapacity: parseInt(data.eventCapacity) || 'ilimitado',  
-                eventPrice: parseInt(data.eventPrice)
-            };
+    const onSubmit = async (data) => {
+        const eventData = {
+            ...data,
+            eventCapacity: parseInt(data.eventCapacity) || 'ilimitado',
+            eventPrice: parseInt(data.eventPrice),
+            eventPicture: selectedImage
+        };
 
-            console.log(eventData)
-                
-            try {
-                const response = await api.patch(`/events/${event._id}`, eventData);
-                navigate('/homepage');
-            } catch (error) {
-                console.error('Error al enviar la solicitud PATCH', error);
-            }
-        };    
+        try {
+            await api.patch(`/events/${event._id}`, eventData);
+            navigate('/home');
+        } catch (error) {
+            console.error('Error al enviar la solicitud PATCH', error);
+        }
+    };
 
     return (
         <div className={Styles.descriptionContainer}>

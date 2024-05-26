@@ -7,7 +7,7 @@ const eventRouter = express.Router();
 eventRouter.get('/most-subscribed-events', eventController.getMostSubscribedEvents);
 eventRouter.get('/', eventController.getEvents);
 eventRouter.get('/:id', eventController.getEvent);
-eventRouter.post('/', jwtMiddleware, validateEventCreation, eventController.createEvent);
+eventRouter.post('/', validateEventCreation,jwtMiddleware,  eventController.createEvent);
 eventRouter.put('/:id', eventController.updateEvent);
 eventRouter.patch('/:id', eventController.patchEvent);
 eventRouter.delete('/:id', eventController.deleteEvent);

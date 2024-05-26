@@ -2,18 +2,17 @@ import Description from "./Description/Description";
 import ImgPicker from "./ImgPicker/ImgPicker";
 import Styles from './EditEventForm.module.css'
 
-const EditEventForm = ({ onColorChange, backgroundColor, buttonColor, event }) => {
+const EditEventForm = ({ event, selectedImage, setSelectedImage }) => {
 
     return (
         <div className={Styles.formContainer}>
             <ImgPicker
-                onColorChange={onColorChange}
-                backgroundColor={backgroundColor}
+               selectedImage={selectedImage}
+               setSelectedImage={setSelectedImage} 
             />
             <Description
-                onColorChange={onColorChange}
-                backgroundColor={backgroundColor}
-                buttonColor={buttonColor}
+ selectedImage={selectedImage}
+ setSelectedImage={setSelectedImage}
                 event={event}
             />
         </div>
