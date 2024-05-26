@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   max-width: 1000px;
-  margin: 0 auto; /* Centrado horizontal */
+  margin: 0 auto; 
   font-size: 14px;
   font-family: 'roboto condensed', sans-serif;
   text-align: justify;
@@ -37,7 +37,7 @@
   flex-direction: column;
   justify-content: center;
   max-width: 1000px;
-  margin: 0 auto; /* Centrado horizontal */
+  margin: 0 auto; 
   padding: 20px;
 }
 
@@ -118,7 +118,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto; /* Centrado horizontal */
+  margin: 0 auto; 
   max-width: 1000px;
   padding: 2rem;
   background-color: #f9f9f9;

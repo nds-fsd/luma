@@ -31,24 +31,24 @@ function EventList({ cityId, city }) {
         events.map((event, index) => (
           <Link to={`/event/${event._id}`} key={index} className={styles.eventLink} city={city}>
             <div className={styles.event}>
-              <div className={`${styles.eventItem} ${styles.hora}`}>
+              <div className={`${styles.eventItem} ${styles.hour}`}>
                 <span>{new Date(event.eventDate).toLocaleDateString()}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.nombre}`}>
+              <div className={`${styles.eventItem} ${styles.name}`}>
                 <span>{event.eventTitle}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.organizadoPor}`}>
+              <div className={`${styles.eventItem} ${styles.organizedBy}`}>
                 <span className={styles.label}>Organizado por: </span>
                 <span>{event.owner.fullname}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.descripcion}`}>
+              <div className={`${styles.eventItem} ${styles.description}`}>
                 <span>{event.eventDescription}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.precio}`}>
+              <div className={`${styles.eventItem} ${styles.prize}`}>
                 <span className={styles.label}>Precio: </span>
                 <span>{event.eventPrice}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.capacidad}`} >
+              <div className={`${styles.eventItem} ${styles.capacity}`} >
                 <span className={styles.label} style={{ textDecoration: 'none' }}>Capacidad: </span>
                 <span>{event.eventCapacity}</span>
               </div>
