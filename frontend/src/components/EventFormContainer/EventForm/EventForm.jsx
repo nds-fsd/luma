@@ -2,7 +2,6 @@ import Description from "./Description/Description";
 import ImgPicker from "./ImgPicker/ImgPicker";
 import Styles from './EventForm.module.css'
 import { useState } from 'react';
-import party from './ImgPicker/party.png';
 import Lumatic from '../../../images/lumatic.ico'
 
 

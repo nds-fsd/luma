@@ -19,7 +19,7 @@ const EventFormContainer = ({ isAuthenticated }) => {
       const currentUser = getUserSession();
       setUser(currentUser);
     }
-  }, [isAuthenticated, userId]);
+  }, [isAuthenticated]);
 
   const handleLogin = () => {
     setShowLoginPopup(false);
