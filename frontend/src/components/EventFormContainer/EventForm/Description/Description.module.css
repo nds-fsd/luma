@@ -1,195 +1,194 @@
 .descriptionContainer {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    width: 60%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 60%;
 }
 
 .formContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 .divContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 10px 0px;
-    gap: 15px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .dateContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 2% 0%;
-    gap: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 2% 0%;
+  gap: 5%;
 }
 
-.priceLocation{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 75%;
+.priceLocation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
 }
 
 .inputDate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    width: 25vh;
-    height: 4vh;
-    border-radius: 7px;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  width: 25vh;
+  height: 4vh;
+  border-radius: 7px;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputTime {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    width: 15vh;
-    height: 4vh;
-    border-radius: 7px;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  width: 15vh;
+  height: 4vh;
+  border-radius: 7px;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputTitle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    height: 4vh;
-    width: 65vh;
-    border-radius: 7px;
-    padding-left: 1vh;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  height: 4vh;
+  width: 65vh;
+  border-radius: 7px;
+  padding-left: 1vh;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputDescription {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    height: 10vh;
-    width: 65vh;
-    border-radius: 7px;
-    resize: none;
-    padding-left: 1vh;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  height: 10vh;
+  width: 65vh;
+  border-radius: 7px;
+  resize: none;
+  padding-left: 1vh;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputPrice {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    height: 4vh;
-    width: 8vh;
-    border-radius: 7px;
-    padding-left: 2vh;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  height: 4vh;
+  width: 8vh;
+  border-radius: 7px;
+  padding-left: 2vh;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputLocation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    color: black;
-    font-weight: 600;
-    height: 4vh;
-    width: 15vh;
-    border-radius: 7px;
-    padding-left: 2vh;
-    font-family: "Roboto";
-    font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid grey;
+  color: black;
+  font-weight: 600;
+  height: 4vh;
+  width: 15vh;
+  border-radius: 7px;
+  padding-left: 2vh;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .inputSubmit {
-    font-family: "Roboto";
-    font-size: 1.1em;
-    color: white;
-    letter-spacing: 0.3vh;
-    background-color: black;
-    border: 2px solid black;
-    border-radius: 7px;
-    width: 65vh;
-    height: 7vh;
+  font-family: 'Roboto';
+  font-size: 1.1em;
+  color: white;
+  letter-spacing: 0.3vh;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 7px;
+  width: 65vh;
+  height: 7vh;
 }
 
 .inputSubmit:hover {
-    color: black;
-    background-color: white;
-    border: 2px solid black;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
 }
 
 .labels {
-    font-family: "Roboto";
-    font-size: 1.1em;
+  font-family: 'Roboto';
+  font-size: 1.1em;
 }
 
 .radio {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 50%;
-    width: 1.1em;
-    height: 1.1em;
-    border: 2px solid grey;
-    background-color: white;
-    outline: none;
-    margin-right: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid grey;
+  background-color: white;
+  outline: none;
+  margin-right: 5px;
 }
 
 .radio:checked {
-    background-color: black;
-    border: 2px solid black;
+  background-color: black;
+  border: 2px solid black;
 }
 
 .capacityContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 6vh;
-    padding: 10px 0px;
-    gap: 15px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 6vh;
+  padding: 10px 0px;
+  gap: 15px;
 }
 
 .errors {
-    font-family: "Roboto";
-    font-size: 0.8em;
-    color: red;
+  font-family: 'Roboto';
+  font-size: 0.8em;
+  color: red;
 }
 
-.dateTime{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.dateTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

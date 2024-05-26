@@ -28,7 +28,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
 
     const fetchEvents = async () => {
       try {
-        const response = await api.get('/events');
+        const response = await api.get('/events/most-subscribed-events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error al obtener los eventos:', error);
@@ -49,7 +49,6 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
-          console.log('Fetching user subscriptions');
           const response = await api.get('/user/subscriptions', {
             headers: { 'Authorization': `Bearer ${token}` }
           });

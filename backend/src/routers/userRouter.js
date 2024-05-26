@@ -6,7 +6,6 @@ const { validateUserCreation, jwtMiddleware } = require('../middlewares/index');
 router.post('/register', validateUserCreation, userController.registerUser);
 router.post('/login', userController.loginUser);
 router.get('/subscriptions', jwtMiddleware, userController.getUserSubscriptions);
-//router.get('/token', userController.getUserData);
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.put('/:id', userController.updateUser);

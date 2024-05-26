@@ -1,6 +1,5 @@
-const UserModel = require("../models/userModel");
+const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-
 
 const jwtMiddleware = async (req, res, next) => {
   const headers = req.headers;
@@ -10,7 +9,7 @@ const jwtMiddleware = async (req, res, next) => {
     return res.status(401).json({ message: 'No token provided' });
   }
 
-  const token = authorization.split(" ")[1];
+  const token = authorization.split(' ')[1];
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -70,10 +69,6 @@ const validateEventCreation = (req, res, next) => {
   if (!eventTitle || !validateTitle(eventTitle)) {
     return res.status(400).json({ error: 'El título del evento es requerido' });
   }
-  // if (!eventPrice || !validatePrice(eventPrice)) {
-  //   return res.status(400).json({ error: 'Debe establecerse un precio válido para la entrada' });
-  // }
-
   if (eventPrice === undefined || eventPrice === null) {
     return res.status(400).json({ error: 'El precio del evento es requerido' });
   } else {
@@ -98,10 +93,10 @@ const validatePassword = (password) => {
 };
 
 const validatePhoneNumber = (phoneNumber) => {
-  const phoneRegex = /^(?:(?:\+|00)([1-9]\d{0,2}))?[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})$/;
+  const phoneRegex =
+    /^(?:(?:\+|00)([1-9]\d{0,2}))?[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})[-. ]?(\d{1,})$/;
   return phoneRegex.test(phoneNumber);
 };
-
 
 const validateFullname = (fullname) => {
   const pattern = /^[a-zA-Z\s]+$/;
@@ -160,7 +155,6 @@ const validateUserCreation = (req, res, next) => {
   next();
 };
 
-
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -168,7 +162,6 @@ const formatDate = (dateString) => {
   const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
-
 
 module.exports = {
   jwtMiddleware,

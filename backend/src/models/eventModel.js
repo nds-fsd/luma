@@ -17,10 +17,10 @@ const eventSchema = new Schema({
   eventPrice: { type: Number, required: true },
   eventStartTime: { type: String, required: true },
   eventEndTime: { type: String, required: true },
-  eventCapacity: { type: Number, required: true }
+  eventCapacity: { type: Number, required: true },
+  subscriptionCount: { type: Number, default: 0 },
 });
 
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
-
