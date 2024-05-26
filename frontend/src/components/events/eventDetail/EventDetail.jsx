@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './EventDetail.module.css';
 import api from '../../../utils/api';
 import SubscribeBox from '../subscribe/Subscribe';
-import yogaImage from '../imagenes/yoga2.jpg';
 import locationGif from '../imagenes/location.png';
 import dateGif from '../imagenes/calendario.png';
 import organizationGif from '../imagenes/organizer.png';
@@ -23,7 +22,7 @@ const EventDetail = () => {
         setEvent(response.data);
 
         if (response.data) {
-            const cityResponse = await api.get(`/city/${response.data.eventLocation}`);
+            const cityResponse = await api.get(`/city/${response.data.eventLocation._id}`);
             setCityName(cityResponse.data.cityName);
           }
 
@@ -36,7 +35,7 @@ const EventDetail = () => {
   }, [eventId, cityName]);
 
   if (!event) {
-    return <div>Cargando...</div>;
+    return <div>Loading...</div>;
   }
 
   return (

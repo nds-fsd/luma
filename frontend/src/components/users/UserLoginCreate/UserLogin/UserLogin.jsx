@@ -33,7 +33,7 @@ const UserLogin = ({ handleLogin }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await api.post('/user/login', data);
+      const response = await api.post('/auth/login', data);
       if (response?.data.token) {
         setUserSession(response.data);
         handleLogin();

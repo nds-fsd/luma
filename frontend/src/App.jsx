@@ -35,7 +35,7 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     setDropdownOpen(false);
-    navigate(`/home`);
+    navigate('/home', { replace: true, state: { fromLogin: true } });
   };
 
   const handleGoToOwnProfile = () => {

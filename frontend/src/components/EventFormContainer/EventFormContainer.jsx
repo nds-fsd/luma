@@ -1,64 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EventForm from './EventForm/EventForm';
 import UserLogin from '../users/UserLoginCreate/UserLogin/UserLogin';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Styles from './EventFormContainer.module.css';
 import { useNavigate } from 'react-router-dom';
-import { getUserSession } from '../../utils/localStorage.utils'
+import { getUserSession } from '../../utils/localStorage.utils';
 
 const EventFormContainer = ({ isAuthenticated }) => {
   const navigate = useNavigate();
-  
-  const user = getUserSession();
-  const userId = user ? user._id : null;
-  
-  // const themes = {
-  //   violet: {
-  //     backgroundColor: 'rgb(199, 159, 236)',
-  //     buttonColor: {
-  //       backgroundColor: 'blueviolet',
-  //       borderColor: 'blueviolet'
-  //     }
-  //   },
-  //   pink: {
-  //     backgroundColor: 'rgb(255,192,203)',
-  //     buttonColor: {
-  //       backgroundColor: 'rgb(255, 0, 208)',
-  //       borderColor: 'rgb(255, 0, 208)'
-  //     }
-  //   },
-  //   gold: {
-  //     backgroundColor: 'rgb(242, 217, 75)',
-  //     buttonColor: {
-  //       backgroundColor: 'brown',
-  //       borderColor: 'brown'
-  //     }
-  //   },
-  //   orange: {
-  //     backgroundColor: 'rgb(216, 118, 82)',
-  //     buttonColor: {
-  //       backgroundColor: 'orangered',
-  //       borderColor: 'orangered'
-  //     }
-  //   },
-  //   green: {
-  //     backgroundColor: 'rgb(156, 216, 82)',
-  //     buttonColor: {
-  //       backgroundColor: 'green',
-  //       borderColor: 'green'
-  //     }
-  //   }
-  // };
-
-  // const [backgroundColor, setBackgroundColor] = useState('');
-  // const [buttonColor, setButtonColor] = useState(themes.violet.buttonColor);
+  const [user, setUser] = useState(getUserSession());
   const [showLoginPopup, setShowLoginPopup] = useState(!isAuthenticated);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const handleColorChange = (color) => {
-  //   setBackgroundColor(themes[color].backgroundColor);
-  //   setButtonColor(themes[color].buttonColor);
-  // };
+  const userId = user ? user._id : null;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const currentUser = getUserSession();
+      setUser(currentUser);
+    }
+  }, [isAuthenticated]);
 
   const handleLogin = () => {
     setShowLoginPopup(false);
@@ -70,14 +31,12 @@ const EventFormContainer = ({ isAuthenticated }) => {
 
   return (
     <div className={Styles.container}>
+      {isLoading && <LoadingSpinner />}
       <EventForm
-        // onColorChange={handleColorChange}
-        // backgroundColor={backgroundColor}
-        // buttonColor={buttonColor}
         isAuthenticated={isAuthenticated}
         userId={userId}
       />
-      {!isAuthenticated  && showLoginPopup && (
+      {!isAuthenticated && showLoginPopup && (
         <UserLogin handleLogin={handleLogin} closePopup={() => setShowLoginPopup(false)} />
       )}
     </div>

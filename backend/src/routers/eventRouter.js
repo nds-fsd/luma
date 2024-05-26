@@ -7,11 +7,11 @@ const eventRouter = express.Router();
 eventRouter.get('/most-subscribed-events', eventController.getMostSubscribedEvents);
 eventRouter.get('/', eventController.getEvents);
 eventRouter.get('/:id', eventController.getEvent);
-eventRouter.post('/', validateEventCreation,jwtMiddleware,  eventController.createEvent);
+eventRouter.post('/', validateEventCreation, eventController.createEvent);
 eventRouter.put('/:id', eventController.updateEvent);
 eventRouter.patch('/:id', eventController.patchEvent);
 eventRouter.delete('/:id', eventController.deleteEvent);
-eventRouter.post('/:eventId/subscribe', jwtMiddleware, eventController.subscribeToEvent);
-eventRouter.post('/:eventId/unsubscribe', jwtMiddleware, eventController.unsubscribeFromEvent);
+eventRouter.post('/:eventId/subscribe', eventController.subscribeToEvent);
+eventRouter.post('/:eventId/unsubscribe', eventController.unsubscribeFromEvent);
 
 module.exports = eventRouter;

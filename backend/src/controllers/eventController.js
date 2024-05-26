@@ -11,12 +11,12 @@ const formatDate = (dateString) => {
 
 const getEvents = async (req, res) => {
   const queryStrings = req.query || {};
-  const allEvents = await Event.find(queryStrings).populate('owner', 'fullname');
+  const allEvents = await Event.find(queryStrings).populate('owner').populate('eventLocation').exec();
   res.json(allEvents);
 };
 
 const getEvent = async (req, res) => {
-  const allEvents = await Event.findById(req.params.id).populate('owner', 'fullname');
+  const allEvents = await Event.findById(req.params.id).populate('owner').populate('eventLocation').exec();
   res.json(allEvents);
 };
 
@@ -24,6 +24,7 @@ const updateEvent = async (req, res) => {
   const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
+  console.log(allEvents);
   res.json(allEvents);
 };
 
@@ -43,22 +44,28 @@ const deleteEvent = async (req, res) => {
 const createEvent = async (req, res) => {
   const body = req.body;
   const user = req.user;
+
+  if (!user) {
+    return res.status(400).json({ error: 'User must be authenticated to create an event' });
+  }
+
   const date = new Date(formatDate(body.eventDate));
   const today = new Date();
   const data = {
     ...body,
     owner: user._id,
-    eventLocation: body.eventLocation,
     eventDate: date,
     creationDate: today,
   };
 
-  const newEvent = new Event(data);
+  console.log('Backend:', data);
 
   try {
+    const newEvent = new Event(data);
     await newEvent.save();
     res.json(newEvent);
   } catch (error) {
+    console.error('Error while creating event', error);
     res.status(500).json(error);
   }
 };

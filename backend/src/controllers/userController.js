@@ -1,5 +1,4 @@
 const User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 exports.registerUser = (req, res) => {
@@ -99,52 +98,6 @@ exports.deleteUser = (req, res) => {
     });
 };
 
-exports.loginUser = (req, res) => {
-  const { email, phone_number, password } = req.body;
-  console.log('Data received in the backend:', { email, phone_number, password });
-
-  if (!email && !phone_number) {
-    return res.status(400).json({ error: 'You must provide an email or phone number' });
-  }
-
-  User.findOne({
-    $or: [{ email }, { phone_number }],
-  })
-    .then((user) => {
-      if (!user) {
-        throw { status: 400, message: 'Invalid email or phone number' };
-      }
-
-      return bcrypt.compare(password, user.password).then((validPassword) => {
-        if (!validPassword) {
-          throw { status: 400, message: 'Invalid password!' };
-        }
-
-        const token = jwt.sign(
-          {
-            userId: user._id,
-            fullname: user.fullname,
-            email: user.email,
-            profile_picture: user.profile_picture,
-            role: user.role,
-          },
-          process.env.JWT_SECRET,
-          { expiresIn: '24h' }
-        );
-
-        res.status(200).json({ user, token });
-      });
-    })
-    .catch((err) => {
-      if (err.status) {
-        res.status(err.status).json({ error: err.message });
-      } else {
-        console.error('Server error:', err);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
-      }
-    });
-};
-
 exports.getUserSubscriptions = (req, res) => {
   const userId = req.user._id;
 
@@ -161,29 +114,3 @@ exports.getUserSubscriptions = (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     });
 };
-
-/*
-exports.getUserData = async (req, res) => {
-  try {
-    const token = await req.headers.authorization.split(' ')[1];
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        return res.status(401).json({ message: 'Invalid Token' });
-      } else {
-        const userData = {
-          fullName: decodedToken.fullname,
-          email: decodedToken.email,
-          id: decodedToken.userId,
-          picTure: decodedToken.picture,
-          role: decodedToken.role,
-        };
-
-        res.json(userData);
-      }
-    });
-  } catch (error) {
-    console.error('Error in getUserData:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-}; */
