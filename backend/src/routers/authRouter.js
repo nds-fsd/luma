@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 
 authRouter.post('/login', async (req, res) => {
   const { email, phone_number, password } = req.body;
-  console.log('Data received in the backend:', { email, phone_number, password });
 
   if (!email && !phone_number) {
     return res.status(400).json({ error: 'You must provide an email or phone number' });
