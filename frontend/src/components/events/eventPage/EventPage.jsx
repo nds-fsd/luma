@@ -35,16 +35,16 @@ const EventPage = () => {
         <div className={styles.headerWallpaper}>
           <div className={`${styles['blue-background']}`}>
 
-            <h1 className={styles['titulo-header']}>
+            <h1 className={styles['title-header']}>
               Qué está pasando en <br />
-              {city && <span className={styles['titulo-ciudad']}>{city.cityName}</span>}{' '}
+              {city && <span className={styles['title-city']}>{city.cityName}</span>}{' '}
             </h1>
 
             <div className={styles['clock-container']}>
               <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
             </div>
 
-            <p className={styles['texto-p']}>
+            <p className={styles['text-p']}>
               Los eventos más actuales e interesantes
               <br />
               {city && `en la maravillosa ciudad de ${city.cityName}.`}
@@ -56,10 +56,10 @@ const EventPage = () => {
 
             <hr />
           </div>
-          <div className={styles.encabezado} style={backgroundStyle}></div>
+          <div className={styles.header} style={backgroundStyle}></div>
         </div>
         <main className={styles.main}>
-          <h1 className={styles['titulo-eventos']}>Upcoming Events</h1>
+          <h1 className={styles['title-events']}>Upcoming Events</h1>
           <div>
             <EventList cityId={cityId} />
           </div>

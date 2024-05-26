@@ -55,7 +55,7 @@ const EventFormContainer = ({ IsAuthenticated }) => {
 
   const handleLogin = () => {
     setShowLoginPopup(false);
-    navigate(0); // Esto forzará la recarga de la página completa
+    navigate(0); 
   };
 
   return (

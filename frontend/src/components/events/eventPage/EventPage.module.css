@@ -19,13 +19,13 @@
   width: 50%;
 }
 
-.encabezado {
+.header {
   background-size: cover;
   height: 50vh;
   width: 50%;
 }
 
-.titulo-header {
+.title-header {
   margin-left: 20%;
   text-align: left;
   font-family: 'roboto condensed', sans-serif;
@@ -33,7 +33,7 @@
   color: #e6eeee;
 }
 
-.titulo-ciudad {
+.title-city {
   font-family: 'roboto condensed', sans-serif;
   font-size: 6vw;
   color: black;
@@ -47,7 +47,7 @@
   margin-top: 20px;
 }
 
-.texto-p {
+.text-p {
   margin-left: 20%;
   font-family: 'roboto condensed', sans-serif;
   color: black;
@@ -60,7 +60,7 @@
   margin-top: 25px;
 }
 
-.titulo-eventos {
+.title-events {
   font-family: 'roboto condensed', sans-serif;
   font-size: 5vw;
   margin-left: 200px;
@@ -78,7 +78,7 @@
     display: flex;
     flex-direction: column-reverse;
   }
-  .encabezado {
+  .header {
     height: 200px;
     min-width: 400px;
   }
@@ -89,7 +89,7 @@
     height: 250px;
   }
 
-  .titulo-header {
+  .title-header {
     margin-left: 0;
     margin-top: 30px;
     text-align: left;
@@ -100,7 +100,7 @@
     margin-top: 6px;
   }
 
-  .texto-p {
+  .text-p {
     margin-left: 0;
     font-size: 3vw;
     margin-top: 5px;
@@ -111,7 +111,7 @@
     margin-top: 5px;
   }
 
-  .titulo-eventos {
+  .title-events {
     text-align: left;
   }
 
@@ -125,13 +125,13 @@
 }
 
 @media (min-width: 768px) {
-  .titulo-header {
+  .title-header {
     font-size: 2vw;
     margin-top: 30px;
     text-align: left;
   }
 
-  .titulo-ciudad {
+  .title-city {
     font-size: 4vw;
   }
 
@@ -139,12 +139,12 @@
     font-size: 1vw;
   }
 
-  .texto-p {
+  .text-p {
     font-size: 2vw;
     margin-top: 5px;
   }
 
-  .titulo-eventos {
+  .title-events {
     text-align: left;
     font-size: 3vw;
     margin-left: 500px;
