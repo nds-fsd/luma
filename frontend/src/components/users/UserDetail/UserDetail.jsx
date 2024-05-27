@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../../utils/api';
+import { api } from '../../../utils/api';
 import styles from './UserDetail.module.css';
 
 function UserDetail() {
@@ -10,7 +10,7 @@ function UserDetail() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await api.get(`/user/${userId}`);
+        const response = await api().get(`/user/${userId}`);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user details:', error);

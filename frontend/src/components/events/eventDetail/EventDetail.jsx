@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './EventDetail.module.css';
-import api from '../../../utils/api';
+import { api } from '../../../utils/api';
 import SubscribeBox from '../subscribe/Subscribe';
 import locationGif from '../imagenes/location.png';
 import dateGif from '../imagenes/calendario.png';
@@ -18,11 +18,11 @@ const EventDetail = () => {
   useEffect(() => {
     const getEventDetails = async () => {
       try {
-        const response = await api.get(`/events/${eventId}`);
+        const response = await api().get(`/events/${eventId}`);
         setEvent(response.data);
 
         if (response.data) {
-            const cityResponse = await api.get(`/city/${response.data.eventLocation._id}`);
+            const cityResponse = await api().get(`/city/${response.data.eventLocation._id}`);
             setCityName(cityResponse.data.cityName);
           }
 

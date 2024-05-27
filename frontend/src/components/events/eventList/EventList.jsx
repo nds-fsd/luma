@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './EventList.module.css';
-import api from '../../../utils/api';
+import { api } from '../../../utils/api';
 
 function EventList({ cityId, city }) {
   const [events, setEvents] = useState([]);
@@ -9,7 +9,7 @@ function EventList({ cityId, city }) {
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const response = await api.get('/events', {
+        const response = await api().get('/events', {
           params: { eventLocation: cityId },
         });
         setEvents(response.data);

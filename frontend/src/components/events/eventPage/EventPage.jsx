@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../../utils/api';
+import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
 import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
@@ -13,7 +13,7 @@ const EventPage = () => {
   useEffect(() => {
     const fetchCityById = async () => {
       try {
-        const response = await api.get(`/city/${cityId}`);
+        const response = await api().get(`/city/${cityId}`);
         setCity(response.data);
       } catch (error) {
         console.error('Error al obtener la ciudad:', error);

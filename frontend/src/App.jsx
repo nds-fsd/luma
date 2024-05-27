@@ -36,7 +36,7 @@ function App() {
     setIsAuthenticated(true);
     setDropdownOpen(false);
     navigate('/home', { replace: true, state: { fromLogin: true } });
-    window.location.reload();
+    
   };
 
   const handleGoToOwnProfile = () => {

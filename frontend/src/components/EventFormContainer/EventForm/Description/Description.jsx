@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import api from '../../../../utils/api';
+import { api } from '../../../../utils/api';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Description = ({ selectedImage, userId }) => {
         if (userId) {
             const fetchCities = async () => {
                 try {
-                    const res = await api.get('/city');
+                    const res = await api().get('/city');
                     setCities(res.data);
                 } catch (error) {
                     console.error('Error fetching cities:', error);
@@ -45,7 +45,7 @@ const Description = ({ selectedImage, userId }) => {
         };
         console.log('eventData: ', eventData);
         try {
-            await api.post('/events', eventData);
+            await api().post('/events', eventData);
             navigate('/home');
         } catch (error) {
             if (error.response) {

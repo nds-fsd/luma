@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import api from '../../../../../utils/api'
+import { api } from '../../../../../utils/api'
 import { useNavigate } from 'react-router-dom';
 
 const Description = ({ event, selectedImage, setSelectedImage }) => {
@@ -46,7 +46,7 @@ const Description = ({ event, selectedImage, setSelectedImage }) => {
         };
 
         try {
-            await api.patch(`/events/${event._id}`, eventData);
+            await api().patch(`/events/${event._id}`, eventData);
             navigate('/home');
         } catch (error) {
             console.error('Error al enviar la solicitud PATCH', error);

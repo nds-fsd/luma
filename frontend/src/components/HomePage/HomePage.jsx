@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient, useQuery } from 'react-query';
 import styles from './HomePage.module.css';
-import api from '../../utils/api';
+import { api } from '../../utils/api';
 import party from './party.png'
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ const HomePage = ({ userId }) => {
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const getEvents = async () => {
-        const res = await api.get('/events');
+        const res = await api().get('/events');
         return res.data;
     };
 
@@ -21,7 +21,7 @@ const HomePage = ({ userId }) => {
 
     const deleteEvent = async (id) => {
         try {
-            await api.delete(`/events/${id}`);
+            await api().delete(`/events/${id}`);
             queryClient.invalidateQueries('events');
             console.log(`Evento con ID ${id} eliminado.`);
         } catch (e) {

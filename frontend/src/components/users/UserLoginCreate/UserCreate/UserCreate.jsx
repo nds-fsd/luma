@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
-import api from '../../../../utils/api';
+import { api } from '../../../../utils/api';
 
 function UserCreate({ onClose }) {
   const [errorServer, setErrorServer] = useState('');
@@ -29,11 +29,12 @@ function UserCreate({ onClose }) {
     }
 
     try {
-      const response = await api.post(`/user/register`, data);
+      const response = await api().post(`/user/register`, data);
       if (response.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');
         reset();
+        window.location.reload();
       } else {
         setErrorServer(response.data.error);
         setMessageServer('');

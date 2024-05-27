@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../utils/api';
+import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
 
@@ -18,7 +18,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await api.get('/city');
+        const response = await api().get('/city');
         setCities(response.data);
       } catch (error) {
         console.error('Error al obtener las ciudades:', error);
@@ -28,7 +28,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
 
     const fetchEvents = async () => {
       try {
-        const response = await api.get('/events/most-subscribed-events');
+        const response = await api().get('/events/most-subscribed-events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error al obtener los eventos:', error);
@@ -49,7 +49,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
-          const response = await api.get('/user/subscriptions', {
+          const response = await api().get('/user/subscriptions', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           setUserSubscriptions(response.data.subscribedEvents);
@@ -84,13 +84,13 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
       let response;
 
       if (isSubscribed) {
-        response = await api.post(`/events/${eventId}/unsubscribe`, {}, {
+        response = await api().post(`/events/${eventId}/unsubscribe`, {}, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setUserSubscriptions(userSubscriptions.filter(id => id !== eventId));
         setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Unsubscribed successfully' });
       } else {
-        response = await api.post(`/events/${eventId}/subscribe`, {}, {
+        response = await api().post(`/events/${eventId}/subscribe`, {}, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setUserSubscriptions([...userSubscriptions, eventId]);

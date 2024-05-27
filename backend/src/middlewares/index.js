@@ -1,35 +1,33 @@
 const UserModel = require('../models/userModel');
-const jwt = require('jsonwebtoken');
+const { validateJWT } = require('../services/auth.service');
 
 const jwtMiddleware = async (req, res, next) => {
-  const headers = req.headers;
-  const authorization = headers.authorization;
+  const authorization = req.headers.authorization;
 
   if (!authorization) {
     return res.status(401).json({ message: 'Authorization header missing' });
   }
 
-  const token = authorization.split(" ")[1];
+  const token = authorization.split(' ')[1];
 
-  jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-    if (err) {
+  try {
+    const decodedToken = validateJWT(token);
+
+    const user = await UserModel.findById(decodedToken.userId);
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    if (error.message === 'Invalid Token') {
       return res.status(401).json({ message: 'Invalid Token' });
     } else {
-      try {
-        const user = await UserModel.findById(decodedToken.userId);
-        if (!user) {
-          return res.status(401).json({ message: 'User not found' });
-        }
-        req.user = user;
-        next();
-      } catch (error) {
-        return res.status(500).json({ message: 'Error fetching user', error });
-      }
+      return res.status(500).json({ message: 'Error fetching user', error });
     }
-  });
-}
-
-
+  }
+};
 
 const validateEmail = (email) => {
   const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);

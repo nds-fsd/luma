@@ -1,8 +1,8 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const authRouter = express.Router();
 const bcrypt = require('bcrypt'); 
+const { generateJWT } = require('../services/auth.service');
 
 authRouter.post('/login', async (req, res) => {
   const { email, phone_number, password } = req.body;
@@ -24,17 +24,7 @@ authRouter.post('/login', async (req, res) => {
           throw { status: 400, message: 'Invalid password!' };
         }
 
-        const token = jwt.sign(
-          {
-            userId: user._id,
-            fullname: user.fullname,
-            email: user.email,
-            profile_picture: user.profile_picture,
-            role: user.role,
-          },
-          process.env.JWT_SECRET,
-          { expiresIn: '24h' }
-        );
+        const token = generateJWT(user);
 
         res.status(200).json({ user, token });
       });

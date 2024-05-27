@@ -8,18 +8,11 @@ import { getUserSession } from '../../utils/localStorage.utils';
 
 const EventFormContainer = ({ isAuthenticated }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(getUserSession());
   const [showLoginPopup, setShowLoginPopup] = useState(!isAuthenticated);
   const [isLoading, setIsLoading] = useState(false);
 
+  const user = getUserSession();
   const userId = user ? user._id : null;
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      const currentUser = getUserSession();
-      setUser(currentUser);
-    }
-  }, [isAuthenticated]);
 
   const handleLogin = () => {
     setShowLoginPopup(false);

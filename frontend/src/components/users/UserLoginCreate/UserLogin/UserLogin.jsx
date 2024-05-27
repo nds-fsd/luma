@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserLogin.module.css';
 import UserCreate from '../UserCreate/UserCreate';
-import api from '../../../../utils/api';
+import { api } from '../../../../utils/api';
 import logo from '../../../../images/Lumatic.svg';
 import { setUserSession } from '../../../../utils/localStorage.utils';
 
@@ -33,7 +33,7 @@ const UserLogin = ({ handleLogin }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await api.post('/auth/login', data);
+      const response = await api().post('/auth/login', data);
       if (response?.data.token) {
         setUserSession(response.data);
         handleLogin();
