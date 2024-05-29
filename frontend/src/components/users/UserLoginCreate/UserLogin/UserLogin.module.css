@@ -2,52 +2,68 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
 .innerContainer {
-  max-width: 400px;
+  max-width: 300px;
   width: 100%;
   padding: 20px;
   border-radius: 10px;
   background-color: #333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 h2 {
   color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: 'roboto condensed', sans-serif;
   text-align: left;
 }
 
 .subtitle {
   max-width: 300px;
   color: aliceblue;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: 'roboto condensed', sans-serif;
   margin-bottom: 25px;
 }
 
 .formGroup {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  font-family: 'roboto condensed', sans-serif;
 }
 
-p {
+.text p {
   color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: 'roboto condensed', sans-serif;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .label {
   display: block;
   margin-bottom: 5px;
   color: #fff;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .input {
@@ -92,9 +108,38 @@ p {
   color: #0c0b0b;
 }
 
-.selected {
-  text-decoration: underline;
+.text .selected {
+  text-decoration: none;
   color: #696868;
+}
+
+.containerRegisterUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.link {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: 'roboto condensed', sans-serif;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.error {
+  margin-left: 5px;
+  color: #fff;
 }
 
 /* Estilos para dispositivos móviles */
@@ -102,4 +147,13 @@ p {
   .innerContainer {
     padding: 10px; /* Reducir el espacio interno */
   }
+}
+
+.logo {
+  height: 80px;
+  width: 80px;
+}
+
+.subtitleLogo {
+  display: flex;
 }

@@ -1,3 +1,8 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .containerMain {
   display: flex;
   flex-direction: column;
@@ -6,3 +11,22 @@
   margin: auto 100px ;
 }
 
+p {
+  color: black;
+}
+
+.protectedRoute {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.protectedRoute > * {
+  flex: 1; 
+  width: 50%; 
+}
+
+@media screen and (max-width: 768px) {
+  .protectedRoute > * {
+    width: 100%; 
+  }
+}

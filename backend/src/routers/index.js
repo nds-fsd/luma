@@ -1,8 +1,17 @@
 const express = require('express');
+const { jwtMiddleware } = require('../middlewares/index');
+
+const eventRouter = require('./eventRouter');
 const userRouter = require('./userRouter');
+const cityRouter = require('./cityRouter');
+const authRouter = require('./authRouter');
 
-const router = express.Router();
+const MainRouter = express.Router();
 
-router.use('/user', userRouter);
+MainRouter.use('/events', eventRouter);
+MainRouter.use('/user', userRouter);
+MainRouter.use('/city', cityRouter);
+MainRouter.use('/auth', authRouter);
 
-module.exports = router;
+
+module.exports = MainRouter;
