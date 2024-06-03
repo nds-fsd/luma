@@ -26,3 +26,15 @@ jobs:
         run: |
           docker build . --tag ghcr.io/nds-fsd/lumatic:latest
           docker push ghcr.io/nds-fsd/lumatic:latest
+
+          - name: Install and configure the Koyeb CLI
+        uses: koyeb-community/install-koyeb-cli@v2
+        with:
+          api_token: "${{ secrets.KOYEB }}"
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Update image in koyeb
+        run: koyeb service update lumatic/lumatic --docker ghcr.io/nds-fsd/lumatic:${{ github.sha }}
+
+      - name: Redeploy service in koyeb
+        run: koyeb service redeploy lumatic/lumatic
