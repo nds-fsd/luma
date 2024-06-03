@@ -24,8 +24,8 @@ jobs:
 
       - name: 'Build Backend Image'
         run: |
-          docker build . --tag ghcr.io/nds-fsd/lumatic:latest
-          docker push ghcr.io/nds-fsd/lumatic:latest
+          docker build . --tag ghcr.io/nds-fsd/lumatic:${{ github.sha }}
+          docker push ghcr.io/nds-fsd/lumatic:${{ github.sha }}
 
           - name: Install and configure the Koyeb CLI
         uses: koyeb-community/install-koyeb-cli@v2
