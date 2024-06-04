@@ -8,13 +8,7 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: ['https://lumatic.netlify.app'], 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 app.use('/', mainRouter);
@@ -27,4 +21,4 @@ const server = app.listen(port, () => {
   console.log(`Server is up and running ⚡ ${port}`);
 });
 
-module.exports = { app, server }; //Test
+module.exports = { app, server };
