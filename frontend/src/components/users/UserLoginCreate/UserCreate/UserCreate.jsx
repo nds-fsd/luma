@@ -31,8 +31,8 @@ function UserCreate({ onClose }) {
     }
 
     try {
-      const response = await api().post(`/user/register`, data);
-      if (response.data.success) {
+      const response = await api().post('/user/register', data);
+      if (response?.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');
         reset();
