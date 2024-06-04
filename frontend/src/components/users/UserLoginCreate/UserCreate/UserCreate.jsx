@@ -24,7 +24,7 @@ function UserCreate({ onClose }) {
     setMessageServer('');
 
     if (data.password !== data.confirm_password) {
-      setErrorServer("Password don't match");
+      setErrorServer("Passwords don't match");
       return;
     }
 
@@ -40,7 +40,7 @@ function UserCreate({ onClose }) {
         setMessageServer('');
       }
     } catch (error) {
-      setErrorServer(error.response.data.error);
+      setErrorServer(error.response?.data?.error || 'An error occurred');
       setMessageServer('');
     }
   };
@@ -70,14 +70,14 @@ function UserCreate({ onClose }) {
           <input
             {...register('fullname')}
             placeholder='Full Name'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
           <input
             {...register('email')}
             placeholder='Email'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -98,14 +98,14 @@ function UserCreate({ onClose }) {
           <input
             {...register('phone_number')}
             placeholder='Phone Number'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
           <input
             {...register('profile_picture')}
             placeholder='Link Profile Picture'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -113,7 +113,7 @@ function UserCreate({ onClose }) {
             {...register('password')}
             type='password'
             placeholder='Password'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -121,7 +121,7 @@ function UserCreate({ onClose }) {
             {...register('confirm_password')}
             type='password'
             placeholder='Confirm Password'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
