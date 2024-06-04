@@ -8,7 +8,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: ['https://your-netlify-domain.netlify.app'], // Reemplaza con tu dominio de Netlify
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/', mainRouter);
@@ -21,4 +27,4 @@ const server = app.listen(port, () => {
   console.log(`Server is up and running ⚡ ${port}`);
 });
 
-module.exports = { app, server }; 
+module.exports = { app, server };
