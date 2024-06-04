@@ -90,7 +90,7 @@ function UserCreate({ onClose }) {
               placeholder='Birth Date'
               type='date'
               className={`${styles.input} ${styles.dateInput}`}
-              id='birthdate' // Asegúrate de que este id coincida con el atributo for de la etiqueta label
+              id='birthdate'
               onChange={handleInputChange}
               autoComplete={autocompleteValue}
             />
