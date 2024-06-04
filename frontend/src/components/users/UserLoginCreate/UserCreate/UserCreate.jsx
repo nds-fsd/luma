@@ -12,12 +12,12 @@ function UserCreate({ onClose }) {
   const {
     register,
     handleSubmit,
-    formState: { isDirty },
+    formState: { errors },
     reset,
     watch,
   } = useForm();
 
-  const password = watch('password', '');
+  //const password = watch('password', '');
 
   const onSubmit = async (data) => {
     data.fullname = data.fullname.toUpperCase();
@@ -127,7 +127,7 @@ function UserCreate({ onClose }) {
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
-          <button type='submit' className={styles.button} disabled={!isDirty}>
+          <button type='submit' className={styles.button}>
             Register
           </button>
         </form>
