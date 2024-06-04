@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: ['https://your-netlify-domain.netlify.app'], // Reemplaza con tu dominio de Netlify
+  origin: ['https://lumatic.netlify.app'], // Reemplaza con tu dominio de Netlify
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
