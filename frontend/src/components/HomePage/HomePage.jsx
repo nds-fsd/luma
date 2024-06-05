@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useQueryClient, useQuery } from 'react-query';
 import styles from './HomePage.module.css';
 import { api } from '../../utils/api';
-import party from './party.png'
 import { useNavigate } from 'react-router-dom';
 
 

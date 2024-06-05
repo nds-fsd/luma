@@ -1,5 +1,4 @@
 const express = require('express');
-const { jwtMiddleware } = require('../middlewares/index');
 
 const eventRouter = require('./eventRouter');
 const userRouter = require('./userRouter');

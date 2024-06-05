@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
 import { api } from '../../../../utils/api';
 
+
+
 function UserCreate({ onClose }) {
   const [errorServer, setErrorServer] = useState('');
   const [messageServer, setMessageServer] = useState('');
@@ -10,12 +12,12 @@ function UserCreate({ onClose }) {
   const {
     register,
     handleSubmit,
-    formState: { isDirty },
+    formState: { errors },
     reset,
     watch,
   } = useForm();
 
-  const password = watch('password', '');
+  //const password = watch('password', '');
 
   const onSubmit = async (data) => {
     data.fullname = data.fullname.toUpperCase();
@@ -24,13 +26,13 @@ function UserCreate({ onClose }) {
     setMessageServer('');
 
     if (data.password !== data.confirm_password) {
-      setErrorServer("Password don't match");
+      setErrorServer("Passwords don't match");
       return;
     }
 
     try {
-      const response = await api().post(`/user/register`, data);
-      if (response.data.success) {
+      const response = await api().post('/user/register', data);
+      if (response?.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');
         reset();
@@ -40,7 +42,7 @@ function UserCreate({ onClose }) {
         setMessageServer('');
       }
     } catch (error) {
-      setErrorServer(error.response.data.error);
+      setErrorServer(error.response?.data?.error || 'An error occurred');
       setMessageServer('');
     }
   };
@@ -70,14 +72,14 @@ function UserCreate({ onClose }) {
           <input
             {...register('fullname')}
             placeholder='Full Name'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
           <input
             {...register('email')}
             placeholder='Email'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -90,7 +92,7 @@ function UserCreate({ onClose }) {
               placeholder='Birth Date'
               type='date'
               className={`${styles.input} ${styles.dateInput}`}
-              id='dateInput'
+              id='birthdate'
               onChange={handleInputChange}
               autoComplete={autocompleteValue}
             />
@@ -98,14 +100,14 @@ function UserCreate({ onClose }) {
           <input
             {...register('phone_number')}
             placeholder='Phone Number'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
           <input
             {...register('profile_picture')}
             placeholder='Link Profile Picture'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -113,7 +115,7 @@ function UserCreate({ onClose }) {
             {...register('password')}
             type='password'
             placeholder='Password'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
@@ -121,11 +123,11 @@ function UserCreate({ onClose }) {
             {...register('confirm_password')}
             type='password'
             placeholder='Confirm Password'
-            className={`${styles.input}`}
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={autocompleteValue}
           />
-          <button type='submit' className={styles.button} disabled={!isDirty}>
+          <button type='submit' className={styles.button}>
             Register
           </button>
         </form>

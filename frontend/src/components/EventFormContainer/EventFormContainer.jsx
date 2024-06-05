@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import EventForm from './EventForm/EventForm';
 import UserLogin from '../users/UserLoginCreate/UserLogin/UserLogin';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
