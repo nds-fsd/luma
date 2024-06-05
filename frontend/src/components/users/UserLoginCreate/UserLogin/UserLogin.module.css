@@ -1,0 +1,159 @@
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.innerContainer {
+  max-width: 300px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  font-family: 'roboto condensed', sans-serif;
+}
+
+h2 {
+  color: #fff;
+  font-family: 'roboto condensed', sans-serif;
+  text-align: left;
+}
+
+.subtitle {
+  max-width: 300px;
+  color: aliceblue;
+  font-family: 'roboto condensed', sans-serif;
+  margin-bottom: 25px;
+}
+
+.formGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family: 'roboto condensed', sans-serif;
+}
+
+.text p {
+  color: #fff;
+  font-family: 'roboto condensed', sans-serif;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'roboto condensed', sans-serif;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+  font-family: 'roboto condensed', sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #444;
+  color: #fff;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #eef3f8;
+  color: #0c0b0b;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.button:hover {
+  background-color: #bdbfc0;
+}
+
+.buttonGoogle {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.buttonGoogle:hover {
+  background-color: #d2d7db;
+  color: #0c0b0b;
+}
+
+.text .selected {
+  text-decoration: none;
+  color: #696868;
+}
+
+.containerRegisterUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.link {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: 'roboto condensed', sans-serif;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.error {
+  margin-left: 5px;
+  color: #fff;
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+  .innerContainer {
+    padding: 10px; /* Reducir el espacio interno */
+  }
+}
+
+.logo {
+  height: 80px;
+  width: 80px;
+}
+
+.subtitleLogo {
+  display: flex;
+}
