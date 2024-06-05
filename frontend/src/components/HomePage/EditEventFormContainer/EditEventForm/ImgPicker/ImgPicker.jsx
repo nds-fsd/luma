@@ -5,12 +5,6 @@ const ImgPicker = ({selectedImage, setSelectedImage}) => {
 
     const {formState: { errors } } = useForm();
 
-    //  const handleImageClick = (imageUrl, color) => {
-    //      setSelectedImage(imageUrl);
-    //      onColorChange(color)
-
-    //  }
-
     const handleImageChange = (event) => {
         const base64Url = event.target.value;
         if (base64Url.startsWith("data:image")) {
