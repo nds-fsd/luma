@@ -79,12 +79,16 @@ const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
           {events.map((event) => (
             <li key={event._id} className={styles.eventItem}>
               <div className={styles.eventContent}>
-                <Link to={`/event/${event._id}`}>
-                  <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
-                </Link>
+                <div className={styles.eventPictureContainer}>
+                  <Link to={`/event/${event._id}`}>
+                    <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
+                  </Link>
+                </div>
                 <div className={styles.eventDetails}>
-                  <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
-                  <p className={styles.eventDescription}>{event.eventDescription}</p>
+                  <div>
+                    <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
+                    <p className={styles.eventDescription}>{event.eventDescription}</p>
+                  </div>
                   <div className={styles.contentDescription}>
                     <div>
                       <p className={styles.eventInfo}>
