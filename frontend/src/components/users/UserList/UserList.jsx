@@ -49,8 +49,6 @@ function UserList() {
                 {user.fullname}
               </Link>
               <h4>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
-              <p className={styles.text}>{user.email}</p>
-              <p className={styles.text}>{user.birthdate}</p>
               <button className={styles.button} onClick={() => deleteUser(user._id)}>
                 Delete
               </button>

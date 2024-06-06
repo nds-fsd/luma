@@ -160,6 +160,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 250px; /* Ancho fijo para los eventCard */
 }
 
 .eventCard:hover {
@@ -169,7 +170,7 @@ h2 {
 
 .imageContainer {
   width: 100%;
-  height: 100px;
+  height: 150px; /* Ajusta la altura según tus necesidades */
   overflow: hidden;
 }
 
@@ -181,6 +182,7 @@ h2 {
 
 .textContainer {
   width: 80%;
+  padding: 10px;
   text-align: center;
 }
 
@@ -207,4 +209,8 @@ h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.containerMain {
+  padding-bottom: 100px;
 }

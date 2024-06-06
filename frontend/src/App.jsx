@@ -16,6 +16,7 @@ import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
 import HomePage from './components/HomePage/HomePage';
 import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
+import Calendars from './components/Calendars/Calendars';
 
 function App() {
   const navigate = useNavigate();
@@ -101,8 +102,12 @@ function App() {
           path='/discoverevents'
           element={<DiscoverEvents IsAuthenticated={isAuthenticated} />}
         />
+        <Route
+          path='/calendars'
+          element={<Calendars/>}
+        />
         <Route path='/editevent' element={<EditEventFormContainer />} />
-        <Route path='/home' element={<HomePage isAuthenticated={isAuthenticated} userId={userId}/>} />
+        <Route path='/home' element={<Calendars isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName}/>} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       <div>

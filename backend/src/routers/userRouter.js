@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 const { validateUserCreation, jwtMiddleware } = require('../middlewares/index');
 
 router.post('/register', validateUserCreation, userController.registerUser);
+router.get('/subscriptions/:id', jwtMiddleware, userController.getUserSubscriptions);
 router.get('/subscriptions', jwtMiddleware, userController.getUserSubscriptions);
 router.get('/', jwtMiddleware, userController.getAllUsers);
 router.get('/:id', jwtMiddleware, userController.getUserById);

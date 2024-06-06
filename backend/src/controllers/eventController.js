@@ -134,6 +134,20 @@ const getMostSubscribedEvents = async (req, res) => {
   }
 };
 
+
+const getEventsByIds = async (req, res) => {
+  const { ids } = req.body; // Se espera que los IDs se envíen en el cuerpo de la solicitud como un array
+
+  try {
+    const events = await Event.find({ _id: { $in: ids } }).populate('owner').populate('eventLocation').exec();
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching events by IDs:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 module.exports = {
   subscribeToEvent,
   unsubscribeFromEvent,
@@ -144,4 +158,5 @@ module.exports = {
   deleteEvent,
   createEvent,
   getMostSubscribedEvents,
+  getEventsByIds
 };
