@@ -1,7 +1,4 @@
-// Calendars.jsx
-import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import styles from './Calendars.module.css';
 import HomePage from '../HomePage/HomePage';
 import SubscribedEvents from './SubscribedEvents/SubscribedEvents';
@@ -22,7 +19,7 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
         <HomePage isAuthenticated={isAuthenticated} userId={userId} />
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
-        <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName}/>
+        <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
       </TabPanel>
     </Tabs>
   );

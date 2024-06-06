@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../../utils/api'; // Ajusta la ruta de importación según la estructura de tu proyecto
-import { getUserToken } from '../../../utils/localStorage.utils'; // Asegúrate de importar esta función
-import styles from './SubscribedEvents.module.css'; // Importa el módulo CSS
-import { Link, useNavigate } from 'react-router-dom';
+import { api } from '../../../utils/api';
+import { getUserToken } from '../../../utils/localStorage.utils';
+import styles from './SubscribedEvents.module.css';
+import { Link } from 'react-router-dom';
 
 const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
   const [eventIds, setEventIds] = useState([]);
@@ -21,7 +21,6 @@ const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
           const subscribedEvents = response.data.subscribedEvents;
           setEventIds(subscribedEvents);
 
-          // Si no hay eventos suscritos, finalizar la carga
           if (subscribedEvents.length === 0) {
             setLoading(false);
           }

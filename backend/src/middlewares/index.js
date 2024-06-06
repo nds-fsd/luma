@@ -29,6 +29,14 @@ const jwtMiddleware = async (req, res, next) => {
   }
 };
 
+const adminMiddleware = (req, res, next) => {
+  if (req.user.role !== 'ADMIN') {
+    return res.status(403).json({ message: 'Access denied. Admins only.' });
+  }
+  next();
+};
+
+
 const validateEmail = (email) => {
   const pattern = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
   return pattern.test(email);
@@ -193,6 +201,7 @@ const formatDate = (dateString) => {
 
 module.exports = {
   jwtMiddleware,
+  adminMiddleware,
   validateEventCreation,
   validateUserCreation,
 };
