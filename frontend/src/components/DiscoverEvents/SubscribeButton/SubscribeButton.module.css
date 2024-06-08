@@ -1,0 +1,23 @@
+.subscribeButton {
+  width: 80%;
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.subscribeButton:hover {
+  background-color: #5f5e5e;
+}
+
+.subscribed {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}

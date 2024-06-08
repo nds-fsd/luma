@@ -4,9 +4,10 @@ import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
 import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
-import SubscribeBox from '../subscribe/Subscribe';
+import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
+import SubscribeBox from '../SubscribeBox/SubscribeBox';
 
-const EventPage = () => {
+const EventPage = ({ userEmail, isAuthenticated }) => {
   const [city, setCity] = useState(null);
   const { cityId } = useParams();
 
@@ -51,7 +52,8 @@ const EventPage = () => {
             </p>
 
             <div className={styles['subscribe-container']}>
-              <SubscribeBox />
+              {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
+              {city && !isAuthenticated && <SubscribeBox/>}
             </div>
 
             <hr />

@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
+import SubscribeButton from './SubscribeButton/SubscribeButton';
 
-const DiscoverEvents = ({ IsAuthenticated }) => {
+const DiscoverEvents = ({ isAuthenticated }) => {
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
-  const [subscriptionStatus, setSubscriptionStatus] = useState({});
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -45,7 +43,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
   }, []);
 
   useEffect(() => {
-    if (IsAuthenticated) {
+    if (isAuthenticated) {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
@@ -60,7 +58,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
 
       fetchUserSubscriptions();
     }
-  }, [IsAuthenticated]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (cities.length > 0 && events.length > 0) {
@@ -72,41 +70,11 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
     }
   }, [cities, events]);
 
-  const handleSubscribe = async (eventId) => {
-    if (!IsAuthenticated) {
-      navigate('/login');
-      return;
-    }
-
-    const token = getUserToken();
-    try {
-      const isSubscribed = userSubscriptions.includes(eventId);
-      let response;
-
-      if (isSubscribed) {
-        response = await api().post(
-          `/events/${eventId}/unsubscribe`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setUserSubscriptions(userSubscriptions.filter((id) => id !== eventId));
-        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Unsubscribed successfully' });
-      } else {
-        response = await api().post(
-          `/events/${eventId}/subscribe`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setUserSubscriptions([...userSubscriptions, eventId]);
-        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Subscribed successfully' });
-      }
-    } catch (error) {
-      console.error('Error subscribing/unsubscribing to event:', error);
-      setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Action failed' });
+  const handleSubscriptionChange = (eventId, isSubscribed) => {
+    if (isSubscribed) {
+      setUserSubscriptions([...userSubscriptions, eventId]);
+    } else {
+      setUserSubscriptions(userSubscriptions.filter((id) => id !== eventId));
     }
   };
 
@@ -170,7 +138,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
           {events.slice(0, 12).map((event) => (
             <div key={`event-${event._id}`} className={styles.eventCard}>
               <div className={styles.imageContainer}>
-                <Link to={`/event/${event._id}`} >
+                <Link to={`/event/${event._id}`}>
                   <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
                 </Link>
               </div>
@@ -178,14 +146,12 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
                 <h4 className={styles.eventTitle}>{event.eventTitle}</h4>
                 <p className={styles.eventDescription}>{event.eventDescription}</p>
               </div>
-              <button
-                className={`${styles.subscribeButton} ${
-                  userSubscriptions.includes(event._id.toString()) ? styles.subscribed : ''
-                }`}
-                onClick={() => handleSubscribe(event._id)}
-              >
-                {userSubscriptions.includes(event._id.toString()) ? '✓ Suscrito' : 'Suscribirse'}
-              </button>
+              <SubscribeButton
+                eventId={event._id}
+                isSubscribed={userSubscriptions.includes(event._id.toString())}
+                onSubscribeChange={handleSubscriptionChange}
+                isAuthenticated={isAuthenticated}
+              />
             </div>
           ))}
         </div>

@@ -14,7 +14,6 @@ import { useState } from 'react';
 import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
-import HomePage from './components/HomePage/HomePage';
 import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
 import Calendars from './components/Calendars/Calendars';
 
@@ -26,6 +25,8 @@ function App() {
   const user = getUserSession() || {};
 
   const userPicture = user && user.profile_picture ? user.profile_picture : '';
+
+  const userEmail = user && user.email ? user.email : '';
 
   const userFullName = user && user.fullname ? user.fullname : '';
 
@@ -65,6 +66,7 @@ function App() {
           userPicture={userPicture}
           userFullName={userFullName}
           userRole={userRole}
+          userEmail={userEmail}
           handleGoToOwnProfile={handleGoToOwnProfile}
           isDropdownOpen={isDropdownOpen}
           setDropdownOpen={setDropdownOpen}
@@ -95,12 +97,12 @@ function App() {
           }
         />
         <Route path='/userlist' element={<UserList />} />
-        <Route path='/user/:userId' element={<UserDetail />} />
-        <Route path='/city/:cityId' element={<EventPage />} />
-        <Route path='/event/:eventId' element={<EventDetail />} />
+        <Route path='/user/:userId' element={<UserDetail isAuthenticated={isAuthenticated}/>} />
+        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated}/>} />
+        <Route path='/event/:eventId' element={<EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated}/>} />
         <Route
           path='/discoverevents'
-          element={<DiscoverEvents IsAuthenticated={isAuthenticated} />}
+          element={<DiscoverEvents isAuthenticated={isAuthenticated} />}
         />
         <Route
           path='/calendars'
