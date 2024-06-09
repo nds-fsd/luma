@@ -22,7 +22,7 @@
 .innerContainer {
   max-width: 300px;
   width: 100%;
-  padding: 20px;
+  padding: 50px;
   border-radius: 10px;
   background-color: #333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -33,14 +33,24 @@
 h2 {
   color: #fff;
   font-family: 'roboto condensed', sans-serif;
-  text-align: left;
+  font-size: 25px;
+  text-align: center;
 }
 
 .subtitle {
   max-width: 300px;
   color: aliceblue;
   font-family: 'roboto condensed', sans-serif;
-  margin-bottom: 25px;
+  margin-top: 10px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.logo {
+  width: 200px;  
+  height: auto;
+  margin-bottom: 20px;
+  
 }
 
 .formGroup {
@@ -54,7 +64,7 @@ h2 {
   color: #fff;
   font-family: 'roboto condensed', sans-serif;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   font-family: 'roboto condensed', sans-serif;
 }
@@ -73,6 +83,8 @@ h2 {
   border-radius: 5px;
   background-color: #444;
   color: #fff;
+  font-size: 12px;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .button {
@@ -82,6 +94,7 @@ h2 {
   border: none;
   border-radius: 5px;
   background-color: #eef3f8;
+  font-family: 'roboto condensed', sans-serif;
   color: #0c0b0b;
   cursor: pointer;
   margin-top: 10px;
@@ -123,7 +136,7 @@ h2 {
 .link {
   padding: 0;
   margin: 0;
-  font-size: inherit;
+  font-size: 13px;
   color: #fff;
   background: none;
   border: none;
@@ -142,10 +155,9 @@ h2 {
   color: #fff;
 }
 
-/* Estilos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
   .innerContainer {
-    padding: 10px; /* Reducir el espacio interno */
+    padding: 10px; 
   }
 }
 
