@@ -80,20 +80,28 @@ const subscribeToEvent = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
     if (user.subscribedEvents.includes(eventId)) {
       return res.status(400).json({ message: 'Already subscribed to this event' });
+    }
+
+    if (event.eventCapacity !== -1 && event.subscriptionCount >= event.eventCapacity) {
+      return res.status(400).json({ message: 'Event capacity reached' });
     }
 
     user.subscribedEvents.push(eventId);
     await user.save();
 
-    const event = await Event.findById(eventId);
     event.subscriptionCount += 1;
     await event.save();
 
     res.json({ message: 'Subscribed successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
@@ -134,6 +142,21 @@ const getMostSubscribedEvents = async (req, res) => {
   }
 };
 
+const getEventsByIds = async (req, res) => {
+  const { ids } = req.body; // Se espera que los IDs se envíen en el cuerpo de la solicitud como un array
+
+  try {
+    const events = await Event.find({ _id: { $in: ids } })
+      .populate('owner')
+      .populate('eventLocation')
+      .exec();
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching events by IDs:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   subscribeToEvent,
   unsubscribeFromEvent,
@@ -144,4 +167,5 @@ module.exports = {
   deleteEvent,
   createEvent,
   getMostSubscribedEvents,
+  getEventsByIds,
 };

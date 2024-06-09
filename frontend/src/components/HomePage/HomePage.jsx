@@ -9,10 +9,11 @@ const HomePage = ({ userId }) => {
 
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const getEvents = async () => {
-        const res = await api().get('/events');
+        const res = await api(navigate).get('/events');
         return res.data;
     };
 
@@ -20,7 +21,7 @@ const HomePage = ({ userId }) => {
 
     const deleteEvent = async (id) => {
         try {
-            await api().delete(`/events/${id}`);
+            await api(navigate).delete(`/events/${id}`);
             queryClient.invalidateQueries('events');
             console.log(`Evento con ID ${id} eliminado.`);
         } catch (e) {

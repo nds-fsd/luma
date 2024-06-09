@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  fullname: String,
-  email: String,
-  birthdate: String,
-  phone_number: String,
-  role: String,
-  profile_picture: String,
-  password: String,
+
+  fullname: { type: String, required: true },
+  email: { type: String, required: true },
+  birthdate: { type: String, required: true },
+  phone_number: { type: String, required: true },
+  role: { type: String, required: true },
+  profile_picture: { type: String, required: true },
+  password: { type: String, required: true },
   subscribedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
 });
 

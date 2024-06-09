@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
+import SubscribeButton from './SubscribeButton/SubscribeButton';
+import { useNavigate } from 'react-router-dom';
 
-const DiscoverEvents = ({ IsAuthenticated }) => {
+const DiscoverEvents = ({ isAuthenticated }) => {
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
-  const [subscriptionStatus, setSubscriptionStatus] = useState({});
-
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await api().get('/city');
+        const response = await api(navigate).get('/city');
         setCities(response.data);
       } catch (error) {
         console.error('Error al obtener las ciudades:', error);
@@ -28,7 +28,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
 
     const fetchEvents = async () => {
       try {
-        const response = await api().get('/events/most-subscribed-events');
+        const response = await api(navigate).get('/events/most-subscribed-events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error al obtener los eventos:', error);
@@ -37,7 +37,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
     };
 
     const fetchData = async () => {
-      await Promise.all([fetchCities(), fetchEvents()]);
+      await Promise.all([fetchCities(navigate), fetchEvents()]);
       setLoading(false);
     };
 
@@ -45,12 +45,12 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
   }, []);
 
   useEffect(() => {
-    if (IsAuthenticated) {
+    if (isAuthenticated) {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
-          const response = await api().get('/user/subscriptions', {
-            headers: { 'Authorization': `Bearer ${token}` }
+          const response = await api(navigate).get('/user/subscriptions', {
+            headers: { Authorization: `Bearer ${token}` },
           });
           setUserSubscriptions(response.data.subscribedEvents);
         } catch (error) {
@@ -60,7 +60,7 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
 
       fetchUserSubscriptions();
     }
-  }, [IsAuthenticated]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (cities.length > 0 && events.length > 0) {
@@ -72,33 +72,11 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
     }
   }, [cities, events]);
 
-  const handleSubscribe = async (eventId) => {
-    if (!IsAuthenticated) {
-      navigate('/login');
-      return;
-    }
-
-    const token = getUserToken();
-    try {
-      const isSubscribed = userSubscriptions.includes(eventId);
-      let response;
-
-      if (isSubscribed) {
-        response = await api().post(`/events/${eventId}/unsubscribe`, {}, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        setUserSubscriptions(userSubscriptions.filter(id => id !== eventId));
-        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Unsubscribed successfully' });
-      } else {
-        response = await api().post(`/events/${eventId}/subscribe`, {}, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        setUserSubscriptions([...userSubscriptions, eventId]);
-        setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Subscribed successfully' });
-      }
-    } catch (error) {
-      console.error('Error subscribing/unsubscribing to event:', error);
-      setSubscriptionStatus({ ...subscriptionStatus, [eventId]: 'Action failed' });
+  const handleSubscriptionChange = (eventId, isSubscribed) => {
+    if (isSubscribed) {
+      setUserSubscriptions([...userSubscriptions, eventId]);
+    } else {
+      setUserSubscriptions(userSubscriptions.filter((id) => id !== eventId));
     }
   };
 
@@ -159,21 +137,23 @@ const DiscoverEvents = ({ IsAuthenticated }) => {
           <p>Que nos encantan</p>
         </div>
         <div className={styles.eventGrid}>
-          {events.map((event) => (
+          {events.slice(0, 12).map((event) => (
             <div key={`event-${event._id}`} className={styles.eventCard}>
               <div className={styles.imageContainer}>
-                <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
+                <Link to={`/event/${event._id}`}>
+                  <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
+                </Link>
               </div>
               <div className={styles.textContainer}>
                 <h4 className={styles.eventTitle}>{event.eventTitle}</h4>
                 <p className={styles.eventDescription}>{event.eventDescription}</p>
               </div>
-              <button 
-                className={`${styles.subscribeButton} ${userSubscriptions.includes(event._id.toString()) ? styles.subscribed : ''}`}
-                onClick={() => handleSubscribe(event._id)}
-              >
-                {userSubscriptions.includes(event._id.toString()) ? '✓ Suscrito' : 'Suscribirse'}
-              </button>
+              <SubscribeButton
+                eventId={event._id}
+                isSubscribed={userSubscriptions.includes(event._id.toString())}
+                onSubscribeChange={handleSubscriptionChange}
+                isAuthenticated={isAuthenticated}
+              />
             </div>
           ))}
         </div>
