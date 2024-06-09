@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './AddCityForm.module.css';
 import { api } from '../../../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const AddCityForm = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [cities, setCities] = useState([]);
   const [messageServer, setMessageServer] = useState('');
   const [errorServer, setErrorServer] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await api().get('/city');  
+        const response = await api(navigate).get('/city');  
         setCities(response.data);
       } catch (error) {
         console.error('Error fetching cities:', error);
@@ -26,7 +28,7 @@ const AddCityForm = () => {
     reset();
 
     try {
-      const response = await api().post(`/city`, data);
+      const response = await api(navigate).post(`/city`, data);
       console.log(response.data);
       if (response.data) {
         setMessageServer(response.data.message);

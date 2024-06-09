@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../utils/api';
 import styles from './SubscribeWithEmail.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const SubscribeWithEmail = ({ userEmail, cityName }) => {
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkSubscriptionStatus = async () => {
       setLoading(true);
 
       try {
-        const response = await api().post('/subscription/check', { email: userEmail, cityName });
+        const response = await api(navigate).post('/subscription/check', { email: userEmail, cityName });
         setIsSubscribed(response.data.isSubscribed);
       } catch (error) {
         console.error('Error checking subscription status:', error);
@@ -28,10 +30,10 @@ const SubscribeWithEmail = ({ userEmail, cityName }) => {
 
     try {
       if (isSubscribed) {
-        await api().post('/subscription/unsubscribe', { email: userEmail, cityName });
+        await api(navigate).post('/subscription/unsubscribe', { email: userEmail, cityName });
         setIsSubscribed(false);
       } else {
-        await api().post('/subscription/subscribe', { email: userEmail, cityName });
+        await api(navigate).post('/subscription/subscribe', { email: userEmail, cityName });
         setIsSubscribed(true);
       }
     } catch (error) {

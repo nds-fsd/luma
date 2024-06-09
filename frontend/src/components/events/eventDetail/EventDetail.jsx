@@ -12,21 +12,23 @@ import linkedinGif from '../imagenes/linkedin.png';
 import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
 import SubscribeButton from '../../DiscoverEvents/SubscribeButton/SubscribeButton';
 import { getUserToken } from '../../../utils/localStorage.utils';
+import { useNavigate } from 'react-router-dom';
 
 const EventDetail = ({ userEmail, isAuthenticated }) => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [cityName, setCityName] = useState(null);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getEventDetails = async () => {
       try {
-        const response = await api().get(`/events/${eventId}`);
+        const response = await api(navigate).get(`/events/${eventId}`);
         setEvent(response.data);
 
         if (response.data) {
-          const cityResponse = await api().get(`/city/${response.data.eventLocation._id}`);
+          const cityResponse = await api(navigate).get(`/city/${response.data.eventLocation._id}`);
           setCityName(cityResponse.data.cityName);
         }
       } catch (error) {
@@ -42,7 +44,7 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
-          const response = await api().get('/user/subscriptions', {
+          const response = await api(navigate).get('/user/subscriptions', {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUserSubscriptions(response.data.subscribedEvents);
@@ -101,7 +103,7 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
             {cityName && !isAuthenticated && <SubscribeBox />}
           </div>
           <div style={{ marginLeft: '30px' }}>
-          <p>Suscríbete a este evento</p>
+            {cityName && isAuthenticated && <p>Suscríbete a este evento</p>}
             {cityName && isAuthenticated && (
               <SubscribeButton
                 isAuthenticated={isAuthenticated}

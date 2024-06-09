@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
 import Clock from '../clock/Clock';
@@ -10,11 +10,12 @@ import SubscribeBox from '../SubscribeBox/SubscribeBox';
 const EventPage = ({ userEmail, isAuthenticated }) => {
   const [city, setCity] = useState(null);
   const { cityId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCityById = async () => {
       try {
-        const response = await api().get(`/city/${cityId}`);
+        const response = await api(navigate).get(`/city/${cityId}`);
         setCity(response.data);
       } catch (error) {
         console.error('Error al obtener la ciudad:', error);
@@ -22,7 +23,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
     };
 
     fetchCityById();
-  }, [cityId]);
+  }, [cityId, navigate]);
 
   const backgroundImage = city ? city.cityWallpaper : '';
 
@@ -53,7 +54,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
 
             <div className={styles['subscribe-container']}>
               {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
-              {city && !isAuthenticated && <SubscribeBox/>}
+              {city && !isAuthenticated && <SubscribeBox />}
             </div>
 
             <hr />

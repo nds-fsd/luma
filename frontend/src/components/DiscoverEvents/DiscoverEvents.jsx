@@ -4,6 +4,7 @@ import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
 import SubscribeButton from './SubscribeButton/SubscribeButton';
+import { useNavigate } from 'react-router-dom';
 
 const DiscoverEvents = ({ isAuthenticated }) => {
   const [cities, setCities] = useState([]);
@@ -12,11 +13,12 @@ const DiscoverEvents = ({ isAuthenticated }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await api().get('/city');
+        const response = await api(navigate).get('/city');
         setCities(response.data);
       } catch (error) {
         console.error('Error al obtener las ciudades:', error);
@@ -26,7 +28,7 @@ const DiscoverEvents = ({ isAuthenticated }) => {
 
     const fetchEvents = async () => {
       try {
-        const response = await api().get('/events/most-subscribed-events');
+        const response = await api(navigate).get('/events/most-subscribed-events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error al obtener los eventos:', error);
@@ -35,7 +37,7 @@ const DiscoverEvents = ({ isAuthenticated }) => {
     };
 
     const fetchData = async () => {
-      await Promise.all([fetchCities(), fetchEvents()]);
+      await Promise.all([fetchCities(navigate), fetchEvents()]);
       setLoading(false);
     };
 
@@ -47,7 +49,7 @@ const DiscoverEvents = ({ isAuthenticated }) => {
       const fetchUserSubscriptions = async () => {
         const token = getUserToken();
         try {
-          const response = await api().get('/user/subscriptions', {
+          const response = await api(navigate).get('/user/subscriptions', {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUserSubscriptions(response.data.subscribedEvents);

@@ -18,7 +18,7 @@ const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange, isAuthentic
       let response;
 
       if (isSubscribed) {
-        response = await api().post(
+        response = await api(navigate).post(
           `/events/${eventId}/unsubscribe`,
           {},
           {
@@ -27,7 +27,7 @@ const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange, isAuthentic
         );
         onSubscribeChange(eventId, false);
       } else {
-        response = await api().post(
+        response = await api(navigate).post(
           `/events/${eventId}/subscribe`,
           {},
           {
