@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #333;
+  --secondary-color: #fff;
+  --accent-color: black;
+  --font-family: 'Roboto Condensed', sans-serif;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hover-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 .container {
   padding: 20px;
   padding-bottom: 100px;
@@ -7,7 +20,7 @@
 .header {
   font-size: 26px;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--primary-color);
   text-align: center;
 }
 
@@ -21,33 +34,35 @@
 
 .eventItem {
   display: flex;
-  align-items: center;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  align-items: stretch; /* Asegura que los hijos se estiren a la misma altura */
+  background: var(--secondary-color);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--transition);
 }
 
 .eventItem:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--hover-box-shadow);
 }
 
 .eventContent {
   display: flex;
-  flex-direction: row;
   width: 100%;
 }
 
 .eventPictureContainer {
-  height: 180px;
+  flex-shrink: 0;
+  height: 100%;
+  width: 300px;
   overflow: hidden;
-  border-radius: 12px 0 0 12px;
+  display: flex;
+  align-items: stretch; /* Asegura que la imagen ocupe toda la altura */
 }
 
 .eventPicture {
-  width: 300px;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
@@ -57,25 +72,24 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
   flex: 1;
 }
 
 .eventTitle {
   font-size: 22px;
   margin: 0;
-  color: #666;
+  color: var(--primary-color);
 }
 
 .eventDescription {
   font-size: 16px;
-  color: #666;
-  margin: 0;
+  color: var(--primary-color);
+  margin: 10px 0;
 }
 
 .eventInfo {
   font-size: 14px;
-  color: #333;
+  color: var(--primary-color);
   margin: 2px 0;
 }
 
@@ -88,24 +102,34 @@
 .buttonGroup {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
-.deleteEvent {
-  background-color: black;
+.button {
+  text-decoration: none;
+  width: 100px;
+  height: 40px;
+  background-color: var(--accent-color);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: var(--font-family);
   cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.editEvent {
-  background-color: black;
+.button:hover {
+  background-color: white;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.button:active {
+  background-color: var(--accent-color);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .loading,
@@ -121,7 +145,7 @@
 }
 
 .loading {
-  color: #666;
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
@@ -129,46 +153,16 @@
     flex-direction: column;
   }
 
-  .eventPicture {
+  .eventPictureContainer {
     width: 100%;
     height: auto;
-    border-radius: 12px 12px 0 0;
   }
 
-  .eventPictureContainer {
-    height: auto;
+  .eventPicture {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
   .contentDescription {
     flex-direction: column;
   }
-}
-
-.button {
-  text-decoration: none;
-  width: 200px;
-  height: 40px;
-  background-color: black;
-  color: white;
-  border-radius: 20px;
-  font-size: 14px;
-  font-family: 'Roboto Condensed', sans-serif;
-  cursor: pointer;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button:hover {
-  text-decoration: none;
-  background-color: white;
-  border: 1px solid black;
-  color: black;
-}
-
-.button:active {
-  text-decoration: none;
-  background-color: black;
-  color: white;
 }
