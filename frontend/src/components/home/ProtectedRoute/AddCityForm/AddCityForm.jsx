@@ -14,7 +14,7 @@ const AddCityForm = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await api(navigate).get('/city');  
+        const response = await api(navigate).get('/city');
         setCities(response.data);
       } catch (error) {
         console.error('Error fetching cities:', error);
@@ -71,6 +71,8 @@ const AddCityForm = () => {
           className={styles.input}
           placeholder='Introduce el link del logo de la ciudad'
         />
+        {errors.cityLogo && <p className={styles.error}>{errors.cityLogo.message}</p>}
+        
         <label htmlFor='cityWallpaper' className={styles.label}>
           Link del Wallpaper:
         </label>
@@ -81,10 +83,10 @@ const AddCityForm = () => {
           className={styles.input}
           placeholder='Introduce el link del wallpaper de la ciudad'
         />
-        {errors.cityLogo && <p className={styles.error}>{errors.cityWallpaper.message}</p>}
+        {errors.cityWallpaper && <p className={styles.error}>{errors.cityWallpaper.message}</p>}
         
         <button type='submit' className={styles.button}>
-          Añadir Wallpaper
+          Añadir Ciudad
         </button>
       </form>
       {messageServer && <p className={styles.success}>{messageServer}</p>}
