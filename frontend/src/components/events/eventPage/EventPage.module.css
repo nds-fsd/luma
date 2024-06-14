@@ -73,6 +73,7 @@
   padding: 0 20px;
 }
 
+
 @media (max-width: 768px) {
   .headerWallpaper {
     display: flex;

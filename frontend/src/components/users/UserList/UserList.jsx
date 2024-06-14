@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './UserList.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function UserList() {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await api().get('/user');
+        const response = await api(navigate).get('/user');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -22,7 +24,7 @@ function UserList() {
 
   const deleteUser = async (id) => {
     try {
-      await api().delete(`/user/${id}`, {
+      await api(navigate).delete(`/user/${id}`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -41,20 +43,17 @@ function UserList() {
           {users.map((user, index) => (
             <div key={user._id} className={styles.user}>
               <img
-                style={{ height: '120px', width: '120px', borderRadius: '50px 0 50px 0' }}
                 src={user.profile_picture}
                 alt={`Foto del usuario: ${user.fullname}`}
+                className={styles.userImage}
               />
               <Link to={`/user/${user._id}`} className={styles.textname}>
                 {user.fullname}
               </Link>
-              <h4>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
-              <p className={styles.text}>{user.email}</p>
-              <p className={styles.text}>{user.birthdate}</p>
+              <h4 className={styles.userRole}>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
               <button className={styles.button} onClick={() => deleteUser(user._id)}>
                 Delete
               </button>
-              {index % 5 === 4 && <br />}
             </div>
           ))}
         </div>

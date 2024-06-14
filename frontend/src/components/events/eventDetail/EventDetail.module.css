@@ -1,9 +1,9 @@
 .eventDetail {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   justify-content: center;
   width: 100%;
-  background-color: #F6F9F9 ;
+  background-color: #f6f9f9;
 }
 
 .eventDetailContent {
@@ -11,7 +11,7 @@
 }
 
 .eventImage {
-  width: 25%; 
+  width: 25%;
   height: auto;
   margin-top: 100px;
   border-radius: 15px;
@@ -28,13 +28,12 @@
   margin-left: 250px;
   margin-top: 20px;
   font-size: 16px;
-  
 }
 
 .organizerLabel {
   font-family: 'roboto condensed', sans-serif;
   font-size: 20px;
-  margin-left: 5px; 
+  margin-left: 5px;
   font-weight: bold;
 }
 
@@ -46,14 +45,14 @@
 
 .socialIcon1 {
   width: 1.8%;
-  
 }
+
 .socialIcon2 {
   width: 1.8%;
 }
+
 .socialIcon3 {
   width: 1.8%;
-  
 }
 
 .eventTitle {
@@ -88,14 +87,12 @@
   margin-left: 750px;
   margin-bottom: 50px;
   letter-spacing: 0.8px;
-  
 }
 
-.subscribe-container{
-  display:flex;
+.subscribe-container {
+  display: flex;
   justify-content: center;
   margin-left: 285px;
-
 }
 
 .locationIcon {
@@ -106,8 +103,4 @@
 .dateIcon {
   width: 2.5%;
   margin-right: 8px;
-  
 }
-
-
-

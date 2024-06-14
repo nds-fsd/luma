@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './EventList.module.css';
 import { api } from '../../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 function EventList({ cityId, city }) {
   const [events, setEvents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const response = await api().get('/events', {
+        const response = await api(navigate).get('/events', {
           params: { eventLocation: cityId },
         });
         setEvents(response.data);
@@ -48,7 +50,7 @@ function EventList({ cityId, city }) {
                 <span className={styles.label}>Precio: </span>
                 <span>{event.eventPrice}</span>
               </div>
-              <div className={`${styles.eventItem} ${styles.capacity}`} >
+              <div className={`${styles.eventItem} ${styles.capacity}`}>
                 <span className={styles.label} style={{ textDecoration: 'none' }}>Capacidad: </span>
                 <span>{event.eventCapacity}</span>
               </div>

@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscribeButton.subscribed {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.subscribeButton {
+  text-decoration: none;
+  width: 200px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscribeButton:hover {
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.subscribeButton:active {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+}

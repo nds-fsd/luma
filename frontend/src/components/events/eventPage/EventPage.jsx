@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
 import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
-import SubscribeBox from '../subscribe/Subscribe';
+import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
+import SubscribeBox from '../SubscribeBox/SubscribeBox';
 
-const EventPage = () => {
+const EventPage = ({ userEmail, isAuthenticated }) => {
   const [city, setCity] = useState(null);
   const { cityId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCityById = async () => {
       try {
-        const response = await api().get(`/city/${cityId}`);
+        const response = await api(navigate).get(`/city/${cityId}`);
         setCity(response.data);
       } catch (error) {
         console.error('Error al obtener la ciudad:', error);
@@ -21,7 +23,7 @@ const EventPage = () => {
     };
 
     fetchCityById();
-  }, [cityId]);
+  }, [cityId, navigate]);
 
   const backgroundImage = city ? city.cityWallpaper : '';
 
@@ -51,7 +53,8 @@ const EventPage = () => {
             </p>
 
             <div className={styles['subscribe-container']}>
-              <SubscribeBox />
+              {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
+              {city && !isAuthenticated && <SubscribeBox />}
             </div>
 
             <hr />

@@ -1,13 +1,14 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 const userController = require('../controllers/userController');
-const { validateUserCreation, jwtMiddleware } = require('../middlewares/index');
+const { validateUserCreation, jwtMiddleware, adminMiddleware } = require('../middlewares/index');
 
-router.post('/register', validateUserCreation, userController.registerUser);
-router.get('/subscriptions', jwtMiddleware, userController.getUserSubscriptions);
-router.get('/', jwtMiddleware, userController.getAllUsers);
-router.get('/:id', jwtMiddleware, userController.getUserById);
-router.put('/:id', jwtMiddleware, userController.updateUser);
-router.delete('/:id', jwtMiddleware, userController.deleteUser);
+userRouter.post('/register', validateUserCreation, userController.registerUser);
+userRouter.get('/subscriptions/:id', jwtMiddleware, userController.getUserSubscriptions);
+userRouter.get('/subscriptions', jwtMiddleware, userController.getUserSubscriptions);
+userRouter.get('/', jwtMiddleware, adminMiddleware, userController.getAllUsers);
+userRouter.get('/:id', jwtMiddleware, userController.getUserById);
+userRouter.put('/:id', jwtMiddleware, userController.updateUser);
+userRouter.delete('/:id', jwtMiddleware, adminMiddleware, userController.deleteUser);
 
-module.exports = router;
+module.exports = userRouter;
