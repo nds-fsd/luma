@@ -4,6 +4,12 @@
   border: 2px solid black;
 }
 
+.subscribeButton.subscribed {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
 .subscribeButton {
   text-decoration: none;
   width: 200px;
