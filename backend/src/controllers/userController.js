@@ -23,7 +23,7 @@ exports.registerUser = (req, res) => {
         email,
         birthdate,
         phone_number,
-        role: 'CREATOR',
+        role: 'ADMIN',
         profile_picture,
         password: hashedPassword,
       });

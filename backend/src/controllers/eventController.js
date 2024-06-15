@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
 const getEvents = async (req, res) => {
   const queryStrings = req.query || {};
   const allEvents = await Event.find(queryStrings).populate('owner').populate('eventLocation').exec();
-  res.json(allEvents);
+  res.status(200).json(allEvents);
 };
 
 const getEvent = async (req, res) => {
@@ -63,7 +63,7 @@ const createEvent = async (req, res) => {
   try {
     const newEvent = new Event(data);
     await newEvent.save();
-    res.json(newEvent);
+    res.status(200).json(newEvent);
   } catch (error) {
     console.error('Error while creating event', error);
     res.status(500).json(error);

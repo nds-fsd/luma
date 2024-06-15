@@ -6,11 +6,16 @@
   "homepage": "",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node --watch src/index.js"
+    "dev": "cross-env nodemon src/index.js",
+    "start": "node --watch src/index.js",
+    "test": "NODE_ENV=test cross-env jest --coverage --runInBand"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.3.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

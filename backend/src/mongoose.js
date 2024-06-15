@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const {MongoMemoryServer} = require("mongodb-memory-server");
+const { User } = require('../src/models/userModel')
+
 
 dotenv.config();
 
@@ -14,6 +17,36 @@ exports.connectDB = async () => {
     if (process.env.NODE_ENV === 'test') {
       mongodb = await MongoMemoryServer.create();
       dbUrl = mongodb.getUri();
+      
+    const admin = await User.findOne({ role: 'ADMIN' });
+      if (!admin) {
+        if (process.env.NODE_ENV !== 'test') {
+                console.log('ADMIN user not found, creating one....');
+        }
+
+        const admin = new User({
+          fullname: 'ADMIN',
+          email: 'admin@fakeluma.com',
+          birthdate: "1991-10-12",
+          phone_number: "600000000",
+          role: "ADMIN",
+          profile_picture: "www.google.com",
+          password: 'passworddd',
+        });
+            
+            await admin.save();
+              if (process.env.NODE_ENV !== 'test') {
+                  console.log("ADMIN user created!: ", admin.email);
+              }
+          } else {
+              if (process.env.NODE_ENV !== 'test') {
+                  console.log("ADMIN user exists: ", admin.email);
+              }
+          }
+          
+      console.log(dbUrl);
+      console.log("Connected to database");
+    
     }
 
     await mongoose.connect(dbUrl);
