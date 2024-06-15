@@ -91,25 +91,17 @@ const DiscoverEvents = ({ isAuthenticated }) => {
   return (
     <div className={styles.containerMain}>
       <div className={styles.containerContent}>
-        <h1 className={styles.title}>Descubrir Eventos en España</h1>
+        <h1 className={styles.title}>Descubre Eventos</h1>
         <div className={styles.content}>
           <p className={styles.paragraph}>
-            ¿Buscas planes emocionantes para disfrutar en España? En Descubrir Eventos, te ofrecemos una selección
-            cuidadosamente curada de los mejores eventos en ciudades de toda España.
+          ¡En <span style={{ fontWeight: 'bold', color: '#74A9BB' }}>LUMATIC</span> tenemos los planes más emocionantes para ti! <br/><br/> Desde festivales de música y arte hasta ferias 
+          gastronómicas y eventos deportivos, tenemos una amplia selección<br/> de los eventos más actuales. <br/><br/>
+          Nuestra lista de eventos populares se actualiza regularmente, ¡así que siempre encontrarás algo nuevo por descubrir!<br/> <br/>
+          No te pierdas la oportunidad de explorar lo mejor que España tiene para ofrecer en entretenimiento y diversión 🎉🌟
           </p>
-          <p className={styles.paragraph}>
-            Desde festivales de música y arte hasta ferias gastronómicas y eventos deportivos, hay algo para todos los
-            gustos y preferencias. Sumérgete en la rica cultura española y descubre nuevas experiencias que te
-            sorprenderán.
-          </p>
-          <p className={styles.paragraph}>
-            Nuestra lista de eventos populares se actualiza regularmente, ¡así que siempre encontrarás algo nuevo por
-            descubrir! No te pierdas la oportunidad de explorar lo mejor que España tiene para ofrecer en
-            entretenimiento y diversión.
-          </p>
-          <p className={styles.paragraph}>¡Empieza a Descubrir Ahora!</p>
-          <h3 style={{ textAlign: 'center', margin: '0' }}>Eventos populares</h3>
-          <p style={{ textAlign: 'center', marginTop: '0' }}>¡Se actualizan todos los días!</p>
+                    
+          <h3 style={{ textAlign: 'left', margin: '0' }}>Eventos populares</h3>
+          
         </div>
       </div>
       <div className={styles.containerCities}>
@@ -134,7 +126,10 @@ const DiscoverEvents = ({ isAuthenticated }) => {
       <div className={styles.featuredSection}>
         <div className={styles.featuredHeader}>
           <h3>Calendarios destacados</h3>
-          <p>Que nos encantan</p>
+          <p>
+            Que nos <span style={{ fontWeight: 'bold', color: '#74A9BB', textAlign: 'left', fontFamily: 'roboto condensed' }}>encantan</span>
+            
+          </p>
         </div>
         <div className={styles.eventGrid}>
           {events.slice(0, 12).map((event) => (

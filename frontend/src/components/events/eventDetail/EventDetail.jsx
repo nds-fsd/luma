@@ -121,14 +121,14 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
           {event.eventDescription}
           <br /> <br />
           <span className={styles.eventTime}>
-            • {event.eventStartTime}h {event.eventTitle}
+            • {event.eventStartTime}h 
           </span>
           <br />
           <span className={styles.eventTime}>• {event.eventEndTime}h</span>
           <br />
           <br />• <strong>Precio:</strong> {event.eventPrice}€ (pago el día del evento in situ)
           <br /> <br />
-          ¡Nos vemos para compartir una mañana increíble!
+          ¡Nos vemos para compartir una experiencia increíble!
         </p>
       </div>
     </div>

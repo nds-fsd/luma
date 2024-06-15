@@ -11,7 +11,7 @@
 }
 
 .blue-background {
-  background-color: rgba(87, 167, 236, 0.658);
+  background-color:white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,8 +29,8 @@
   margin-left: 20%;
   text-align: left;
   font-family: 'roboto condensed', sans-serif;
-  font-size: 4vw;
-  color: #e6eeee;
+  font-size: 10px;
+  color: grey;
 }
 
 .title-city {
@@ -43,7 +43,7 @@
   margin-left: 20%;
   font-family: 'roboto condensed', sans-serif;
   font-size: 3vw;
-  color: #fff;
+  color: black;
   margin-top: 20px;
 }
 
@@ -51,8 +51,7 @@
   margin-left: 20%;
   font-family: 'roboto condensed', sans-serif;
   color: black;
-  font-size: 2vw;
-  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .subscribe-container {
