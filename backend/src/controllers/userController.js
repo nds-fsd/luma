@@ -23,7 +23,7 @@ exports.registerUser = (req, res) => {
         email,
         birthdate,
         phone_number,
-        role: 'ADMIN',
+        role: 'CREATOR',
         profile_picture,
         password: hashedPassword,
       });
@@ -37,7 +37,7 @@ exports.registerUser = (req, res) => {
       if (err.status) {
         res.status(err.status).json({ error: err.message });
       } else {
-        res.status(500).json({ success: false, error: 'Internal server error' });
+        res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 51
       }
     });
 };
@@ -48,7 +48,7 @@ exports.getAllUsers = (req, res) => {
       res.json(users);
     })
     .catch((err) => {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: 'Internal server error' }); // Línea 66
     });
 };
 
@@ -63,7 +63,7 @@ exports.getUserById = (req, res) => {
       res.json(user);
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' });
+      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 82
     });
 };
 
@@ -79,7 +79,7 @@ exports.updateUser = (req, res) => {
       res.json({ success: true, message: 'User updated successfully', user: updatedUser });
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' });
+      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 97
     });
 };
 
@@ -94,7 +94,7 @@ exports.deleteUser = (req, res) => {
       res.json({ success: true, message: 'User deleted successfully' });
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' });
+      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 108
     });
 };
 
@@ -111,6 +111,6 @@ exports.getUserSubscriptions = (req, res) => {
     })
     .catch((error) => {
       console.error('Error fetching user subscriptions:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error' }); // Líneas 113-114
     });
 };

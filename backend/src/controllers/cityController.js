@@ -45,7 +45,7 @@ exports.updateCity = async (req, res) => {
 
 exports.patchCity = async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ['name', 'country'];
+  const allowedUpdates = ['cityName', 'cityLogo', 'cityWallpaper']; 
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
   if (!isValidOperation) {

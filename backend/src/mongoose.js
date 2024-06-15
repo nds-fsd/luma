@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const {MongoMemoryServer} = require("mongodb-memory-server");
-const { User } = require('../src/models/userModel')
+const bcrypt = require('bcrypt'); // Asegúrate de importar bcrypt
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const User = require('./models/userModel');
 
-
-dotenv.config();
+dotenv.config();  // Asegúrate de que el .env se cargue primero
 
 let dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
 
@@ -17,41 +17,55 @@ exports.connectDB = async () => {
     if (process.env.NODE_ENV === 'test') {
       mongodb = await MongoMemoryServer.create();
       dbUrl = mongodb.getUri();
-      
-    const admin = await User.findOne({ role: 'ADMIN' });
-      if (!admin) {
-        if (process.env.NODE_ENV !== 'test') {
-                console.log('ADMIN user not found, creating one....');
-        }
+    }
 
+    await mongoose.connect(dbUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    if (process.env.NODE_ENV === 'test') {
+      const admin = await User.findOne({ role: 'ADMIN' });
+      if (!admin) {
+        const hashedPassword = await bcrypt.hash('123456789', 10);
         const admin = new User({
           fullname: 'ADMIN',
           email: 'admin@fakeluma.com',
           birthdate: "1991-10-12",
-          phone_number: "600000000",
+          phone_number: "666666666",
           role: "ADMIN",
           profile_picture: "www.google.com",
-          password: 'passworddd',
+          password: hashedPassword, // Encriptar contraseña
         });
-            
-            await admin.save();
-              if (process.env.NODE_ENV !== 'test') {
-                  console.log("ADMIN user created!: ", admin.email);
-              }
-          } else {
-              if (process.env.NODE_ENV !== 'test') {
-                  console.log("ADMIN user exists: ", admin.email);
-              }
-          }
-          
-      console.log(dbUrl);
-      console.log("Connected to database");
-    
+
+        await admin.save();
+        console.log("ADMIN user created!: ", admin.email);
+      } else {
+        console.log("ADMIN user exists: ", admin.email);
+      }
+
+      const creator = await User.findOne({ role: 'CREATOR' });
+      if (!creator) {
+        const hashedPassword = await bcrypt.hash('987654321', 10);
+        const creator = new User({
+          fullname: 'CREATOR',
+          email: 'creator@fakeluma.com',
+          birthdate: "1992-11-13",
+          phone_number: "777777777",
+          role: "CREATOR",
+          profile_picture: "www.example.com",
+          password: hashedPassword, // Encriptar contraseña
+        });
+
+        await creator.save();
+        console.log("CREATOR user created!: ", creator.email);
+      } else {
+        console.log("CREATOR user exists: ", creator.email);
+      }
     }
 
-    await mongoose.connect(dbUrl);
-    const mongo = mongoose.connection;
-    mongo.on('error', (error) => console.error(error));
+    console.log("Connected to database");
+
   } catch (e) {
     console.log(e);
   }
