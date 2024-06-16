@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './EventDetail.module.css';
 import { api } from '../../../utils/api';
 import SubscribeBox from '../SubscribeBox/SubscribeBox';
@@ -12,7 +12,6 @@ import linkedinGif from '../imagenes/linkedin.png';
 import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
 import SubscribeButton from '../../DiscoverEvents/SubscribeButton/SubscribeButton';
 import { getUserToken } from '../../../utils/localStorage.utils';
-import { useNavigate } from 'react-router-dom';
 
 const EventDetail = ({ userEmail, isAuthenticated }) => {
   const { eventId } = useParams();
@@ -37,7 +36,7 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
     };
 
     getEventDetails();
-  }, [eventId]);
+  }, [eventId, navigate]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -55,7 +54,7 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
 
       fetchUserSubscriptions();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const handleSubscriptionChange = (eventId, isSubscribed) => {
     if (isSubscribed) {
@@ -66,44 +65,60 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
   };
 
   if (!event) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
     <div className={styles.eventDetail}>
-      
       <div className={styles.eventDetailContent}>
-        <img src={event.eventPicture} alt='yogaImage' className={styles.eventImage} />
+        <img src={event.eventPicture} alt='Event' className={styles.eventImage} />
 
         <div className={styles.organizerContainer}>
-          <img src={organizationGif} alt='organizer' className={styles.organizerIcon} />
+          <img src={organizationGif} alt='Organizer' className={styles.organizerIcon} />
           <span className={styles.organizerLabel}>Organizado por:</span>
           <span className={styles.organizerName}>{event.owner.fullname}</span>
-          <br />
-          <br />
-          <img src={instagramGif} alt='Instagram' className={styles.socialIcon1} />
-          <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon2} />
-          <img src={webGif} alt='Web' className={styles.socialIcon3} />
+        </div>
+
+        <div className={styles.socialIcons}>
+          <img src={instagramGif} alt='Instagram' className={styles.socialIcon} />
+          <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon} />
+          <img src={webGif} alt='Website' className={styles.socialIcon} />
         </div>
 
         <h1 className={styles.eventTitle}>{event.eventTitle}</h1>
 
-        <p className={styles.eventDate}>
-          <img src={dateGif} alt='date' className={styles.dateIcon} /> {new Date(event.eventDate).toLocaleDateString()}
-        </p>
-
-        <p className={styles.eventLocation}>
-          <img src={locationGif} alt='location' className={styles.locationIcon} /> {cityName}
-        </p>
+        <div className={styles.organizerElements}>
+          <div>
+            <p className={styles.eventDate}>
+              <img src={dateGif} alt='Date' className={styles.dateIcon} />{' '}
+              {new Date(event.eventDate).toLocaleDateString()}
+            </p>
+          </div>
+          <div>
+            <p className={styles.eventLocation}>
+              <img src={locationGif} alt='Location' className={styles.locationIcon} /> {cityName}
+            </p>
+          </div>
+          <div className={styles.organizerShedule}>
+            <div>
+              <span className={styles.eventTime}>Horario: &nbsp;&nbsp;</span>
+            </div>
+            <div>
+              <span className={styles.eventTime}>{event.eventStartTime}h - {event.eventEndTime}h</span>
+            </div>
+          </div>
+        </div>
 
         <div className={styles['subscribe-container']}>
           <div>
-            <p>Suscríbete a los eventos de {cityName}</p>
+            <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Suscríbete a los eventos de {cityName}</p>
             {cityName && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={cityName} />}
             {cityName && !isAuthenticated && <SubscribeBox />}
           </div>
-          <div style={{ marginLeft: '30px' }}>
-            {cityName && isAuthenticated && <p>Suscríbete a este evento</p>}
+          <div>
+            {cityName && isAuthenticated && (
+              <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Suscríbete a este evento</p>
+            )}
             {cityName && isAuthenticated && (
               <SubscribeButton
                 isAuthenticated={isAuthenticated}
@@ -119,12 +134,6 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
 
         <p className={styles.eventDescription}>
           {event.eventDescription}
-          <br /> <br />
-          <span className={styles.eventTime}>
-            • {event.eventStartTime}h 
-          </span>
-          <br />
-          <span className={styles.eventTime}>• {event.eventEndTime}h</span>
           <br />
           <br />• <strong>Precio:</strong> {event.eventPrice}€ (pago el día del evento in situ)
           <br /> <br />

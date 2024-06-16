@@ -1,27 +1,39 @@
-.container {  
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.imagePhoto {
+  height: 250px;
+  width: 250px;
+  border-radius: 50px 0 50px 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .nametext {
-    font-family: "Roboto condensed", sans-serif;
-    font-size: 30px;
-    font-weight: 800px;
-  }
+.nameText {
+  margin-top: 50px;
+  font-family: 'Roboto condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 800px;
+}
 
-  .textdata {
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 700px;
-  }
+.nameRole {
+  font-size: 25px;
+  color: rgb(19, 75, 128);
+}
 
+.textData {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 700px;
+}

@@ -1,65 +1,76 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './EventList.module.css';
 import { api } from '../../../utils/api';
-import { useNavigate } from 'react-router-dom';
 
-function EventList({ cityId, city }) {
-  const [events, setEvents] = useState([]);
+const EventList = ({ cityId, city }) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getEvents = async () => {
-      try {
-        const response = await api(navigate).get('/events', {
-          params: { eventLocation: cityId },
-        });
-        setEvents(response.data);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
+  const getEvents = async () => {
+    const res = await api(navigate).get('/events', {
+      params: { eventLocation: cityId },
+    });
+    return res.data;
+  };
 
-    getEvents();
-  }, [cityId]);
+  const { data: events, isLoading, isError, error } = useQuery(['events', cityId], getEvents);
+
+  if (isLoading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div className={styles.error}>Error: {error.message}</div>;
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES');
+  };
 
   return (
-    <div className={styles.eventList}>
+    <div className={styles.container}>
       {events.length === 0 ? (
         <div className={styles.noEvents}>
           <p>No hay eventos disponibles en esta ciudad.</p>
         </div>
       ) : (
-        events.map((event, index) => (
-          <Link to={`/event/${event._id}`} key={index} className={styles.eventLink} city={city}>
-            <div className={styles.event}>
-              <div className={`${styles.eventItem} ${styles.hour}`}>
-                <span>{new Date(event.eventDate).toLocaleDateString()}</span>
+        <ul className={styles.eventsList}>
+          {events.map((event, index) => (
+            <li key={index} className={styles.eventItem}>
+              <div className={styles.eventContent}>
+                <Link to={`/event/${event._id}`} className={styles.eventLink} city={city}>
+                  <div className={styles.eventPictureContainer}>
+                    <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
+                  </div>
+                </Link>
+                <div className={styles.eventDetails}>
+                  <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
+                  <p className={styles.eventDescription}>{event.eventDescription}</p>
+                  <div className={styles.contentDescription}>
+                    <p className={styles.eventInfo}>
+                      <strong>Fecha:</strong> {formatDate(event.eventDate)}
+                    </p>
+                    <p className={styles.eventInfo}>
+                      <strong>Organizado por:</strong> {event.owner.fullname}
+                    </p>
+                    <p className={styles.eventInfo}>
+                      <strong>Precio:</strong> {event.eventPrice}
+                    </p>
+                    <p className={styles.eventInfo}>
+                      <strong>Capacidad:</strong> {event.eventCapacity}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className={`${styles.eventItem} ${styles.name}`}>
-                <span>{event.eventTitle}</span>
-              </div>
-              <div className={`${styles.eventItem} ${styles.organizedBy}`}>
-                <span className={styles.label}>Organizado por: </span>
-                <span>{event.owner.fullname}</span>
-              </div>
-              <div className={`${styles.eventItem} ${styles.description}`}>
-                <span>{event.eventDescription}</span>
-              </div>
-              <div className={`${styles.eventItem} ${styles.prize}`}>
-                <span className={styles.label}>Precio: </span>
-                <span>{event.eventPrice}</span>
-              </div>
-              <div className={`${styles.eventItem} ${styles.capacity}`}>
-                <span className={styles.label} style={{ textDecoration: 'none' }}>Capacidad: </span>
-                <span>{event.eventCapacity}</span>
-              </div>
-            </div>
-          </Link>
-        ))
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
-}
+};
 
 export default EventList;

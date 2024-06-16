@@ -27,19 +27,19 @@ function UserDetail() {
   return (
     <div className={styles.container}>
       <img
-        style={{ height: '120px', width: '120px', borderRadius: '50px 0 50px 0' }}
+        className={styles.imagePhoto}
         src={user.profile_picture}
         alt={`Foto del usuario: ${user.fullname}`}
       />
-      <h1 className={styles.nametext}>{user.fullname}</h1>
-      <h4>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
-      <p className={styles.textdata}>
+      <h1 className={styles.nameText}>{user.fullname}</h1>
+      <h4 className={styles.nameRole}>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
+      <p className={styles.textData}>
         Email: <br /> {user.email}
       </p>
-      <p className={styles.textdata}>
+      <p className={styles.textData}>
         Birthdate: <br /> {user.birthdate}
       </p>
-      <p className={styles.textdata}>
+      <p className={styles.textData}>
         Phone: <br /> {user.phone_number}
       </p>
     </div>

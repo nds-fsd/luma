@@ -1,3 +1,4 @@
+/* EventDetail.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
 :root {
@@ -40,6 +41,7 @@
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: var(--transition);
+  height: 100%; /* Asegura que todos los items tengan la misma altura */
 }
 
 .eventItem:hover {
@@ -71,7 +73,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between; /* Asegura que el contenido se distribuya de manera uniforme */
   flex: 1;
 }
 
