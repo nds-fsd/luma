@@ -32,41 +32,32 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
   };
 
   return (
-    <div>
-      <div className={styles['event-page']}>
-        <div className={styles.headerWallpaper}>
-          <div className={`${styles['blue-background']}`}>
-
-            <h1 className={styles['title-header']}>
-              Qué está pasando en <br />
-              {city && <span className={styles['title-city']}>{city.cityName}</span>}{' '}
-            </h1>
-
-            <div className={styles['clock-container']}>
-              <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
-            </div>
-
-            <p className={styles['text-p']}>
-              Los eventos más actuales e interesantes
-              <br />
-              {city && `en la maravillosa ciudad de ${city.cityName}.`}
-            </p>
-
-            <div className={styles['subscribe-container']}>
-              {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
-              {city && !isAuthenticated && <SubscribeBox />}
-            </div>
-
-            <hr />
+    <div className={styles['event-page']}>
+      <div className={styles.headerWallpaper}>
+        <div className={`${styles['blue-background']}`}>
+          <h1 className={styles['title-header']}>
+            Qué está pasando en <br />
+            {city && <span className={styles['title-city']}>{city.cityName}</span>}
+          </h1>
+          <div className={styles['clock-container']}>
+            <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
           </div>
-          <div className={styles.header} style={backgroundStyle}></div>
+          <p className={styles['text-p']}>
+            Los eventos más actuales e interesantes
+            <br />
+            {city && `en la maravillosa ciudad de ${city.cityName}.`}
+          </p>
+          <div className={styles['subscribe-container']}>
+            {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
+            {city && !isAuthenticated && <SubscribeBox />}
+          </div>
+          <hr />
         </div>
-        <main className={styles.main}>
-          <h1 className={styles['title-events']}>Upcoming Events</h1>
-          <div>
-            <EventList cityId={cityId} />
-          </div>
-        </main>
+        <div className={styles.header} style={backgroundStyle}></div>
+      </div>
+      <div className={styles.main}>
+        <h1 className={styles['title-events']}>Upcoming Events</h1>
+        <EventList cityId={cityId} />
       </div>
     </div>
   );

@@ -3,15 +3,18 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  padding: 0 20px;
+
 }
 
 .headerWallpaper {
   display: flex;
+  justify-content: center;
+  margin: auto 20px;
 }
 
 .blue-background {
-  background-color: rgba(87, 167, 236, 0.658);
+  background-color: rgba(235, 241, 243, 0.801);
+  border-top-left-radius: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,27 +26,28 @@
   background-size: cover;
   height: 50vh;
   width: 50%;
+  border-top-right-radius: 35px;
 }
 
 .title-header {
   margin-left: 20%;
   text-align: left;
   font-family: 'roboto condensed', sans-serif;
-  font-size: 4vw;
-  color: #e6eeee;
+  font-size: 50px;
+  color: grey;
 }
 
 .title-city {
   font-family: 'roboto condensed', sans-serif;
-  font-size: 6vw;
+  font-size: 4vw;
   color: black;
 }
 
 .custom-clock {
   margin-left: 20%;
   font-family: 'roboto condensed', sans-serif;
-  font-size: 3vw;
-  color: #fff;
+  font-size: 2vw;
+  color: black;
   margin-top: 20px;
 }
 
@@ -51,111 +55,94 @@
   margin-left: 20%;
   font-family: 'roboto condensed', sans-serif;
   color: black;
-  font-size: 2vw;
-  margin-top: 20px;
+  margin-bottom: 50px;
+  font-size: 25px;
 }
 
 .subscribe-container {
-  margin-left: 20%;
+  margin-left: 30%;
   margin-top: 25px;
 }
 
 .title-events {
+  margin-top: -20px;
+  display: flex;
+  justify-content: center;
   font-family: 'roboto condensed', sans-serif;
-  font-size: 5vw;
-  margin-left: 200px;
+  font-size: 2.5vw;
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   text-align: left;
   margin-top: 50px;
   padding: 0 20px;
 }
 
-
 @media (max-width: 768px) {
+ 
   .headerWallpaper {
     display: flex;
+    margin: auto 20px;
     flex-direction: column-reverse;
   }
+  
   .header {
-    height: 200px;
-    min-width: 400px;
+    background-size: cover;
+    height: 260px;
+    width: 50%;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    width: 100%;
   }
+
   .blue-background {
-    background-color: rgba(87, 167, 236, 0.658);
-    min-width: 350px;
-    padding-left: 50px;
+    background-color: rgba(235, 241, 243, 0.801);
+    border-top-left-radius: 0;
+    width: 100%;
     height: 250px;
   }
 
   .title-header {
     margin-left: 0;
-    margin-top: 30px;
-    text-align: left;
+    text-align: center;
+    font-size: 20px;
   }
 
   .custom-clock {
+    text-align: center;
     margin-left: 0;
-    margin-top: 6px;
+    margin-top: -10px;
+    font-size: 3vw;
   }
 
   .text-p {
     margin-left: 0;
-    font-size: 3vw;
+    text-align: center;
+    font-size: 18px;
     margin-top: 5px;
   }
 
   .subscribe-container {
     margin-left: 0;
-    margin-top: 5px;
+    margin-top: -35px;
   }
 
   .title-events {
     text-align: left;
+    font-size: 5.5vw;
   }
 
   .main {
     min-width: 450px;
     min-height: 100vh;
-    text-align: left;
     margin-top: 50px;
     padding: 0 20px;
-  }
-}
-
-@media (min-width: 768px) {
-  .title-header {
-    font-size: 2vw;
-    margin-top: 30px;
-    text-align: left;
   }
 
   .title-city {
-    font-size: 4vw;
-  }
-
-  .custom-clock {
-    font-size: 1vw;
-  }
-
-  .text-p {
-    font-size: 2vw;
-    margin-top: 5px;
-  }
-
-  .title-events {
-    text-align: left;
-    font-size: 3vw;
-    margin-left: 500px;
-  }
-
-  .main {
-    min-width: 450px;
-    min-height: 100vh;
-    text-align: left;
-    margin-top: 50px;
-    padding: 0 20px;
+    font-size: 6vw;
   }
 }

@@ -2,10 +2,17 @@
   padding-bottom: 100px;
 }
 
+.containerContent h1 {
+  padding: 10px;
+  font-size: 35px;
+  text-align: left;
+  font-family: 'roboto condensed', sans-serif;
+}
+
 .containerContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   max-width: 1000px;
   margin: 0 auto;
@@ -16,13 +23,14 @@
 
 .containerContent h3 {
   padding: 10px;
-  font-size: 18px;
+  font-size: 35px;
   font-family: 'roboto condensed', sans-serif;
 }
 
 .containerContent p {
+  margin-top: 2px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 20px;
   font-family: 'roboto condensed', sans-serif;
 }
 
@@ -66,6 +74,7 @@
   margin-top: 15px;
   margin-left: 5px;
   max-width: 40%;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .cityLogo {
@@ -82,6 +91,7 @@
   font-weight: bold;
   color: #333;
   margin: 0;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .eventCount {
@@ -113,18 +123,22 @@ h2 {
 }
 
 .featuredHeader h3 {
-  font-size: 1.2rem;
+  font-size: 35px;
+  text-align: left;
   color: #333;
   margin: 0;
   font-family: 'roboto condensed', sans-serif;
 }
 
 .featuredHeader p {
-  font-size: 1rem;
+  font-size: 17px;
+  text-align: left;
   color: #777;
-  margin: 0.5rem 0 0;
+  
   font-family: 'roboto condensed', sans-serif;
 }
+
+
 
 .eventGrid {
   display: grid;
@@ -141,8 +155,9 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
+  width: 235px;
   height: 320px;
+
 }
 
 .eventCard:hover {
