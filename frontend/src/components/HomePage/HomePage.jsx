@@ -48,7 +48,7 @@ const HomePage = ({ userId }) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.header}>MIS EVENTOS</h2>
+      <h2 className={styles.header}>Mis Eventos</h2>
       {userEvents.length === 0 ? (
         <p className={styles.noEvents}>No tienes eventos organizados.</p>
       ) : (
