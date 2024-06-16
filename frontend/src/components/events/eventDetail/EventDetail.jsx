@@ -64,6 +64,23 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
     }
   };
 
+  const getSocialNetworkUrl = (owner, networkName) => {
+    const network = owner.socialNetworks.find((sn) => sn.network.toLowerCase() === networkName.toLowerCase());
+    if (network) {
+      switch (networkName.toLowerCase()) {
+        case 'instagram':
+          return `https://www.instagram.com/${network.username}`;
+        case 'linkedin':
+          return `https://www.linkedin.com/in/${network.username}`;
+        case 'website':
+          return network.username;
+        default:
+          return '#';
+      }
+    }
+    return '#';
+  };
+
   if (!event) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -80,9 +97,15 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
         </div>
 
         <div className={styles.socialIcons}>
-          <img src={instagramGif} alt='Instagram' className={styles.socialIcon} />
-          <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon} />
-          <img src={webGif} alt='Website' className={styles.socialIcon} />
+          <a href={getSocialNetworkUrl(event.owner, 'instagram')} target="_blank" rel="noopener noreferrer">
+            <img src={instagramGif} alt='Instagram' className={styles.socialIcon} />
+          </a>
+          <a href={getSocialNetworkUrl(event.owner, 'linkedin')} target="_blank" rel="noopener noreferrer">
+            <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon} />
+          </a>
+          <a href={getSocialNetworkUrl(event.owner, 'website')} target="_blank" rel="noopener noreferrer">
+            <img src={webGif} alt='Website' className={styles.socialIcon} />
+          </a>
         </div>
 
         <h1 className={styles.eventTitle}>{event.eventTitle}</h1>

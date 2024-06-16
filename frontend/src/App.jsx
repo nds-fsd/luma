@@ -55,6 +55,7 @@ function App() {
   const userFullName = user && user.fullname ? user.fullname : '';
   const userRole = user && user.role ? user.role : '';
   const userId = user && user._id ? user._id: '';
+  const userSocialNetworks = user && user.socialNetworks ? user.socialNetworks : [];
 
   const handleLogin = () => {
     setIsAuthenticated(true);
