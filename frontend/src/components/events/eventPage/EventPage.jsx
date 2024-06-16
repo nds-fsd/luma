@@ -37,7 +37,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
         <div className={styles.headerWallpaper}>
           <div className={`${styles['blue-background']}`}>
 
-            <h1 className={styles['title-header']}>
+            <h1 className={styles['title-header']} style={{ fontSize: '50px' }}>
               Qué está pasando en <br />
               {city && <span className={styles['title-city']}>{city.cityName}</span>}{' '}
             </h1>
@@ -46,7 +46,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
               <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
             </div>
 
-            <p className={styles['text-p']}>
+            <p className={styles['text-p']} style={{ fontSize: '25px' }}>
               Los eventos más actuales e interesantes
               <br />
               {city && `en la maravillosa ciudad de ${city.cityName}.`}
