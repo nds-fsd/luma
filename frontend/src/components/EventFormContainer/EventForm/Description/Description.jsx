@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
 import { api } from '../../../../utils/api';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 const Description = ({ selectedImage, userId }) => {
@@ -147,6 +147,7 @@ const Description = ({ selectedImage, userId }) => {
                             <input
                                 className={Styles.inputPrice}
                                 type="number"
+                                id='capacity'
                                 min="1"
                                 {...register("eventCapacity", { min: 1 }, { required: true })}
                             />

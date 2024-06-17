@@ -25,8 +25,9 @@ const ImgPicker = ({selectedImage, setSelectedImage}) => {
         <div className={Styles.ImageContainer}>
             <img src={selectedImage} alt="Selected event" className={Styles.eventImage} />
             <div className={Styles.imagePicker}>
-                <label htmlFor="texty" className={Styles.labels}>Seleccionar una imagen</label>
+                <label htmlFor="image_text" className={Styles.labels}>Seleccionar una imagen</label>
                 <input
+                name='image_text'
                     type="text"
                     className={Styles.input}
                     onChange={handleImageChange}

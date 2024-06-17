@@ -9,6 +9,7 @@ const EditEventForm = ({ event, selectedImage, setSelectedImage }) => {
             <ImgPicker
                selectedImage={selectedImage}
                setSelectedImage={setSelectedImage} 
+               event={event}
             />
             <Description
  selectedImage={selectedImage}

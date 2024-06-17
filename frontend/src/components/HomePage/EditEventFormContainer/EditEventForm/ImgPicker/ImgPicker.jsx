@@ -1,7 +1,7 @@
 import Styles from './ImgPicker.module.css';
 import { useForm } from 'react-hook-form';
 
-const ImgPicker = ({selectedImage, setSelectedImage}) => {
+const ImgPicker = ({selectedImage, setSelectedImage, event }) => {
 
     const {formState: { errors } } = useForm();
 
@@ -28,6 +28,7 @@ const ImgPicker = ({selectedImage, setSelectedImage}) => {
                 <input
                     type="text"
                     className={Styles.input}
+                    value={event.eventPicture}
                     onChange={handleImageChange}
                 />
                 {errors.eventPicture && <p className={Styles.errors}>La imagen del evento es requerida</p>}
