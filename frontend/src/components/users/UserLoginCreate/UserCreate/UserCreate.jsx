@@ -33,10 +33,10 @@ function UserCreate({ onClose }) {
       };
 
       const response = await fetch(url, options);
-      console.log(imageUrl);
+      console.log(response);
       const data = await response.json();
       console.log(data.secure_url);
-      setImageUrl(data.secure_url); 
+      setImageUrl(data.secure_url);
     } catch (error) {
       console.error('Error uploading image to Cloudinary:', error);
     }
