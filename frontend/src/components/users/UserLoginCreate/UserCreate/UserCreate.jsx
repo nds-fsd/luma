@@ -1,27 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './UserCreate.module.css';
 import { api } from '../../../../utils/api';
 
-
-
 function UserCreate({ onClose }) {
   const [errorServer, setErrorServer] = useState('');
   const [messageServer, setMessageServer] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
   } = useForm();
 
-  //const password = watch('password', '');
+  useEffect(() => {
+    register('profile_picture');
+  }, [register]);
+
+  const handleImageUpload = async (imageFile) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+      formData.append('upload_preset', 'imageProfile');
+      formData.append('folder', 'Lumatic');
+
+      const url = 'https://api.cloudinary.com/v1_1/lumatic/image/upload';
+      const options = {
+        method: 'POST',
+        body: formData,
+      };
+
+      const response = await fetch(url, options);
+      console.log(imageUrl);
+      const data = await response.json();
+      console.log(data.secure_url);
+      setImageUrl(data.secure_url); 
+    } catch (error) {
+      console.error('Error uploading image to Cloudinary:', error);
+    }
+  };
 
   const onSubmit = async (data) => {
     data.fullname = data.fullname.toUpperCase();
     data.email = data.email.toLowerCase();
+    data.profile_picture = imageUrl;
     setErrorServer('');
     setMessageServer('');
 
@@ -57,6 +81,13 @@ function UserCreate({ onClose }) {
     }
     setErrorServer('');
     setMessageServer('');
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    handleInputChange(event);
+    // clearErrors('profile_picture');
+    await handleImageUpload(file);
   };
 
   const autocompleteValue = Math.random().toString(36).substring(2);
@@ -106,11 +137,13 @@ function UserCreate({ onClose }) {
           />
           <input
             {...register('profile_picture')}
-            placeholder='Link Profile Picture'
+            type='file'
             className={styles.input}
-            onChange={handleInputChange}
-            autoComplete={autocompleteValue}
+            onChange={handleFileChange}
           />
+          {errors.profile_picture && (
+            <span className={styles.error}>{errors.profile_picture.message}</span>
+          )}
           <input
             {...register('password')}
             type='password'
