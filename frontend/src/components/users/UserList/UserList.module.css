@@ -55,7 +55,7 @@ body {
   align-items: center;
   padding: 20px;
   transition: var(--transition);
-  justify-content: space-between; /* Asegura que los elementos estén distribuidos uniformemente */
+  justify-content: space-between; 
 }
 
 .user:hover {

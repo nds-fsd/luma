@@ -11,4 +11,9 @@ userRouter.get('/:id', jwtMiddleware, userController.getUserById);
 userRouter.put('/:id', jwtMiddleware, userController.updateUser);
 userRouter.delete('/:id', jwtMiddleware, adminMiddleware, userController.deleteUser);
 
+userRouter.post('/:id/socialNetworks', jwtMiddleware, userController.addSocialNetwork);
+userRouter.get('/:id/socialNetworks', jwtMiddleware, userController.getSocialNetworks);
+userRouter.put('/:id/socialNetworks', jwtMiddleware, userController.updateSocialNetworks);
+userRouter.delete('/:id/socialNetworks/:network', jwtMiddleware, userController.deleteSocialNetwork);
+
 module.exports = userRouter;

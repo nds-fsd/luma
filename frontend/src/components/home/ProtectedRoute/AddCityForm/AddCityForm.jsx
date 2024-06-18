@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './AddCityForm.module.css';
 import { api } from '../../../../utils/api';
@@ -96,6 +96,7 @@ const AddCityForm = () => {
           <tr>
             <th>Nombre de la ciudad</th>
             <th>Logo</th>
+            <th>Wallpaper</th>
           </tr>
         </thead>
         <tbody>
@@ -103,6 +104,7 @@ const AddCityForm = () => {
             <tr key={index}>
               <td>{city.cityName}</td>
               <td><img src={city.cityLogo} alt={`${city.cityName} logo`} className={styles.cityLogo} /></td>
+              <td><img src={city.cityWallpaper} alt={`${city.cityName} wallpaper`} className={styles.cityWallpaper} /></td>
             </tr>
           ))}
         </tbody>

@@ -8,6 +8,7 @@ const generateJWT = (user) => {
       email: user.email,
       profile_picture: user.profile_picture,
       role: user.role,
+      socialNetworks: user.socialNetworks,
     },
     process.env.JWT_SECRET,
     { expiresIn: '2h' }

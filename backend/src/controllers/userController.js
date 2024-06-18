@@ -114,3 +114,81 @@ exports.getUserSubscriptions = (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     });
 };
+
+exports.addSocialNetwork = (req, res) => {
+  const userId = req.params.id;
+  const { network, username } = req.body;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      user.socialNetworks.push({ network, username });
+      return user.save();
+    })
+    .then((updatedUser) => {
+      res.json({ success: true, message: 'Social network added successfully', user: updatedUser });
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+};
+
+exports.getSocialNetworks = (req, res) => {
+  const userId = req.params.id;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.json({ socialNetworks: user.socialNetworks });
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+};
+
+exports.updateSocialNetworks = (req, res) => {
+  const userId = req.params.id;
+  const { socialNetworks } = req.body;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      user.socialNetworks = socialNetworks;
+      return user.save();
+    })
+    .then((updatedUser) => {
+      res.json({ success: true, message: 'Social networks updated successfully', user: updatedUser });
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+};
+
+exports.deleteSocialNetwork = (req, res) => {
+  const userId = req.params.id;
+  const { network } = req.params;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      user.socialNetworks = user.socialNetworks.filter(sn => sn.network !== network);
+      return user.save();
+    })
+    .then((updatedUser) => {
+      res.json({ success: true, message: 'Social network deleted successfully', user: updatedUser });
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+};
