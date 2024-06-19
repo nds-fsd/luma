@@ -2,3 +2,4 @@ dist
 .turbo
 .DS_Store
 .env
+coverage
