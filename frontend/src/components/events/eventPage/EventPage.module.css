@@ -20,11 +20,12 @@
   justify-content: center;
   text-align: left;
   width: 50%;
+  height: 70vh;
 }
 
 .header {
   background-size: cover;
-  height: 50vh;
+  height: 70vh;
   width: 50%;
   border-top-right-radius: 35px;
 }
@@ -61,7 +62,7 @@
 
 .subscribe-container {
   margin-left: 30%;
-  margin-top: 25px;
+  margin-top: -25px;
 }
 
 .title-events {
