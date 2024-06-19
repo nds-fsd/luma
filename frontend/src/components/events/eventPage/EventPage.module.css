@@ -20,6 +20,7 @@
   justify-content: center;
   text-align: left;
   width: 50%;
+  height: 50vh;
 }
 
 .header {
@@ -61,7 +62,7 @@
 
 .subscribe-container {
   margin-left: 30%;
-  margin-top: 25px;
+  margin-top: -25px;
 }
 
 .title-events {
