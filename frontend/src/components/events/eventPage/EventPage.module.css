@@ -20,12 +20,12 @@
   justify-content: center;
   text-align: left;
   width: 50%;
-  height: 50vh;
+  height: 70vh;
 }
 
 .header {
   background-size: cover;
-  height: 50vh;
+  height: 70vh;
   width: 50%;
   border-top-right-radius: 35px;
 }
