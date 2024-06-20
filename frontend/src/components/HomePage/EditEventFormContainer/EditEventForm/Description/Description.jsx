@@ -1,32 +1,30 @@
 import { useEffect, useState } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from "react-hook-form";
-import { api } from '../../../../../utils/api'
+import { api } from '../../../../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 const Description = ({ event, selectedImage }) => {
-
-    const { register, handleSubmit, setValue, formState: { errors }, reset} = useForm();
+    const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
     const [cities, setCities] = useState([]);
     const [loadingCities, setLoadingCities] = useState(true);
-    const [showQuantityInput, setShowQuantityInput] = useState(false)
+    const [showQuantityInput, setShowQuantityInput] = useState(false);
 
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchCities = async () => {
             try {
                 const res = await api().get('/city');
                 setCities(res.data);
-                reset(...res.data, {"eventLocation": event.eventLocation.cityName})
+                reset(...res.data, { "eventLocation": event.eventLocation.cityName });
             } catch (error) {
                 console.error('Error fetching cities:', error);
             } finally {
                 setLoadingCities(false);
             }
         };
-
         fetchCities();
-
     }, []);
 
     useEffect(() => {
@@ -43,8 +41,7 @@ const Description = ({ event, selectedImage }) => {
                 setShowQuantityInput(true);
                 setValue('eventCapacity', 'quantity');
                 setValue('eventCapacity1', event.eventCapacity || 1);
-            }
-            else {
+            } else {
                 setShowQuantityInput(false);
                 setValue('eventCapacity', 'ilimitado');
             }
@@ -61,14 +58,16 @@ const Description = ({ event, selectedImage }) => {
     };
 
     const onSubmit = async (data) => {
-        console.log(data)
+
+        const { cityLogo, cityWallpaper, ...eventDataToSend } = data;
+        
         const eventData = {
-            ...data,
+            ...eventDataToSend,
             eventCapacity: data.eventCapacity === 'ilimitado' ? -1 : parseInt(data.eventCapacity1),
             eventPrice: parseInt(data.eventPrice),
-            
+            eventPicture: selectedImage
         };
-        console.log("eventData", eventData)
+        console.log('eventData: ', eventData);
 
         try {
             await api().patch(`/events/${event._id}`, eventData);
@@ -83,7 +82,7 @@ const Description = ({ event, selectedImage }) => {
             <form onSubmit={handleSubmit(onSubmit)} className={Styles.formContainer}>
                 <div className={Styles.dateContainer}>
                     <div className={Styles.dateTime}>
-                        <label htmlFor="date" className={Styles.labels}>Fecha del evento </label>
+                        <label htmlFor="date" className={Styles.labels}>Fecha del evento</label>
                         <input type="date" {...register("eventDate", { required: true })} className={Styles.inputDate} />
                     </div>
                     <div className={Styles.dateTime}>
@@ -97,7 +96,7 @@ const Description = ({ event, selectedImage }) => {
                 </div>
                 {errors.eventDate && <p className={Styles.errors}>La fecha del evento es requerida</p>}
                 {errors.eventStartTime && <p className={Styles.errors}>La hora de comienzo del evento es requerida</p>}
-                {errors.eventEndTime && <p className={Styles.errors}>La hora de finalizacioón del evento es requerida</p>}
+                {errors.eventEndTime && <p className={Styles.errors}>La hora de finalización del evento es requerida</p>}
                 <div className={Styles.divContainer}>
                     <input type="text" placeholder={"Título del evento"} {...register("eventTitle", { required: true })} className={Styles.inputTitle} />
                 </div>
@@ -107,7 +106,8 @@ const Description = ({ event, selectedImage }) => {
                         {...register("eventDescription")}
                         placeholder="Descripción del evento"
                         className={Styles.inputDescription}
-                    />                </div>
+                    />
+                </div>
                 <div className={Styles.priceLocation}>
                     <div className={Styles.divContainer}>
                         <label htmlFor="number" className={Styles.labels}>Localización</label>
@@ -120,27 +120,13 @@ const Description = ({ event, selectedImage }) => {
                             {loadingCities ? (
                                 <option>Cargando ciudades...</option>
                             ) : (
-                                    cities.map((city, index) => {
-                                            if (city.cityName === event.eventLocation.cityName) {
-                                                 return (
-                                            
-                                            <option key={index} selected value={city._id}>{city.cityName}</option>
-                                        )
-                                            } else {
-                                                 return (
-                                            
-                                            <option key={index} value={city._id}>{city.cityName}</option>
-                                        )
-                                            }
-                                           })
-                                        
-                                        
-                        
+                                cities.map((city, index) => (
+                                    <option key={index} value={city._id} selected={city.cityName === event.eventLocation.cityName}>
+                                        {city.cityName}
+                                    </option>
+                                ))
                             )}
                         </select>
-
-
-
                     </div>
                     <div className={Styles.divContainer}>
                         <label htmlFor="number" className={Styles.labels}>Precio de la entrada</label>
@@ -152,9 +138,7 @@ const Description = ({ event, selectedImage }) => {
                         /> €
                     </div>
                 </div>
-
                 {errors.eventPrice && <p className={Styles.errors}>El precio de la entrada es requerido</p>}
-
                 <div className={Styles.capacityContainer}>
                     <label className={Styles.labels}>Capacidad</label>
                     <div>
@@ -181,7 +165,6 @@ const Description = ({ event, selectedImage }) => {
                         />
                         <label htmlFor="quantity" className={Styles.labels}>Establecer límite</label>
                     </div>
-
                     {showQuantityInput && (
                         <input
                             className={Styles.inputPrice}
@@ -192,16 +175,12 @@ const Description = ({ event, selectedImage }) => {
                     )}
                 </div>
                 {errors.eventCapacity && <p className={Styles.errors}>Se debe establecer la capacidad del evento</p>}
-
                 <div className={Styles.divContainer}>
                     <input type="submit" value="ACTUALIZAR EVENTO" className={Styles.inputSubmit} />
-
                 </div>
-
             </form>
-
         </div>
-    )
-}
+    );
+};
 
 export default Description;

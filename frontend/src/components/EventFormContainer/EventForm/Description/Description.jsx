@@ -6,7 +6,6 @@ import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 const Description = ({ selectedImage, userId }) => {
-
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showQuantityInput, setShowQuantityInput] = useState(false);
     const [cities, setCities] = useState([]);
@@ -30,7 +29,6 @@ const Description = ({ selectedImage, userId }) => {
         }
     }, [userId]);
 
-
     const handleRadioChange = (event) => {
         setShowQuantityInput(event.target.value === "quantity");
     };
@@ -43,7 +41,6 @@ const Description = ({ selectedImage, userId }) => {
             owner: userId,
             eventPicture: selectedImage
         };
-        console.log('eventData: ', eventData);
         try {
             await api().post('/events', eventData);
             navigate('/home');

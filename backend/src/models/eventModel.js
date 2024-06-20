@@ -18,7 +18,7 @@ const eventSchema = new Schema({
   eventStartTime: { type: String, required: true },
   eventEndTime: { type: String, required: true },
   eventCapacity: { type: Number, required: true },
-  eventPicture: { type: String, required: true },
+  eventPicture: { type: String },
   subscriptionCount: { type: Number, default: 0 },
 });
 
