@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env nodemon src/index.js",
     "start": "node --watch src/index.js",
-    "test": "NODE_ENV=test cross-env jest --coverage --runInBand"
+    "test": "cross-env NODE_ENV=test jest --coverage --runInBand"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -8,7 +8,7 @@
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
-    "test": "cross-env dotenv -- turbo run test",
+    "test": "npx cross-env dotenv -- turbo run test",
     "dev": "dotenv -- turbo run dev "
   },
   "devDependencies": {
