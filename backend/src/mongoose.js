@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bcrypt = require('bcrypt'); // Asegúrate de importar bcrypt
+const bcrypt = require('bcrypt'); 
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const User = require('./models/userModel');
 
-dotenv.config();  // Asegúrate de que el .env se cargue primero
+dotenv.config(); 
 
 let dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
 
@@ -35,7 +35,7 @@ exports.connectDB = async () => {
           phone_number: "666666666",
           role: "ADMIN",
           profile_picture: "www.google.com",
-          password: hashedPassword, // Encriptar contraseña
+          password: hashedPassword, 
         });
 
         await admin.save();
@@ -54,7 +54,7 @@ exports.connectDB = async () => {
           phone_number: "777777777",
           role: "CREATOR",
           profile_picture: "www.example.com",
-          password: hashedPassword, // Encriptar contraseña
+          password: hashedPassword, 
         });
 
         await creator.save();
