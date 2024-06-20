@@ -12,17 +12,12 @@ const EventForm = ({ userId, isAuthenticated }) => {
     return (
         <div className={Styles.formContainer}>
             <ImgPicker
-                // onColorChange={onColorChange}
-                // backgroundColor={backgroundColor}
                 isAuthenticated={isAuthenticated}
                 userId={userId}
                 selectedImage={selectedImage}
                 setSelectedImage={setSelectedImage}
             />
             <Description
-                // onColorChange={onColorChange}
-                // backgroundColor={backgroundColor}
-                // buttonColor={buttonColor}
                 userId={userId}
                 isAuthenticated={isAuthenticated}
                 selectedImage={selectedImage}
