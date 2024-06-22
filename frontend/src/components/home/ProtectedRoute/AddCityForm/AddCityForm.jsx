@@ -9,6 +9,8 @@ const AddCityForm = () => {
   const [cities, setCities] = useState([]);
   const [messageServer, setMessageServer] = useState('');
   const [errorServer, setErrorServer] = useState('');
+  const [cityLogoUrl, setCityLogoUrl] = useState('');
+  const [cityWallpaperUrl, setCityWallpaperUrl] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,16 +26,39 @@ const AddCityForm = () => {
     fetchCities();
   }, []);
 
+  const handleImageUpload = async (imageFile, setImageUrl) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+      formData.append('upload_preset', 'imageProfile');
+      formData.append('folder', 'Lumatic');
+
+      const url = 'https://api.cloudinary.com/v1_1/lumatic/image/upload';
+      const options = {
+        method: 'POST',
+        body: formData,
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setImageUrl(data.secure_url);
+    } catch (error) {
+      console.error('Error uploading image to Cloudinary:', error);
+    }
+  };
+
   const onSubmit = async (data) => {
+    data.cityLogo = cityLogoUrl;
+    data.cityWallpaper = cityWallpaperUrl;
+
     reset();
 
     try {
       const response = await api(navigate).post(`/city`, data);
-      console.log(response.data);
       if (response.data) {
         setMessageServer(response.data.message);
         setErrorServer('');
-        setCities([...cities, { cityName: data.cityName, cityLogo: data.cityLogo }]);
+        setCities([...cities, { cityName: data.cityName, cityLogo: data.cityLogo, cityWallpaper: data.cityWallpaper }]);
         reset();
       } else {
         setErrorServer(response.data.error);
@@ -43,6 +68,11 @@ const AddCityForm = () => {
       setErrorServer(error.response ? error.response.data.error : 'Server error');
       setMessageServer('');
     }
+  };
+
+  const handleFileChange = async (event, setImageUrl) => {
+    const file = event.target.files[0];
+    await handleImageUpload(file, setImageUrl);
   };
 
   return (
@@ -62,26 +92,26 @@ const AddCityForm = () => {
         {errors.cityName && <p className={styles.error}>{errors.cityName.message}</p>}
         
         <label htmlFor='cityLogo' className={styles.label}>
-          Link del Logo:
+          Logo de la ciudad:
         </label>
         <input
-          type='text'
+          type='file'
           id='cityLogo'
           {...register('cityLogo', { required: 'The field is required!' })}
           className={styles.input}
-          placeholder='Introduce el link del logo de la ciudad'
+          onChange={(event) => handleFileChange(event, setCityLogoUrl)}
         />
         {errors.cityLogo && <p className={styles.error}>{errors.cityLogo.message}</p>}
         
         <label htmlFor='cityWallpaper' className={styles.label}>
-          Link del Wallpaper:
+          Wallpaper de la ciudad:
         </label>
         <input
-          type='text'
+          type='file'
           id='cityWallpaper'
           {...register('cityWallpaper', { required: 'The field is required!' })}
           className={styles.input}
-          placeholder='Introduce el link del wallpaper de la ciudad'
+          onChange={(event) => handleFileChange(event, setCityWallpaperUrl)}
         />
         {errors.cityWallpaper && <p className={styles.error}>{errors.cityWallpaper.message}</p>}
         
