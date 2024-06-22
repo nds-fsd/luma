@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
 import SubscribeButton from './SubscribeButton/SubscribeButton';
-import { useNavigate } from 'react-router-dom';
 
 const DiscoverEvents = ({ isAuthenticated }) => {
   const [cities, setCities] = useState([]);
@@ -16,33 +15,25 @@ const DiscoverEvents = ({ isAuthenticated }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await api(navigate).get('/city');
-        setCities(response.data);
-      } catch (error) {
-        console.error('Error al obtener las ciudades:', error);
-        setError(error);
-      }
-    };
-
-    const fetchEvents = async () => {
-      try {
-        const response = await api(navigate).get('/events/most-subscribed-events');
-        setEvents(response.data);
-      } catch (error) {
-        console.error('Error al obtener los eventos:', error);
-        setError(error);
-      }
-    };
-
     const fetchData = async () => {
-      await Promise.all([fetchCities(navigate), fetchEvents()]);
-      setLoading(false);
+      setLoading(true);
+      try {
+        const [citiesResponse, eventsResponse] = await Promise.all([
+          api(navigate).get('/city'),
+          api(navigate).get('/events/most-subscribed-events')
+        ]);
+        setCities(citiesResponse.data);
+        setEvents(eventsResponse.data);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -60,7 +51,7 @@ const DiscoverEvents = ({ isAuthenticated }) => {
 
       fetchUserSubscriptions();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     if (cities.length > 0 && events.length > 0) {
@@ -81,7 +72,9 @@ const DiscoverEvents = ({ isAuthenticated }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>Loading...</div>
+    );
   }
 
   if (error) {
@@ -94,14 +87,12 @@ const DiscoverEvents = ({ isAuthenticated }) => {
         <h1 className={styles.title}>Descubre Eventos</h1>
         <div className={styles.content}>
           <p className={styles.paragraph}>
-          ¡En <span style={{ fontWeight: 'bold', color: '#74A9BB' }}>LUMATIC</span> tenemos los planes más emocionantes para ti! <br/><br/> Desde festivales de música y arte hasta ferias 
-          gastronómicas y eventos deportivos, tenemos una amplia selección<br/> de los eventos más actuales. <br/><br/>
-          Nuestra lista de eventos populares se actualiza regularmente, ¡así que siempre encontrarás algo nuevo por descubrir!<br/> <br/>
-          No te pierdas la oportunidad de explorar lo mejor que España tiene para ofrecer en entretenimiento y diversión 🎉🌟
+            ¡En <span style={{ fontWeight: 'bold', color: '#74A9BB' }}>LUMATIC</span> tenemos los planes más emocionantes para ti! <br/><br/> Desde festivales de música y arte hasta ferias 
+            gastronómicas y eventos deportivos, tenemos una amplia selección<br/> de los eventos más actuales. <br/><br/>
+            Nuestra lista de eventos populares se actualiza regularmente, ¡así que siempre encontrarás algo nuevo por descubrir!<br/> <br/>
+            No te pierdas la oportunidad de explorar lo mejor que España tiene para ofrecer en entretenimiento y diversión 🎉🌟
           </p>
-                    
           <h3 style={{ textAlign: 'left', margin: '0' }}>Eventos populares</h3>
-          
         </div>
       </div>
       <div className={styles.containerCities}>
@@ -128,7 +119,6 @@ const DiscoverEvents = ({ isAuthenticated }) => {
           <h3>Calendarios destacados</h3>
           <p>
             Que nos <span style={{ fontWeight: 'bold', color: '#74A9BB', textAlign: 'left', fontFamily: 'roboto condensed' }}>encantan</span>
-            
           </p>
         </div>
         <div className={styles.eventGrid}>
