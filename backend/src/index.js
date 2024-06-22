@@ -4,7 +4,7 @@ const app = bootstrapApp();
 
 connectDB().then(() => console.log('Connected to database!'));
 
-const port = process.env.PORT_BACKEND || 3001;
+const port = process.env.PORT || 3001;
 
 
 const server = app.listen(port, () => {
