@@ -36,17 +36,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  /*useEffect(() => {
-    const token = getUserToken();
 
-    if (!token || isTokenExpired(token)) {
-      removeSession();
-      setIsAuthenticated(false);
-      navigate('/');
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [navigate]);*/
 
   const user = getUserSession() || {};
 
