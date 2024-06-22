@@ -22,8 +22,10 @@ const DiscoverEvents = ({ isAuthenticated }) => {
           api(navigate).get('/city'),
           api(navigate).get('/events/most-subscribed-events')
         ]);
-        setCities(citiesResponse.data);
-        setEvents(eventsResponse.data);
+        console.log('Cities Response:', citiesResponse.data);
+        console.log('Events Response:', eventsResponse.data);
+        setCities(citiesResponse.data || []);
+        setEvents(eventsResponse.data || []);
       } catch (error) {
         console.error('Error al obtener datos:', error);
         setError(error);
@@ -43,7 +45,8 @@ const DiscoverEvents = ({ isAuthenticated }) => {
           const response = await api(navigate).get('/user/subscriptions', {
             headers: { Authorization: `Bearer ${token}` },
           });
-          setUserSubscriptions(response.data.subscribedEvents);
+          console.log('User Subscriptions Response:', response.data);
+          setUserSubscriptions(response.data.subscribedEvents || []);
         } catch (error) {
           console.error('Error fetching user subscriptions:', error);
         }
@@ -72,9 +75,7 @@ const DiscoverEvents = ({ isAuthenticated }) => {
   };
 
   if (loading) {
-    return (
-      <div>Loading...</div>
-    );
+    return <div>Loading...</div>;
   }
 
   if (error) {
