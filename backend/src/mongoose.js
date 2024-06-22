@@ -25,6 +25,7 @@ exports.connectDB = async () => {
     });
 
     if (process.env.NODE_ENV === 'test') {
+      console.log('En modo Test!');
       const admin = await User.findOne({ role: 'ADMIN' });
       if (!admin) {
         const hashedPassword = await bcrypt.hash('123456789', 10);
@@ -63,8 +64,6 @@ exports.connectDB = async () => {
         console.log("CREATOR user exists: ", creator.email);
       }
     }
-
-    console.log("Connected to database");
 
   } catch (e) {
     console.log(e);

@@ -15,7 +15,7 @@ import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityFor
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
 import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
-import Calendars from './components/Calendars/Calendars';
+import Calendars from './components/Calendars/Calendars'; //Test
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();
