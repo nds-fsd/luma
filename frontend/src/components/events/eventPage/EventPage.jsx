@@ -57,7 +57,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
       </div>
       <div className={styles.main}>
         <h1 className={styles['title-events']}>Upcoming Events</h1>
-        <EventList cityId={cityId} />
+        <EventList cityId={cityId} userEmail={userEmail} isAuthenticated={isAuthenticated}/>
       </div>
     </div>
   );
