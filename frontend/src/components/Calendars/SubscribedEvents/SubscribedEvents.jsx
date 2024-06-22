@@ -42,7 +42,7 @@ const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
       }
 
       try {
-        const response = await api().post('/events/events-by-ids', { ids: eventIds });
+        const response = await api().post('/events/eventsbyids', { ids: eventIds });
         const sortedEvents = response.data.sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
         setEvents(sortedEvents);
       } catch (error) {
