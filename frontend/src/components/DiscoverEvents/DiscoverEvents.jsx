@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
-import SubscribeButton from './SubscribeButton/SubscribeButton';
+import SubscribeButton from '../SubscribeButtonToEvent/SubscribeButtonToEvent';
 import { useNavigate } from 'react-router-dom';
 
 const DiscoverEvents = ({ isAuthenticated }) => {

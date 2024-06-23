@@ -158,7 +158,7 @@ const validateUserCreation = (req, res, next) => {
     return res.status(400).json({ error: 'Birthdate is required' });
   }
   if (!profile_picture) {
-    return res.status(400).json({ error: 'Picture is required' });
+    req.body.profile_picture = 'https://res.cloudinary.com/lumatic/image/upload/v1719153810/Lumatic/n7qqv8fulxqj9vsvopir.png';
   }
   if (!phone_number) {
     return res.status(400).json({ error: 'Phone number is required' });

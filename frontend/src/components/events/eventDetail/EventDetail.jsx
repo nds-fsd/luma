@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './EventDetail.module.css';
 import { api } from '../../../utils/api';
-import SubscribeBox from '../SubscribeBox/SubscribeBox';
-import locationGif from '../imagenes/location.png';
-import dateGif from '../imagenes/calendario.png';
-import organizationGif from '../imagenes/organizer.png';
-import instagramGif from '../imagenes/instagram.png';
-import webGif from '../imagenes/web.png';
-import linkedinGif from '../imagenes/linkedin.png';
-import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
-import SubscribeButton from '../../DiscoverEvents/SubscribeButton/SubscribeButton';
+import SubscribeBox from '../../SubscribeButtonToCityWithoutAuth/SubscribeButtonToCityWithoutAuth';
+import locationGif from '../../../images/location.png';
+import dateGif from '../../../images/calendario.png';
+import organizationGif from '../../../images/organizer.png';
+import instagramGif from '../../../images/instagram.png';
+import webGif from '../../../images/web.png';
+import linkedinGif from '../../../images/linkedin.png';
+import SubscribeWithEmail from '../../SubscribeButtonToCity/SubscribeButtonToCity';
+import SubscribeButton from '../../SubscribeButtonToEvent/SubscribeButtonToEvent';
 import { getUserToken } from '../../../utils/localStorage.utils';
 
 const EventDetail = ({ userEmail, isAuthenticated }) => {

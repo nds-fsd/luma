@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient, useQuery } from 'react-query';
 import styles from './HomePage.module.css';
-import { api } from '../../utils/api';
+import { api } from '../../../utils/api';
 import { Link, useNavigate } from 'react-router-dom';
 
 const HomePage = ({ userId }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './SubscribeButton.module.css';
-import { getUserToken } from '../../../utils/localStorage.utils';
-import { api } from '../../../utils/api';
+import styles from './SubscribeButtonToEvent.module.css';
+import { getUserToken } from '../../utils/localStorage.utils';
+import { api } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange, isAuthenticated }) => {
