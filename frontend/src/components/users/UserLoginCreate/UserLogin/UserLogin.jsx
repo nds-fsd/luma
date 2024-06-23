@@ -61,7 +61,7 @@ const UserLogin = ({ handleLogin }) => {
                 <div className={styles.text}>
                   <p
                     onClick={() => handleInputChange('email')}
-                    className={inputType === 'email' ? styles.selected : ''}
+                    className={inputType === 'email' ? '' : styles.selected}
                   >
                     Correo electrónico
                   </p>
@@ -69,7 +69,7 @@ const UserLogin = ({ handleLogin }) => {
                 <div className={styles.text}>
                   <p
                     onClick={() => handleInputChange('phone_number')}
-                    className={inputType === 'phone_number' ? styles.selected : ''}
+                    className={inputType === 'phone_number' ? '' : styles.selected}
                   >
                     Usar número telefónico
                   </p>

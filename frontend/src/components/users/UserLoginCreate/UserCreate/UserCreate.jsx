@@ -43,8 +43,6 @@ function UserCreate({ onClose }) {
   };
 
   const onSubmit = async (data) => {
-    data.fullname = data.fullname.toUpperCase();
-    data.email = data.email.toLowerCase();
     data.profile_picture = imageUrl;
     setErrorServer('');
     setMessageServer('');
@@ -73,9 +71,6 @@ function UserCreate({ onClose }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'fullname') {
-      event.target.value = value.toUpperCase();
-    }
     if (name === 'email') {
       event.target.value = value.toLowerCase();
     }
