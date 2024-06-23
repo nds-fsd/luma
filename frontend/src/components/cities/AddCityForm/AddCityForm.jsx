@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './AddCityForm.module.css';
-import { api } from '../../../../utils/api';
+import { api } from '../../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 const AddCityForm = () => {

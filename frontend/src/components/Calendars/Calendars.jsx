@@ -1,6 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from './Calendars.module.css';
-import HomePage from '../HomePage/HomePage';
+import HomePage from './MyEvents/HomePage';
 import SubscribedEvents from './SubscribedEvents/SubscribedEvents';
 
 const Calendars = ({ isAuthenticated, userId, userFullName }) => {

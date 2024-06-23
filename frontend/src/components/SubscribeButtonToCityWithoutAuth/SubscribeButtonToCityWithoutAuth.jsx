@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./SubscribeBox.module.css"; 
+import styles from "./SubscribeButtonToCityWithoutAuth.module.css"; 
 
 const SubscribeBox = () => {
     const [email, setEmail] = useState("");

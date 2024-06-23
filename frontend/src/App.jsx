@@ -7,15 +7,15 @@ import NavBar from './components/home/NavBar/NavBar';
 import Footer from './components/home/Footer/Footer';
 import EventFormContainer from './components/EventFormContainer/EventFormContainer';
 import Styles from './App.module.css';
-import EventPage from './components/events/eventPage/EventPage';
-import EventDetail from './components/events/eventDetail/EventDetail';
+import EventPage from './components/events/EventPage/EventPage';
+import EventDetail from './components/events/EventDetail/EventDetail';
 import { getUserSession, getUserToken, removeSession, isTokenExpired } from './utils/localStorage.utils';
 import { useState, useEffect } from 'react';
-import AddCityForm from './components/home/ProtectedRoute/AddCityForm/AddCityForm';
+import AddCityForm from './components/cities/AddCityForm/AddCityForm';
 import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
-import EditEventFormContainer from './components/HomePage/EditEventFormContainer/EditEventFormContainer';
-import Calendars from './components/Calendars/Calendars'; //Test
+import EditEventFormContainer from './components/Calendars/MyEvents/EditEventFormContainer/EditEventFormContainer';
+import Calendars from './components/Calendars/Calendars'; 
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();

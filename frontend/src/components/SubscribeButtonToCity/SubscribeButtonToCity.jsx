@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../utils/api';
-import styles from './SubscribeWithEmail.module.css';
+import styles from './SubscribeButtonToCity.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const SubscribeWithEmail = ({ userEmail, cityName }) => {

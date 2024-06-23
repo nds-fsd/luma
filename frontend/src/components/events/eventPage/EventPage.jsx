@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
-import Clock from '../clock/Clock';
-import EventList from '../eventList/EventList';
-import SubscribeWithEmail from '../../SubscribeWithEmail/SubscribeWithEmail';
-import SubscribeBox from '../SubscribeBox/SubscribeBox';
+import Clock from '../Clock/Clock';
+import EventList from '../EventList/EventList';
+import SubscribeWithEmail from '../../SubscribeButtonToCity/SubscribeButtonToCity';
+import SubscribeBox from '../../SubscribeButtonToCityWithoutAuth/SubscribeButtonToCityWithoutAuth';
 
 const EventPage = ({ userEmail, isAuthenticated }) => {
   const [city, setCity] = useState(null);
