@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import styles from './Calendars.module.css';
-import HomePage from './MyEvents/HomePage';
-import SubscribedEvents from './SubscribedEvents/SubscribedEvents';
+import styles from './Setting.module.css';
+import Account from './Account/Account';
+import SubscriptionOptions from './SubscriptionOptions/SubscriptionOptions';
 
-const Calendars = ({ isAuthenticated, userId, userFullName }) => {
+const Setting = ({ userId, userEmail }) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   useEffect(() => {
-    const savedTabIndex = localStorage.getItem('calendarsSelectedTabIndex');
+    const savedTabIndex = localStorage.getItem('selectedTabIndex');
     if (savedTabIndex !== null) {
       setSelectedTabIndex(parseInt(savedTabIndex, 10));
     }
@@ -16,7 +16,7 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
 
   const handleTabSelect = (index) => {
     setSelectedTabIndex(index);
-    localStorage.setItem('calendarsSelectedTabIndex', index);
+    localStorage.setItem('selectedTabIndex', index);
   };
 
   return (
@@ -27,21 +27,21 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
     >
       <TabList className={styles.tabList}>
         <Tab className={styles.tab} selectedClassName={styles.tabSelected}>
-          Eventos
+          Cuenta
         </Tab>
         <Tab className={styles.tab} selectedClassName={styles.tabSelected}>
-          Suscripciones
+          Preferencias
         </Tab>
       </TabList>
 
       <TabPanel className={styles.tabPanel}>
-        <HomePage isAuthenticated={isAuthenticated} userId={userId} />
+        <Account userId={userId} />
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
-        <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+        <SubscriptionOptions userEmail={userEmail} />
       </TabPanel>
     </Tabs>
   );
 };
 
-export default Calendars;
+export default Setting;

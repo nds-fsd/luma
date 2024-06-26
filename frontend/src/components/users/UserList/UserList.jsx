@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function UserList() {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,12 +36,32 @@ function UserList() {
     }
   };
 
+  const handleRoleChange = async (id, newRole) => {
+    try {
+      await api(navigate).put(`/user/${id}`, { role: newRole });
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('Error updating user role:', error);
+    }
+  };
+
+  const filteredUsers = users.filter(user =>
+    user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h1 className={styles.title}>Lista de Usuarios</h1>
+      <input
+        type="text"
+        placeholder="Buscar por nombre"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
       <div className={styles.container}>
         <div className={styles.userContainer}>
-          {users.map((user, index) => (
+          {filteredUsers.map((user, index) => (
             <div key={user._id} className={styles.user}>
               <img
                 src={user.profile_picture}
@@ -50,7 +71,14 @@ function UserList() {
               <Link to={`/user/${user._id}`} className={styles.textname}>
                 {user.fullname}
               </Link>
-              <h4 className={styles.userRole}>{user.role === 'ADMIN' ? 'Administrador' : 'Event Creator'}</h4>
+              <select
+                className={styles.userRole}
+                value={user.role}
+                onChange={(e) => handleRoleChange(user._id, e.target.value)}
+              >
+                <option value="ADMIN">Administrador</option>
+                <option value="CREATOR">Event Creator</option>
+              </select>
               <button className={styles.button} onClick={() => deleteUser(user._id)}>
                 Delete
               </button>

@@ -69,9 +69,9 @@ exports.getUserById = (req, res) => {
 
 exports.updateUser = (req, res) => {
   const userId = req.params.id;
-  const { fullname, email, birthdate, phone_number, password } = req.body;
+  const { fullname, email, birthdate, phone_number, password, role } = req.body;
 
-  User.findByIdAndUpdate(userId, { fullname, email, birthdate, phone_number, password }, { new: true })
+  User.findByIdAndUpdate(userId, { fullname, email, birthdate, phone_number, password, role }, { new: true })
     .then((updatedUser) => {
       if (!updatedUser) {
         return res.status(404).json({ error: 'User not found' });
@@ -190,5 +190,60 @@ exports.deleteSocialNetwork = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+};
+
+exports.updateProfilePicture = (req, res) => {
+  const userId = req.params.id;
+  const { profile_picture } = req.body;
+
+  User.findById(userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      user.profile_picture = profile_picture;
+
+      return user.save();
+    })
+    .then(user => {
+      res.json({ message: 'Profile picture updated successfully', user });
+    })
+    .catch(error => {
+      console.error('Error updating profile picture:', error);
+      res.status(500).json({ error: 'Server error' });
+    });
+};
+
+exports.changePassword = (req, res) => {
+  const userId = req.params.id;
+  const { currentPassword, newPassword } = req.body;
+
+  User.findById(userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      return bcrypt.compare(currentPassword, user.password).then(isMatch => {
+        if (!isMatch) {
+          return res.status(400).json({ error: 'Current password is incorrect' });
+        }
+
+        return bcrypt.hash(newPassword, 10).then(hashedPassword => {
+          user.password = hashedPassword;
+          return user.save();
+        });
+      });
+    })
+    .then(() => {
+      res.json({ message: 'Password changed successfully' });
+    })
+    .catch(error => {
+      console.error('Error changing password:', error);
+      if (!res.headersSent) {
+        res.status(500).json({ error: 'Server error' });
+      }
     });
 };

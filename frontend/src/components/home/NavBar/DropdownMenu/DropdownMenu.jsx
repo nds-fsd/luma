@@ -4,6 +4,7 @@ import styles from './DropdownMenu.module.css';
 const DropdownMenu = ({
   handleLogout,
   handleGoToConfiguration,
+  handleGoToAdmin,
   userPicture,
   userFullName,
   userRole,
@@ -56,9 +57,12 @@ const DropdownMenu = ({
           <button onClick={handleGoToOwnProfile} className={styles.dropdownItem}>
             Ver Perfil
           </button>
+          <button onClick={handleGoToConfiguration} className={styles.dropdownItem}>
+            Configuración
+          </button>
           {userRole === 'ADMIN' && (
-            <button onClick={handleGoToConfiguration} className={styles.dropdownItem}>
-              Configuración
+            <button onClick={handleGoToAdmin} className={styles.dropdownItem}>
+              Administración
             </button>
           )}
           <button onClick={handleLogout} className={styles.dropdownItem}>

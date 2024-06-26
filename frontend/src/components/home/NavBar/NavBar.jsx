@@ -7,6 +7,7 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 const NavBar = ({
   IsAuthenticated,
+  handleGoToAdmin,
   handleLogout,
   handleGoToConfiguration,
   userPicture,
@@ -64,6 +65,7 @@ const NavBar = ({
             handleGoToOwnProfile={handleGoToOwnProfile}
             isDropdownOpen={isDropdownOpen}
             setDropdownOpen={setDropdownOpen}
+            handleGoToAdmin={handleGoToAdmin}
           />
         ) : (
           <div>

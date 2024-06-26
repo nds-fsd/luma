@@ -170,7 +170,7 @@ const validateUserCreation = (req, res, next) => {
     return res.status(400).json({ error: 'Password is required' });
   }
   if (!validatePassword(password)) {
-    return res.status(400).json({ error: 'Password must be greater than 4 characters' });
+    return res.status(400).json({ error: 'Password must be greater than 7 characters' });
   }
 
   const currentDate = new Date();
@@ -199,9 +199,26 @@ const formatDate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
+const validatePasswordChange = (req, res, next) => {
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+
+  if (!currentPassword) {
+    return res.status(400).json({ error: 'Current password is required' }); 
+  }
+  if (!newPassword) {
+    return res.status(400).json({ error: 'New password is required' });
+  }
+  if (newPassword.length < 8) {
+    return res.status(400).json({ error: 'New password must be at least 8 characters long' });
+  }
+
+  next();
+};
+
 module.exports = {
   jwtMiddleware,
   adminMiddleware,
   validateEventCreation,
   validateUserCreation,
+  validatePasswordChange,
 };

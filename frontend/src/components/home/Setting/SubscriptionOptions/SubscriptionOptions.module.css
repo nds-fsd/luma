@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --text-color: #333;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: 0.3s ease;
+  --font-family: 'Roboto', sans-serif;
+  --primary-color: #000;
+  --toggle-on-color: #131613;
+  --toggle-off-color: #ccc;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  color: var(--text-color);
+  padding-bottom: 100px;
+}
+
+.container {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  max-width: 800px;
+  margin: 20px auto;
+  
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1em;
+  margin-bottom: 20px;
+  color: #888;
+}
+
+.subscriptionList {
+  margin-bottom: 20px;
+}
+
+.subscriptionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 10px;
+}
+
+.cityInfo {
+  display: flex;
+  align-items: center;
+}
+
+.cityIcon {
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+.cityName {
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--toggle-off-color);
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 21px;
+  width: 21px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--toggle-on-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.notifications {
+  margin-top: 30px;
+}
+
+.notificationSection {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.notificationSection label {
+  display: block;
+  font-size: 1em;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.notificationSection input {
+  margin-right: 10px;
+}

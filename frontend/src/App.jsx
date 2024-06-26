@@ -12,10 +12,12 @@ import EventDetail from './components/events/eventDetail/EventDetail';
 import { getUserSession, getUserToken, removeSession, isTokenExpired } from './utils/localStorage.utils';
 import { useState, useEffect } from 'react';
 import AddCityForm from './components/cities/AddCityForm/AddCityForm';
-import ProtectedRoute from './components/home/ProtectedRoute/ProtectedRoute';
+import ProtectedRouteAdmin from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
 import EditEventFormContainer from './components/Calendars/MyEvents/EditEventFormContainer/EditEventFormContainer';
-import Calendars from './components/Calendars/Calendars'; 
+import Calendars from './components/Calendars/Calendars';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Setting from './components/home/Setting/Setting';
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -36,15 +38,13 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-
-
   const user = getUserSession() || {};
 
   const userPicture = user && user.profile_picture ? user.profile_picture : '';
   const userEmail = user && user.email ? user.email : '';
   const userFullName = user && user.fullname ? user.fullname : '';
   const userRole = user && user.role ? user.role : '';
-  const userId = user && user._id ? user._id: '';
+  const userId = user && user._id ? user._id : '';
   const userSocialNetworks = user && user.socialNetworks ? user.socialNetworks : [];
 
   const handleLogin = () => {
@@ -58,10 +58,17 @@ function App() {
     setDropdownOpen(false);
   };
 
-  const handleGoToConfiguration = () => {
+  const handleGoToAdmin = () => {
     navigate(`/admin`);
     setDropdownOpen(false);
   };
+
+
+  const handleGoToConfiguration = () => {
+    navigate(`/setting`);
+    setDropdownOpen(false);
+  };
+
 
   const handleLogout = () => {
     removeSession();
@@ -83,6 +90,7 @@ function App() {
           isDropdownOpen={isDropdownOpen}
           setDropdownOpen={setDropdownOpen}
           handleGoToConfiguration={handleGoToConfiguration}
+          handleGoToAdmin={handleGoToAdmin}
         />
       </div>
       <Routes>
@@ -90,12 +98,7 @@ function App() {
         <Route path='/event' element={<Navigate to='/discoverevents' />} />
         <Route path='/user' element={<Navigate to='/discoverevents' />} />
         <Route path='/city' element={<Navigate to='/discoverevents' />} />
-        <Route
-          path='/eventcreate'
-          element={
-              <EventFormContainer isAuthenticated={isAuthenticated} />
-          }
-        />
+        <Route path='/eventcreate' element={<EventFormContainer isAuthenticated={isAuthenticated} />} />
         <Route
           path='/login'
           element={isAuthenticated ? <Navigate to='/eventcreate' /> : <UserLoginCreate handleLogin={handleLogin} />}
@@ -104,16 +107,25 @@ function App() {
           path='/admin'
           element={
             <AuthRoute>
-              <ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole}>
-                <div className={Styles.protectedRoute}>
-                  <div>
-                    <AddCityForm />
-                  </div>
-                  <div>
-                    <UserList />
-                  </div>
-                </div>
-              </ProtectedRoute>
+              <ProtectedRouteAdmin userRole={userRole}>
+                <Tabs className={Styles.tabs}>
+                  <TabList className={Styles.tabList}>
+                    <Tab className={Styles.tab} selectedClassName={Styles.tabSelected}>
+                      Añadir ciudad
+                    </Tab>
+                    <Tab className={Styles.tab} selectedClassName={Styles.tabSelected}>
+                      Lista de usuarios
+                    </Tab>
+                  </TabList>
+
+                  <TabPanel className={Styles.tabPanel}>
+                    <AddCityForm isAuthenticated={isAuthenticated} userId={userId} />
+                  </TabPanel>
+                  <TabPanel className={Styles.tabPanel}>
+                    <UserList isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+                  </TabPanel>
+                </Tabs>
+              </ProtectedRouteAdmin>
             </AuthRoute>
           }
         />
@@ -125,24 +137,13 @@ function App() {
             </AuthRoute>
           }
         />
-        <Route
-          path='/city/:cityId'
-          element={
-              <EventPage userEmail={userEmail} isAuthenticated={isAuthenticated} />
-          }
-        />
+        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated} />} />
         <Route
           path='/event/:eventId'
-          element={
-              <EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated} />
-          }
+          element={<EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated} />}
         />
-        <Route
-          path='/discoverevents'
-          element={
-              <DiscoverEvents isAuthenticated={isAuthenticated} />
-          }
-        />
+        <Route path='/discoverevents' element={<DiscoverEvents isAuthenticated={isAuthenticated} />} />
+        <Route path='/setting' element={<Setting userId={userId} userEmail={userEmail}/>} />
         <Route
           path='/calendars'
           element={
@@ -167,16 +168,7 @@ function App() {
             </AuthRoute>
           }
         />
-        <Route
-          path='*'
-          element={
-            isAuthenticated ? (
-              <Navigate to='/discoverevents' />
-            ) : (
-              <Navigate to='/' />
-            )
-          }
-        />
+        <Route path='*' element={isAuthenticated ? <Navigate to='/discoverevents' /> : <Navigate to='/' />} />
       </Routes>
       <div>
         <Footer />

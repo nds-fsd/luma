@@ -78,7 +78,7 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
           return '#';
       }
     }
-    return '#';
+    return null;
   };
 
   if (!event) {
@@ -97,15 +97,21 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
         </div>
 
         <div className={styles.socialIcons}>
-          <a href={getSocialNetworkUrl(event.owner, 'instagram')} target="_blank" rel="noopener noreferrer">
-            <img src={instagramGif} alt='Instagram' className={styles.socialIcon} />
-          </a>
-          <a href={getSocialNetworkUrl(event.owner, 'linkedin')} target="_blank" rel="noopener noreferrer">
-            <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon} />
-          </a>
-          <a href={getSocialNetworkUrl(event.owner, 'website')} target="_blank" rel="noopener noreferrer">
-            <img src={webGif} alt='Website' className={styles.socialIcon} />
-          </a>
+          {getSocialNetworkUrl(event.owner, 'instagram') && (
+            <a href={getSocialNetworkUrl(event.owner, 'instagram')} target="_blank" rel="noopener noreferrer">
+              <img src={instagramGif} alt='Instagram' className={styles.socialIcon} />
+            </a>
+          )}
+          {getSocialNetworkUrl(event.owner, 'linkedin') && (
+            <a href={getSocialNetworkUrl(event.owner, 'linkedin')} target="_blank" rel="noopener noreferrer">
+              <img src={linkedinGif} alt='LinkedIn' className={styles.socialIcon} />
+            </a>
+          )}
+          {getSocialNetworkUrl(event.owner, 'website') && (
+            <a href={getSocialNetworkUrl(event.owner, 'website')} target="_blank" rel="noopener noreferrer">
+              <img src={webGif} alt='Website' className={styles.socialIcon} />
+            </a>
+          )}
         </div>
 
         <h1 className={styles.eventTitle}>{event.eventTitle}</h1>

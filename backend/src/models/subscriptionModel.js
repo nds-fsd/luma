@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const subscriptionSchema = new Schema({
   email: { type: String, required: true },
   city: { type: Schema.Types.ObjectId, ref: 'City', required: true },
+  isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now }
 });
 
