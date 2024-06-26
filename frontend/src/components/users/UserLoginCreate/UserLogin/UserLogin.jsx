@@ -108,7 +108,7 @@ const UserLogin = ({ handleLogin }) => {
                 {errors.password && <span className={styles.error}>{errors.password.message}</span>}
               </div>
               {backendError && <span className={styles.error}>{backendError}</span>}
-              <button type='submit' className={styles.button}>
+              <button type='submit' className={styles.button} data-testid="login-button">
                 {`Continuar con ${inputType === 'email' ? 'correo electrónico' : 'teléfono'}`}
               </button>
               <div className={styles.containerRegisterUser}>

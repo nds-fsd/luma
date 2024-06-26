@@ -69,7 +69,7 @@ const NavBar = ({
           <div>
             {!isMobile && (
               <Link to='/login' className={styles.navcontent}>
-                <button className={styles.buttonlogin}>INICIAR SESIÓN</button>
+                <button className={styles.buttonlogin} data-testid="login-link">INICIAR SESIÓN</button>
               </Link>
             )}
             {isMobile && (
