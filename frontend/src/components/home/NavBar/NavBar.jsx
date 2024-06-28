@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 import logo from '../../../images/logoLumatic.svg';
 import iconLogin from '../../../images/icon-login.svg';
+import iconEvent from '../../../images/event.png';
+import iconExplorer from '../../../images/explorar.png';
+import iconAddEvent from '../../../images/anadir.png';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 const NavBar = ({
@@ -12,6 +15,7 @@ const NavBar = ({
   handleGoToConfiguration,
   userPicture,
   userFullName,
+  userEmail,
   handleGoToOwnProfile,
   isDropdownOpen,
   setDropdownOpen,
@@ -37,51 +41,81 @@ const NavBar = ({
           <img src={logo} alt='Lumatic logo' />
         </Link>
       </div>
-      <nav className={styles.nav}>
-        {IsAuthenticated ? (
-          <>
-            <Link to='/home' className={styles.navcontent}>
-              <button className={styles.buttoneventos}>EVENTOS</button>
-            </Link>
+      <div className={styles.navMain}>
+        <nav className={styles.nav}>
+          {IsAuthenticated ? (
+            <div className={styles.organizerLinks}>
+              <div>
+                {!isMobile && (
+                  <Link to='/home' className={styles.navcontent}>
+                    <button className={styles.buttoneventos}>EVENTOS</button>
+                  </Link>
+                )}
+                {isMobile && (
+                  <Link to='/home' className={styles.navcontent}>
+                    <img src={iconEvent} className={styles.iconEvent} alt='Events icon' />
+                  </Link>
+                )}
+              </div>
+              <div>
+                {!isMobile && (
+                  <Link to='/discoverevents' className={styles.navcontent}>
+                    <button className={styles.buttoneventos}>DESCUBRIR</button>
+                  </Link>
+                )}
+                {isMobile && (
+                  <Link to='/discoverevents' className={styles.navcontent}>
+                    <img src={iconExplorer} className={styles.iconExplorer} alt='Discover Events icon' />
+                  </Link>
+                )}
+              </div>
+              <div>
+                {!isMobile && (
+                  <Link to='/eventcreate' className={styles.navcontent}>
+                    <button className={styles.buttoneventos}>CREAR EVENTO</button>
+                  </Link>
+                )}
+                {isMobile && (
+                  <Link to='/eventcreate' className={styles.navcontent}>
+                    <img src={iconAddEvent} className={styles.iconAddEvent} alt='Add Event icon' />
+                  </Link>
+                )}
+              </div>
+            </div>
+          ) : (
             <Link to='/discoverevents' className={styles.navcontent}>
-              <button className={styles.buttoneventos}>DESCUBRIR</button>
+              <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
             </Link>
-            <Link to='/eventcreate' className={styles.navcontent}>
-              <button className={styles.buttoneventos}>CREAR EVENTO</button>
-            </Link>
-          </>
-        ) : (
-          <Link to='/discoverevents' className={styles.navcontent}>
-            <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
-          </Link>
-        )}
-        {IsAuthenticated ? (
-          <DropdownMenu
-            handleLogout={handleLogout}
-            handleGoToConfiguration={handleGoToConfiguration}
-            userPicture={userPicture}
-            userFullName={userFullName}
-            userRole={userRole}
-            handleGoToOwnProfile={handleGoToOwnProfile}
-            isDropdownOpen={isDropdownOpen}
-            setDropdownOpen={setDropdownOpen}
-            handleGoToAdmin={handleGoToAdmin}
-          />
-        ) : (
-          <div>
-            {!isMobile && (
-              <Link to='/login' className={styles.navcontent}>
-                <button className={styles.buttonlogin}>INICIAR SESIÓN</button>
-              </Link>
-            )}
-            {isMobile && (
-              <Link to='/login' className={styles.navcontent}>
-                <img src={iconLogin} className={styles.iconlogin} alt='Login icon' />
-              </Link>
-            )}
-          </div>
-        )}
-      </nav>
+          )}
+          {IsAuthenticated ? (
+            <DropdownMenu
+              handleLogout={handleLogout}
+              handleGoToConfiguration={handleGoToConfiguration}
+              userPicture={userPicture}
+              userFullName={userFullName}
+              userRole={userRole}
+              userEmail={userEmail}
+              handleGoToOwnProfile={handleGoToOwnProfile}
+              isDropdownOpen={isDropdownOpen}
+              setDropdownOpen={setDropdownOpen}
+              handleGoToAdmin={handleGoToAdmin}
+            />
+          ) : (
+            <div>
+              {!isMobile && (
+                <Link to='/login' className={styles.navcontent}>
+                  <button className={styles.buttonlogin}>INICIAR SESIÓN</button>
+                </Link>
+              )}
+              {isMobile && (
+                <Link to='/login' className={styles.navcontent}>
+                  <img src={iconLogin} className={styles.iconlogin} alt='Login icon' />
+                </Link>
+              )}
+            </div>
+          )}
+        </nav>
+      </div>
     </header>
   );
 };

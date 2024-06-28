@@ -1,102 +1,144 @@
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 25px;
-    background-color: white;
-  }
-  
-  .logolumatic {
-    height: 18px;
-    margin-top: -10px;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navcontent {
-    margin-left: 10px;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .buttonlogin {
-    width: 140px;
-    height: 40px;
-    background-color: black;
-    color: white;
-    border-radius: 35px;
-    font-size: 14px;
-    font-family: 'roboto condensed', sans-serif;
-    cursor: pointer;
-    border: none;
-  }
-  
-  .buttonlogin:hover {
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
-    color: black;
-  }
-  
-  .buttonlogin:active {
-    background-color: rgb(0, 0, 0);
-    color: white;
-  }
-  
-  .buttoneventos {
-    position: relative; 
-    background: none;
-    border: none;
-    color: black;
-    font-size: 14px;
-    font-family: "Roboto Condensed", sans-serif;
-    cursor: pointer;
-    margin-right: 35px; 
-    overflow: hidden; 
+  display: flex;
+  align-items: center;
+  position: fixed;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 40px;
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  z-index: 1;
+}
+
+.logolumatic {
+  height: 45px;
+  display: flex;
+  justify-content: left;
+  width: 50%;
+  padding-left: 40px;
+}
+
+.logolumatic img {
+  height: 100%;
+}
+
+.navMain {
+  display: flex;
+  justify-content: end;
+  width: 50%;
+  padding-right: 40px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.navcontent {
+  margin-left: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.buttonlogin {
+  width: 140px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border-radius: 35px;
+  font-size: 14px;
+  font-family: 'roboto condensed', sans-serif;
+  cursor: pointer;
+  border: none;
+}
+
+.buttonlogin:hover {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  color: black;
+}
+
+.buttonlogin:active {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.buttoneventos {
+  position: relative;
+  background: none;
+  border: none;
+  color: black;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+  margin-right: 35px;
+  overflow: hidden;
 }
 
 .buttoneventos::after {
-    content: '';
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    width: 0; 
-    height: 1.5px; 
-    background-color: rgb(0, 0, 0); 
-    transition: width 0.3s; 
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: rgb(0, 0, 0);
+  transition: width 0.3s;
 }
 
 .buttoneventos:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
-  .containerleft {
-    flex: 1; 
-    padding: 20px; 
+.containerleft {
+  flex: 1;
+  padding: 20px;
+}
+
+.organizerLinks {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .logolumatic {
+    margin-top: 1px;
+    height: 30px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .logolumatic {
-        content: url('../../../images/logo-mobile.svg');
-        margin-top: 1px;
-    }
 
-    .buttonlogin {
-        display: none;
-    }
+  .logolumatic img {
+    height: 100%;
+  }
 
-    .iconlogin {
-      content: url('../../../images/icon-login.svg');
-      width: 18px; 
-      height: 18px;
-      margin-top: 5px;
-    }
+  .buttonlogin {
+    display: none;
+  }
 
-    .buttoneventos {
-      margin-right: 10px;
-    }
+  .iconlogin {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+  }
 
+  .iconEvent {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+  }
+
+  .iconExplorer {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+  }
+
+  .iconAddEvent {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+  }
+
+  .buttoneventos {
+    margin-right: 10px;
+  }
 }
-

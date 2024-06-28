@@ -7,17 +7,16 @@
 
 .overlay {
   position: fixed;
-  top: 0;
+  top: 80px;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1;
 }
-
 
 .innerContainer {
   max-width: 300px;
@@ -27,12 +26,12 @@
   background-color: #333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   font-size: 13px;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
 }
 
 h2 {
   color: #fff;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
   font-size: 25px;
   text-align: center;
 }
@@ -40,40 +39,41 @@ h2 {
 .subtitle {
   max-width: 300px;
   color: aliceblue;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
   margin-top: 10px;
   font-size: 15px;
   text-align: left;
 }
 
 .logo {
-  width: 200px;  
-  height: auto;
-  margin-bottom: 20px;
-  
+  height: 80px;
+  width: 80px;
+}
+
+.subtitleLogo {
+  display: flex;
 }
 
 .formGroup {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
 }
 
 .text p {
   color: #fff;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  font-family: 'roboto condensed', sans-serif;
 }
 
 .label {
   display: block;
   margin-bottom: 5px;
   color: #fff;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
 }
 
 .input {
@@ -84,7 +84,7 @@ h2 {
   background-color: #444;
   color: #fff;
   font-size: 12px;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
 }
 
 .button {
@@ -94,7 +94,7 @@ h2 {
   border: none;
   border-radius: 5px;
   background-color: #eef3f8;
-  font-family: 'roboto condensed', sans-serif;
+  font-family: var(--font-family-condensed);
   color: #0c0b0b;
   cursor: pointer;
   margin-top: 10px;
@@ -136,13 +136,13 @@ h2 {
 .link {
   padding: 0;
   margin: 0;
-  font-size: 13px;
   color: #fff;
   background: none;
   border: none;
   cursor: pointer;
-  text-decoration: underline;
-  font-family: 'roboto condensed', sans-serif;
+  text-decoration: none;
+  font-family: var(--font-family-condensed);
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -155,17 +155,8 @@ h2 {
   color: #fff;
 }
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .innerContainer {
-    padding: 10px; 
+    padding: 10px;
   }
-}
-
-.logo {
-  height: 80px;
-  width: 80px;
-}
-
-.subtitleLogo {
-  display: flex;
 }

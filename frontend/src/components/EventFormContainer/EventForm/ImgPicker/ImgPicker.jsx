@@ -52,10 +52,12 @@ const ImgPicker = ({ selectedImage, setSelectedImage }) => {
     };
 
     return (
-        <div className={Styles.ImageContainer}>
-            <img src={selectedImage} alt="Selected event" className={Styles.eventImage} />
+        <div className={Styles.imageContainer}>
+            {selectedImage && <img src={selectedImage} alt="Selected event" className={Styles.eventImage} />}
             <div className={Styles.imagePicker}>
-                <label htmlFor="image_file" className={Styles.labels}>Seleccionar una imagen</label>
+                <label htmlFor="image_file" className={Styles.customFileUpload}>
+                    Seleccionar archivo
+                </label>
                 <input
                     id="image_file"
                     name='image_file'
@@ -67,7 +69,7 @@ const ImgPicker = ({ selectedImage, setSelectedImage }) => {
                 />
                 {errors.eventPicture && <p className={Styles.errors}>La imagen del evento es requerida</p>}
             </div>
-            {uploading && <p>Subiendo imagen...</p>}
+            {uploading && <p className={Styles.uploading}>Subiendo imagen...</p>}
         </div>
     );
 };

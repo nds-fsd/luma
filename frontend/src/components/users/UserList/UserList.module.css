@@ -1,22 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
-
-:root {
-  --primary-color: #202425;
-
-  --accent-color: #c6c6c7;
-  --text-color: #333;
-  --text-light: #666;
-  --border-radius: 8px;
-  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --transition: 0.3s ease;
-  --font-family: 'Roboto', sans-serif;
-  --font-family-condensed: 'Roboto Condensed', sans-serif;
-}
-
-body {
-  font-family: var(--font-family);
-  margin: 0;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding-bottom: 100px;
 }
 
 .title {
@@ -27,14 +14,6 @@ body {
   color: var(--primary-color);
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--secondary-color);
-  padding: 20px;
-  padding-bottom: 100px;
-}
 
 .userContainer {
   display: flex;

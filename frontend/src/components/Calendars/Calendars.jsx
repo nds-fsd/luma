@@ -20,11 +20,7 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
   };
 
   return (
-    <Tabs
-      className={styles.tabs}
-      selectedIndex={selectedTabIndex}
-      onSelect={handleTabSelect}
-    >
+    <Tabs className={styles.tabs} selectedIndex={selectedTabIndex} onSelect={handleTabSelect}>
       <TabList className={styles.tabList}>
         <Tab className={styles.tab} selectedClassName={styles.tabSelected}>
           Eventos
@@ -35,10 +31,14 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
       </TabList>
 
       <TabPanel className={styles.tabPanel}>
-        <HomePage isAuthenticated={isAuthenticated} userId={userId} />
+        <div className={styles.scroll}>
+          <HomePage isAuthenticated={isAuthenticated} userId={userId} />
+        </div>
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
-        <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+        <div className={styles.scroll}>
+          <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+        </div>
       </TabPanel>
     </Tabs>
   );

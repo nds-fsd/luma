@@ -1,7 +1,10 @@
 .tabs {
+  position: fixed;
   background-color: #333;
   color: #fff;
   border-radius: 8px;
+  padding-top: 80px;
+  width: 100%;
 }
 
 .tabList {
@@ -30,3 +33,9 @@
   border-radius: 8px;
   margin-top: -8px;
 }
+
+.scroll {
+  height: 82vh;
+  overflow-y: auto;
+}
+

@@ -20,11 +20,7 @@ const Setting = ({ userId, userEmail }) => {
   };
 
   return (
-    <Tabs
-      className={styles.tabs}
-      selectedIndex={selectedTabIndex}
-      onSelect={handleTabSelect}
-    >
+    <Tabs className={styles.tabs} selectedIndex={selectedTabIndex} onSelect={handleTabSelect}>
       <TabList className={styles.tabList}>
         <Tab className={styles.tab} selectedClassName={styles.tabSelected}>
           Cuenta
@@ -35,10 +31,14 @@ const Setting = ({ userId, userEmail }) => {
       </TabList>
 
       <TabPanel className={styles.tabPanel}>
-        <Account userId={userId} />
+        <div className={styles.scroll}>
+          <Account userId={userId} />
+        </div>
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
-        <SubscriptionOptions userEmail={userEmail} />
+        <div className={styles.scroll}>
+          <SubscriptionOptions userEmail={userEmail} />
+        </div>
       </TabPanel>
     </Tabs>
   );

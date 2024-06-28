@@ -1,144 +1,79 @@
 .descriptionContainer {
   display: flex;
-  justify-content: left;
+  flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
 .formContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   width: 100%;
+  gap: 20px;
 }
 
-.divContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0px;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.dateContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 2% 0%;
-  gap: 5%;
-}
-
-.priceLocation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 75%;
-}
-
-.inputDate {
+.inputDate,
+.inputTime,
+.inputTitle,
+.inputDescription,
+.inputPrice,
+.inputLocation,
+.inputCapacity,
+.inputSubmit {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
+  border: 2px solid #ccc;
+  color: #333;
   font-weight: 600;
-  width: 25vh;
-  height: 4vh;
   border-radius: 7px;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 1.1em;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.inputTime {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
-  font-weight: 600;
-  width: 15vh;
-  height: 4vh;
-  border-radius: 7px;
-  font-family: 'Roboto';
-  font-size: 1.1em;
+.inputTitle,
+.inputDescription {
+  width: 100%;
 }
 
 .inputTitle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
-  font-weight: 600;
   height: 4vh;
-  width: 65vh;
-  border-radius: 7px;
-  padding-left: 1vh;
-  font-family: 'Roboto';
-  font-size: 1.1em;
 }
 
 .inputDescription {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
-  font-weight: 600;
-  height: 10vh;
-  width: 65vh;
-  border-radius: 7px;
+  height: 8vh;
   resize: none;
-  padding-left: 1vh;
-  font-family: 'Roboto';
-  font-size: 1.1em;
 }
 
-.inputPrice {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
-  font-weight: 600;
-  height: 4vh;
-  width: 8vh;
-  border-radius: 7px;
-  padding-left: 2vh;
-  font-family: 'Roboto';
-  font-size: 1.1em;
-}
-
+.inputPrice,
 .inputLocation {
+  flex: 1;
+  min-width: 150px;
+  margin: 5px;
+}
+
+.inputCapacity {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid grey;
-  color: black;
-  font-weight: 600;
-  height: 4vh;
-  width: 15vh;
-  border-radius: 7px;
-  padding-left: 2vh;
-  font-family: 'Roboto';
-  font-size: 1.1em;
+  width: 100%;
+  padding: 5px;
 }
 
 .inputSubmit {
-  font-family: 'Roboto';
-  font-size: 1.1em;
   color: white;
-  letter-spacing: 0.3vh;
   background-color: black;
   border: 2px solid black;
-  border-radius: 7px;
-  width: 65vh;
+  width: 100%;
   height: 7vh;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .inputSubmit:hover {
@@ -148,21 +83,23 @@
 }
 
 .labels {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 1.1em;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .radio {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   border-radius: 50%;
   width: 1.1em;
   height: 1.1em;
-  border: 2px solid grey;
+  border: 2px solid #ccc;
   background-color: white;
   outline: none;
   margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .radio:checked {
@@ -171,36 +108,97 @@
 }
 
 .capacityContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 5%;
-    padding: 10px 0px;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.capacityBorder {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 7px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.capacityBorder > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .errors {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8em;
   color: red;
 }
 
 .dateTime {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex: 1;
+  min-width: 150px;
+  margin: 5px;
 }
 
-.capacityBorder{
-    display: flex; 
-    height: 3.5em;
-    width: 50%;
-    padding: 0% 2%;
-    gap: 10%;
+.dateContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.priceLocation {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+
+  .descriptionContainer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border: 2px solid grey;
-    border-radius: 7px;
+    width: 100%;
+    max-width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+  }
+
+  .dateContainer {
+    flex-direction: column;
+  }
+
+  .inputDate,
+  .inputTime,
+  .inputTitle,
+  .inputDescription,
+  .inputPrice,
+  .inputLocation,
+  .inputCapacity,
+  .inputSubmit {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .priceLocation {
+    flex-direction: column;
+  }
+
+  .capacityContainer {
+    flex-direction: column;
+  }
 }

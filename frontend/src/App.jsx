@@ -45,7 +45,7 @@ function App() {
   const userFullName = user && user.fullname ? user.fullname : '';
   const userRole = user && user.role ? user.role : '';
   const userId = user && user._id ? user._id : '';
-  const userSocialNetworks = user && user.socialNetworks ? user.socialNetworks : [];
+  //const userSocialNetworks = user && user.socialNetworks ? user.socialNetworks : [];
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -63,12 +63,10 @@ function App() {
     setDropdownOpen(false);
   };
 
-
   const handleGoToConfiguration = () => {
     navigate(`/setting`);
     setDropdownOpen(false);
   };
-
 
   const handleLogout = () => {
     removeSession();
@@ -119,10 +117,14 @@ function App() {
                   </TabList>
 
                   <TabPanel className={Styles.tabPanel}>
-                    <AddCityForm isAuthenticated={isAuthenticated} userId={userId} />
+                    <div className={Styles.scroll}>
+                      <AddCityForm isAuthenticated={isAuthenticated} userId={userId} />
+                    </div>
                   </TabPanel>
                   <TabPanel className={Styles.tabPanel}>
-                    <UserList isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+                    <div className={Styles.scroll}>
+                      <UserList isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+                    </div>
                   </TabPanel>
                 </Tabs>
               </ProtectedRouteAdmin>
@@ -143,7 +145,7 @@ function App() {
           element={<EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated} />}
         />
         <Route path='/discoverevents' element={<DiscoverEvents isAuthenticated={isAuthenticated} />} />
-        <Route path='/setting' element={<Setting userId={userId} userEmail={userEmail}/>} />
+        <Route path='/setting' element={<Setting userId={userId} userEmail={userEmail} />} />
         <Route
           path='/calendars'
           element={

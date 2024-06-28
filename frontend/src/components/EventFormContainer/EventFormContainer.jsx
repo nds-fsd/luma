@@ -25,10 +25,7 @@ const EventFormContainer = ({ isAuthenticated }) => {
   return (
     <div className={Styles.container}>
       {isLoading && <LoadingSpinner />}
-      <EventForm
-        isAuthenticated={isAuthenticated}
-        userId={userId}
-      />
+      <EventForm isAuthenticated={isAuthenticated} userId={userId} />
       {!isAuthenticated && showLoginPopup && (
         <UserLogin handleLogin={handleLogin} closePopup={() => setShowLoginPopup(false)} />
       )}

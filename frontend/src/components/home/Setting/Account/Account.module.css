@@ -6,6 +6,7 @@
   box-shadow: var(--box-shadow);
   max-width: 800px;
   margin: 30px auto;
+  padding-bottom: 40px;
 }
 
 .profileSection {
@@ -14,9 +15,9 @@
 }
 
 .profileContainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .nameText {
@@ -190,7 +191,6 @@ a {
 
 .profileImageContainer {
   display: flex;
-
 }
 
 .imagePhoto {
@@ -299,4 +299,12 @@ a {
 
 .fileInput {
   display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 30px;
+    padding-bottom: 40px;
+  }
 }

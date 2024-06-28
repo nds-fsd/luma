@@ -318,25 +318,33 @@ function Account({ userId }) {
           <div key={index} className={styles.socialNetworkItem}>
             {editingIndex === index ? (
               <>
-                <input
-                  type='text'
-                  value={editingNetworkUser}
-                  onChange={(e) => setEditingNetworkUser(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, handleEditNetwork, index)}
-                  className={styles.input}
-                />
-                <button onClick={() => handleEditNetwork(index)} className={styles.confirmButton}>
-                  ✔️
-                </button>
-                <button
-                  onClick={() => {
-                    setEditingIndex(null);
-                    setEditingNetworkUser('');
-                  }}
-                  className={styles.cancelButton}
-                >
-                  ✖️
-                </button>
+                <div className={styles.organizerButtons}>
+                  <div>
+                    <input
+                      type='text'
+                      value={editingNetworkUser}
+                      onChange={(e) => setEditingNetworkUser(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleEditNetwork, index)}
+                      className={styles.input}
+                    />
+                  </div>
+                  <div>
+                    <button onClick={() => handleEditNetwork(index)} className={styles.confirmButton}>
+                      ✔️
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        setEditingIndex(null);
+                        setEditingNetworkUser('');
+                      }}
+                      className={styles.cancelButton}
+                    >
+                      ✖️
+                    </button>
+                  </div>
+                </div>
               </>
             ) : (
               <>

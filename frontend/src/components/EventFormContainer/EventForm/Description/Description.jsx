@@ -29,9 +29,9 @@ const Description = ({ selectedImage, userId }) => {
         }
     }, [userId]);
 
-  const handleRadioChange = (event) => {
-    setShowQuantityInput(event.target.value === 'quantity');
-  };
+    const handleRadioChange = (event) => {
+        setShowQuantityInput(event.target.value === 'quantity');
+    };
 
     const onSubmit = async (data) => {
         const eventData = {
@@ -58,16 +58,16 @@ const Description = ({ selectedImage, userId }) => {
             <form onSubmit={handleSubmit(onSubmit)} className={Styles.formContainer}>
                 <div className={Styles.dateContainer}>
                     <div className={Styles.dateTime}>
-                        <label htmlFor="date" className={Styles.labels}>Fecha del evento</label>
-                        <input type="date" {...register("eventDate", { required: true })} className={Styles.inputDate} />
+                        <label htmlFor="eventDate" className={Styles.labels}>Fecha del evento</label>
+                        <input type="date" id="eventDate" {...register("eventDate", { required: true })} className={Styles.inputDate} />
                     </div>
                     <div className={Styles.dateTime}>
-                        <label htmlFor="date" className={Styles.labels}>Hora de comienzo</label>
-                        <input type="time" {...register("eventStartTime", { required: true })} className={Styles.inputTime} />
+                        <label htmlFor="eventStartTime" className={Styles.labels}>Hora de comienzo</label>
+                        <input type="time" id="eventStartTime" {...register("eventStartTime", { required: true })} className={Styles.inputTime} />
                     </div>
                     <div className={Styles.dateTime}>
-                        <label htmlFor="date" className={Styles.labels}>Hora de finalización</label>
-                        <input type="time" {...register("eventEndTime", { required: true })} className={Styles.inputTime} />
+                        <label htmlFor="eventEndTime" className={Styles.labels}>Hora de finalización</label>
+                        <input type="time" id="eventEndTime" {...register("eventEndTime", { required: true })} className={Styles.inputTime} />
                     </div>
                 </div>
                 {errors.eventDate && <p className={Styles.errors}>La fecha del evento es requerida</p>}
@@ -86,7 +86,7 @@ const Description = ({ selectedImage, userId }) => {
                 </div>
                 <div className={Styles.priceLocation}>
                     <div className={Styles.divContainer}>
-                        <label htmlFor="number" className={Styles.labels}>Localización</label>
+                        <label htmlFor="eventLocation" className={Styles.labels}>Localización</label>
                         <select
                             name="eventLocation"
                             className={Styles.inputLocation}
@@ -103,24 +103,25 @@ const Description = ({ selectedImage, userId }) => {
                         </select>
                     </div>
                     <div className={Styles.divContainer}>
-                        <label htmlFor="number" className={Styles.labels}>Precio de la entrada</label>
+                        <label htmlFor="eventPrice" className={Styles.labels}>Precio de la entrada</label>
                         <input
                             type="number"
+                            placeholder='Euros (€)'
                             min="0"
                             {...register("eventPrice", { min: 0, required: true })}
                             className={Styles.inputPrice}
-                        /> €
+                        />
                     </div>
                 </div>
                 {errors.eventPrice && <p className={Styles.errors}>El precio de la entrada es requerido</p>}
                 <div className={Styles.capacityContainer}>
-                    <label htmlFor="ilimitado" className={Styles.labels}>Capacidad</label>
+                    <label className={Styles.labels}>Capacidad</label>
                     <div className={Styles.capacityBorder}>
                         <div>
                             <input
                                 type="radio"
                                 id="ilimitado"
-                                value='ilimitado'
+                                value="ilimitado"
                                 {...register("eventCapacity")}
                                 checked={!showQuantityInput}
                                 onChange={handleRadioChange}
@@ -142,9 +143,10 @@ const Description = ({ selectedImage, userId }) => {
                         </div>
                         {showQuantityInput && (
                             <input
-                                className={Styles.inputPrice}
+                                className={Styles.inputCapacity}
+                                placeholder='Introduce el valor del límite.'
                                 type="number"
-                                id='capacity'
+                                id="capacity"
                                 min="1"
                                 {...register("eventCapacity", { min: 1 }, { required: true })}
                             />

@@ -1,14 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
-
-:root {
-  --primary-color: #333;
-  --secondary-color: #fff;
-  --accent-color: #ff6f61;
-  --font-family: 'Roboto Condensed', sans-serif;
-  --border-radius: 15px;
-  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 .eventDetail {
   display: flex;
   justify-content: center;
