@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
-import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
 import SubscribeWithEmail from '../../SubscribeButtonToCity/SubscribeButtonToCity';
 import SubscribeBox from '../../SubscribeButtonToCityWithoutAuth/SubscribeButtonToCityWithoutAuth';
+import EventMap from '../../EventMap/EventMap';
 
 const EventPage = ({ userEmail, isAuthenticated }) => {
   const [city, setCity] = useState(null);
@@ -39,9 +39,6 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
             Qué está pasando en <br />
             {city && <span className={styles['title-city']}>{city.cityName}</span>}
           </h1>
-          <div className={styles['clock-container']}>
-            <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
-          </div>
           <p className={styles['text-p']}>
             Los eventos más actuales e interesantes
             <br />
@@ -55,9 +52,14 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
         </div>
         <div className={styles.header} style={backgroundStyle}></div>
       </div>
+
       <div className={styles.main}>
         <h1 className={styles['title-events']}>Upcoming Events</h1>
         <EventList cityId={cityId} userEmail={userEmail} isAuthenticated={isAuthenticated}/>
+      </div>
+
+      <div className={styles.eventmap}>
+        <EventMap />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './EventList.module.css';
-import { api } from '../../../utils/api'; //sdfdfaadsf
+import { api } from '../../../utils/api';
 
 const EventList = ({ cityId, city }) => {
   const queryClient = useQueryClient();

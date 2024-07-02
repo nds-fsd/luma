@@ -18,6 +18,9 @@ import EditEventFormContainer from './components/Calendars/MyEvents/EditEventFor
 import Calendars from './components/Calendars/Calendars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Setting from './components/home/Setting/Setting';
+import 'leaflet/dist/leaflet.css';
+import TestPage from './components/MapTest/MapTest';
+
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -93,6 +96,7 @@ function App() {
       </div>
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route path="/test-map" element={<TestPage />} /> 
         <Route path='/event' element={<Navigate to='/discoverevents' />} />
         <Route path='/user' element={<Navigate to='/discoverevents' />} />
         <Route path='/city' element={<Navigate to='/discoverevents' />} />
