@@ -38,6 +38,7 @@ export const removeSession = () => {
   deleteStorageObject('user-session');
   deleteStorageObject('calendarsSelectedTabIndex');
   deleteStorageObject('adminSelectedTabIndex');
+  deleteStorageObject('selectedTabIndex');
 };
 
 export const isTokenExpired = (token) => {

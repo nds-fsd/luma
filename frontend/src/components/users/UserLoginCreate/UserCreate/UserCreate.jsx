@@ -81,7 +81,6 @@ function UserCreate({ onClose }) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     handleInputChange(event);
-    // clearErrors('profile_picture');
     await handleImageUpload(file);
   };
 

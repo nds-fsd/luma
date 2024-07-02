@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { api } from '../../utils/api';
 import styles from './SubscribeButtonToCity.module.css';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../users/AuthContext/AuthContext';
 
-const SubscribeWithEmail = ({ userEmail, cityName }) => {
+const SubscribeWithEmail = ({ cityName }) => {
+  const { userEmail } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import styles from './Setting.module.css';
 import Account from './Account/Account';
 import SubscriptionOptions from './SubscriptionOptions/SubscriptionOptions';
 
-const Setting = ({ userId, userEmail }) => {
+const Setting = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   useEffect(() => {
@@ -32,12 +32,12 @@ const Setting = ({ userId, userEmail }) => {
 
       <TabPanel className={styles.tabPanel}>
         <div className={styles.scroll}>
-          <Account userId={userId} />
+          <Account />
         </div>
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
         <div className={styles.scroll}>
-          <SubscriptionOptions userEmail={userEmail} />
+          <SubscriptionOptions />
         </div>
       </TabPanel>
     </Tabs>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from './Calendars.module.css';
-import HomePage from './MyEvents/HomePage';
+import MyEvents from './MyEvents/MyEvents';
 import SubscribedEvents from './SubscribedEvents/SubscribedEvents';
 
-const Calendars = ({ isAuthenticated, userId, userFullName }) => {
+const Calendars = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   useEffect(() => {
@@ -32,12 +32,12 @@ const Calendars = ({ isAuthenticated, userId, userFullName }) => {
 
       <TabPanel className={styles.tabPanel}>
         <div className={styles.scroll}>
-          <HomePage isAuthenticated={isAuthenticated} userId={userId} />
+          <MyEvents />
         </div>
       </TabPanel>
       <TabPanel className={styles.tabPanel}>
         <div className={styles.scroll}>
-          <SubscribedEvents isAuthenticated={isAuthenticated} userId={userId} userFullName={userFullName} />
+          <SubscribedEvents />
         </div>
       </TabPanel>
     </Tabs>

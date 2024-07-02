@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
 import { api } from '../../../../utils/api';
 import { removeSession } from '../../../../utils/localStorage.utils';
 import styles from './Account.module.css';
+import { AuthContext } from '../../../users/AuthContext/AuthContext';
 
-function Account({ userId }) {
+function Account() {
+  const { userId } = useContext(AuthContext);
   const [user, setUser] = useState({
     fullname: '',
     email: '',

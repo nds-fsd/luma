@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext  } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './EventDetail.module.css';
 import { api } from '../../../utils/api';
@@ -9,11 +9,13 @@ import organizationGif from '../../../images/organizer.png';
 import instagramGif from '../../../images/instagram.png';
 import webGif from '../../../images/web.png';
 import linkedinGif from '../../../images/linkedin.png';
-import SubscribeWithEmail from '../../SubscribeButtonToCity/SubscribeButtonToCity';
-import SubscribeButton from '../../SubscribeButtonToEvent/SubscribeButtonToEvent';
+import SubscribeButtonToCity from '../../SubscribeButtonToCity/SubscribeButtonToCity';
+import SubscribeButtonToEvent from '../../SubscribeButtonToEvent/SubscribeButtonToEvent';
 import { getUserToken } from '../../../utils/localStorage.utils';
+import { AuthContext } from '../../users/AuthContext/AuthContext';
 
-const EventDetail = ({ userEmail, isAuthenticated }) => {
+const EventDetail = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [cityName, setCityName] = useState(null);
@@ -141,16 +143,15 @@ const EventDetail = ({ userEmail, isAuthenticated }) => {
         <div className={styles['subscribe-container']}>
           <div>
             <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Suscríbete a los eventos de {cityName}</p>
-            {cityName && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={cityName} />}
-            {cityName && !isAuthenticated && <SubscribeBox />}
+            {cityName && isAuthenticated && <SubscribeButtonToCity cityName={cityName} />}
+            {cityName && !isAuthenticated && <SubscribeBox cityName={cityName}/>}
           </div>
           <div>
             {cityName && isAuthenticated && (
               <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Suscríbete a este evento</p>
             )}
             {cityName && isAuthenticated && (
-              <SubscribeButton
-                isAuthenticated={isAuthenticated}
+              <SubscribeButtonToEvent
                 eventId={eventId}
                 isSubscribed={userSubscriptions.includes(eventId)}
                 onSubscribeChange={handleSubscriptionChange}

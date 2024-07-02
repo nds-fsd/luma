@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/api';
 import styles from './DiscoverEvents.module.css';
 import { getUserToken } from '../../utils/localStorage.utils';
 import SubscribeButton from '../SubscribeButtonToEvent/SubscribeButtonToEvent';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../users/AuthContext/AuthContext';
 
-const DiscoverEvents = ({ isAuthenticated }) => {
+const DiscoverEvents = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);

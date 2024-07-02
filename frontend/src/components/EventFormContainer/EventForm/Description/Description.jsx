@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Styles from './Description.module.css';
 import { useForm } from 'react-hook-form';
 import { api } from '../../../../utils/api';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../users/AuthContext/AuthContext';
 
-const Description = ({ selectedImage, userId }) => {
+const Description = ({ selectedImage }) => {
+    const { userId } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showQuantityInput, setShowQuantityInput] = useState(false);
     const [cities, setCities] = useState([]);

@@ -1,30 +1,50 @@
-import React, { useState } from "react";
-import styles from "./SubscribeButtonToCityWithoutAuth.module.css"; 
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import styles from './SubscribeButtonToCityWithoutAuth.module.css';
+import { api } from '../../utils/api';
 
-const SubscribeBox = () => {
-    const [email, setEmail] = useState("");
+const SubscribeBox = ({ cityName }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [message, setMessage] = useState('');
 
-    const handleInputChange = (event) => {
-        setEmail(event.target.value);
-    };
+  const onSubmit = async (data) => {
+    try {
+      const response = await api().post('/subscription/subscribe', { email: data.email, cityName });
+      setMessage(response.data.message);
+      reset();
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Error subscribing');
+    }
+  };
 
-    const handleSubmit = () => {
-        alert(`¡Te has suscrito con éxito!: ${email}!`);
-        setEmail(""); 
-    };
-
-    return (
-        <div className={styles["subscribe-box-container"]}>
+  return (
+    <div className={styles['subscribe-box-container']}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.organizerElements}>
+          <div>
             <input
-                type="email"
-                placeholder="myname@email.com"
-                value={email}
-                onChange={handleInputChange}
-                className={styles["subscribe-input"]}
+              type='email'
+              placeholder='myname@email.com'
+              {...register('email', { required: 'Email is required' })}
+              className={styles['subscribe-input']}
             />
-            <button onClick={handleSubmit} className={styles["subscribe-button"]}>Suscribirse</button>
+            {errors.email && <p>{errors.email.message}</p>}
+          </div>
+          <div>
+            <button type='submit' className={styles.subscribeButton}>
+              Suscribirse
+            </button>
+          </div>
         </div>
-    );
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
 };
 
 export default SubscribeBox;

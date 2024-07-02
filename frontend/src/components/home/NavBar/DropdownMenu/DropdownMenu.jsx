@@ -1,18 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import styles from './DropdownMenu.module.css';
+import { AuthContext } from '../../../users/AuthContext/AuthContext';
 
-const DropdownMenu = ({
-  handleLogout,
-  handleGoToConfiguration,
-  handleGoToAdmin,
-  userPicture,
-  userFullName,
-  userRole,
-  handleGoToOwnProfile,
-  isDropdownOpen,
-  setDropdownOpen,
-  userEmail,
-}) => {
+const DropdownMenu = () => {
+  const {
+    handleLogout,
+    handleGoToConfiguration,
+    handleGoToAdmin,
+    userPicture,
+    userFullName,
+    userRole,
+    handleGoToOwnProfile,
+    isDropdownOpen,
+    setDropdownOpen,
+    userEmail,
+  } = useContext(AuthContext);
+
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {

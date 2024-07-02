@@ -1,9 +1,10 @@
+import React from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './EventList.module.css';
-import { api } from '../../../utils/api'; //sdfdfaadsf
+import { api } from '../../../utils/api';
 
-const EventList = ({ cityId, city }) => {
+const EventList = ({ cityId }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -39,31 +40,31 @@ const EventList = ({ cityId, city }) => {
         <ul className={styles.eventsList}>
           {events.map((event, index) => (
             <li key={index} className={styles.eventItem}>
-              <div className={styles.eventContent}>
-                <Link to={`/event/${event._id}`} className={styles.eventLink} city={city}>
+              <Link to={`/event/${event._id}`}>
+                <div className={styles.eventContent}>
                   <div className={styles.eventPictureContainer}>
                     <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
                   </div>
-                </Link>
-                <div className={styles.eventDetails}>
-                  <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
-                  <p className={styles.eventDescription}>{event.eventDescription}</p>
-                  <div className={styles.contentDescription}>
-                    <p className={styles.eventInfo}>
-                      <strong>Fecha:</strong> {formatDate(event.eventDate)}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Organizado por:</strong> {event.owner.fullname}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Precio:</strong> {event.eventPrice}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Capacidad:</strong> {event.eventCapacity}
-                    </p>
+                  <div className={styles.eventDetails}>
+                    <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
+                    <p className={styles.eventDescription}>{event.eventDescription}</p>
+                    <div className={styles.contentDescription}>
+                      <p className={styles.eventInfo}>
+                        <strong>Fecha:</strong> {formatDate(event.eventDate)}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Organizado por:</strong> {event.owner.fullname}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Precio:</strong> {event.eventPrice}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Capacidad:</strong> {event.eventCapacity === -1 ? 'Ilimitada' : event.eventCapacity}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>

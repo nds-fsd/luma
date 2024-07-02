@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext  } from 'react';
 import { api } from '../../../utils/api';
 import { getUserToken } from '../../../utils/localStorage.utils';
 import styles from './SubscribedEvents.module.css';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../users/AuthContext/AuthContext';
 
-const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
+const SubscribedEvents = () => {
+  const { isAuthenticated, userFullName } = useContext(AuthContext);
   const [eventIds, setEventIds] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,41 +80,41 @@ const SubscribedEvents = ({ isAuthenticated, userFullName }) => {
         <ul className={styles.eventsList}>
           {events.map((event) => (
             <li key={event._id} className={styles.eventItem}>
-              <div className={styles.eventContent}>
-                <div className={styles.eventPictureContainer}>
-                  <Link to={`/event/${event._id}`}>
+              <Link to={`/event/${event._id}`} className={styles.eventLink}>
+                <div className={styles.eventContent}>
+                  <div className={styles.eventPictureContainer}>
                     <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
-                  </Link>
-                </div>
-                <div className={styles.eventDetails}>
-                  <div>
-                    <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
-                    <p className={styles.eventDescription}>{event.eventDescription}</p>
                   </div>
-                  <div className={styles.contentDescription}>
+                  <div className={styles.eventDetails}>
                     <div>
-                      <p className={styles.eventInfo}>
-                        <strong>Fecha:</strong> {new Date(event.eventDate).toLocaleDateString()}
-                      </p>
+                      <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
+                      <p className={styles.eventDescription}>{event.eventDescription}</p>
                     </div>
-                    <div>
-                      <p className={styles.eventInfo}>
-                        <strong>Hora:</strong> {event.eventStartTime}
-                      </p>
-                    </div>
-                    <div>
-                      <p className={styles.eventInfo}>
-                        <strong>Localidad:</strong> {event.eventLocation.cityName}
-                      </p>
-                    </div>
-                    <div>
-                      <p className={styles.eventInfo}>
-                        <strong>Precio:</strong> {event.eventPrice}
-                      </p>
+                    <div className={styles.contentDescription}>
+                      <div>
+                        <p className={styles.eventInfo}>
+                          <strong>Fecha:</strong> {new Date(event.eventDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.eventInfo}>
+                          <strong>Hora:</strong> {event.eventStartTime}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.eventInfo}>
+                          <strong>Localidad:</strong> {event.eventLocation.cityName}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.eventInfo}>
+                          <strong>Precio:</strong> {event.eventPrice}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>

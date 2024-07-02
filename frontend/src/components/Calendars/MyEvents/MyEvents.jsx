@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useQueryClient, useQuery } from 'react-query';
-import styles from './HomePage.module.css';
+import styles from './MyEvents.module.css';
 import { api } from '../../../utils/api';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../users/AuthContext/AuthContext';
 
-const HomePage = ({ userId }) => {
+const MyEvents = () => {
+  const { userId } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -55,39 +57,39 @@ const HomePage = ({ userId }) => {
         <ul className={styles.eventsList}>
           {userEvents.map((event, index) => (
             <li key={index} className={styles.eventItem}>
-              <div className={styles.eventContent}>
-                <Link to={`/event/${event._id}`} className={styles.eventLink}>
+              <Link to={`/event/${event._id}`} className={styles.eventLink}>
+                <div className={styles.eventContent}>
                   <div className={styles.eventPictureContainer}>
                     <img src={event.eventPicture} alt={event.eventTitle} className={styles.eventPicture} />
                   </div>
-                </Link>
-                <div className={styles.eventDetails}>
-                  <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
-                  <p className={styles.eventDescription}>{event.eventDescription}</p>
-                  <div className={styles.contentDescription}>
-                    <p className={styles.eventInfo}>
-                      <strong>Fecha:</strong> {formatDate(event.eventDate)}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Hora:</strong> {event.eventStartTime} - {event.eventEndTime}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Ubicación:</strong> {event.eventLocation.cityName}
-                    </p>
-                    <p className={styles.eventInfo}>
-                      <strong>Organizado por:</strong> {event.owner.fullname}
-                    </p>
-                  </div>
-                  <div className={styles.buttonGroup}>
-                    <button className={styles.button} onClick={() => deleteEvent(event._id)}>
-                      Eliminar
-                    </button>
-                    <button className={styles.button} onClick={() => handleEditEvent(event)}>
-                      Editar
-                    </button>
+                  <div className={styles.eventDetails}>
+                    <h3 className={styles.eventTitle}>{event.eventTitle}</h3>
+                    <p className={styles.eventDescription}>{event.eventDescription}</p>
+                    <div className={styles.contentDescription}>
+                      <p className={styles.eventInfo}>
+                        <strong>Fecha:</strong> {formatDate(event.eventDate)}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Hora:</strong> {event.eventStartTime} - {event.eventEndTime}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Ubicación:</strong> {event.eventLocation.cityName}
+                      </p>
+                      <p className={styles.eventInfo}>
+                        <strong>Organizado por:</strong> {event.owner.fullname}
+                      </p>
+                    </div>
+                    <div className={styles.buttonGroup}>
+                      <button className={styles.button} onClick={(e) => { e.preventDefault(); deleteEvent(event._id); }}>
+                        Eliminar
+                      </button>
+                      <button className={styles.button} onClick={(e) => { e.preventDefault(); handleEditEvent(event); }}>
+                        Editar
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
@@ -96,4 +98,4 @@ const HomePage = ({ userId }) => {
   );
 };
 
-export default HomePage;
+export default MyEvents;

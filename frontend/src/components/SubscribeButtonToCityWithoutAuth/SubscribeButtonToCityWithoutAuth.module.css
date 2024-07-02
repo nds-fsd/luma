@@ -1,33 +1,49 @@
 .subscribe-box-container {
-    border: black;
-    font-family: 'roboto condensed', sans-serif;
+  border: black;
+  font-family: 'roboto condensed', sans-serif;
 }
 
 .subscribe-input {
-    padding: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    flex: 1; 
-    font-family: 'roboto condensed', sans-serif;
-    opacity: 0.7;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 16px;
+  flex: 1;
+  font-family: 'roboto condensed', sans-serif;
+  opacity: 0.7;
+
 }
 
-.subscribe-button {
-    padding: 10px 20px;
-    background-color: white;
-    font-family: 'roboto condensed', sans-serif;
-    color: black;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.subscribeButton {
+  text-decoration: none;
+  width: 200px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.subscribe-button:hover {
-    border: none;
-    background-color: grey;
-    font-family: 'roboto condensed', sans-serif;
+.subscribeButton:hover {
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.subscribeButton:active {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+}
+
+.organizerElements {
+    display: flex;
 }

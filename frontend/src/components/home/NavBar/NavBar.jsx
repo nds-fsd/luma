@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 import logo from '../../../images/logoLumatic.svg';
@@ -7,20 +7,10 @@ import iconEvent from '../../../images/event.png';
 import iconExplorer from '../../../images/explorar.png';
 import iconAddEvent from '../../../images/anadir.png';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
+import { AuthContext } from '../../users/AuthContext/AuthContext';
 
-const NavBar = ({
-  IsAuthenticated,
-  handleGoToAdmin,
-  handleLogout,
-  handleGoToConfiguration,
-  userPicture,
-  userFullName,
-  userEmail,
-  handleGoToOwnProfile,
-  isDropdownOpen,
-  setDropdownOpen,
-  userRole,
-}) => {
+const NavBar = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -43,7 +33,7 @@ const NavBar = ({
       </div>
       <div className={styles.navMain}>
         <nav className={styles.nav}>
-          {IsAuthenticated ? (
+          {isAuthenticated ? (
             <div className={styles.organizerLinks}>
               <div>
                 {!isMobile && (
@@ -87,19 +77,8 @@ const NavBar = ({
               <button className={styles.buttoneventos}>EXPLORAR EVENTOS</button>
             </Link>
           )}
-          {IsAuthenticated ? (
-            <DropdownMenu
-              handleLogout={handleLogout}
-              handleGoToConfiguration={handleGoToConfiguration}
-              userPicture={userPicture}
-              userFullName={userFullName}
-              userRole={userRole}
-              userEmail={userEmail}
-              handleGoToOwnProfile={handleGoToOwnProfile}
-              isDropdownOpen={isDropdownOpen}
-              setDropdownOpen={setDropdownOpen}
-              handleGoToAdmin={handleGoToAdmin}
-            />
+          {isAuthenticated ? (
+            <DropdownMenu />
           ) : (
             <div>
               {!isMobile && (

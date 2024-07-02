@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './SubscriptionOptions.module.css';
 import { api } from '../../../../utils/api';
+import { AuthContext } from '../../../users/AuthContext/AuthContext';
 
-const SubscriptionOptions = ({ userEmail }) => {
+const SubscriptionOptions = () => {
+  const { userEmail } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [subscribedCities, setSubscribedCities] = useState([]);
   const [notificationSettings, setNotificationSettings] = useState({

@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext  } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
 import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
-import SubscribeWithEmail from '../../SubscribeButtonToCity/SubscribeButtonToCity';
+import SubscribeButtonToCity from '../../SubscribeButtonToCity/SubscribeButtonToCity';
 import SubscribeBox from '../../SubscribeButtonToCityWithoutAuth/SubscribeButtonToCityWithoutAuth';
+import { AuthContext } from '../../users/AuthContext/AuthContext';
 
-const EventPage = ({ userEmail, isAuthenticated }) => {
+const EventPage = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [city, setCity] = useState(null);
   const { cityId } = useParams();
   const navigate = useNavigate();
@@ -48,8 +50,8 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
             {city && `en la maravillosa ciudad de ${city.cityName}.`}
           </p>
           <div className={styles['subscribe-container']}>
-            {city && isAuthenticated && <SubscribeWithEmail userEmail={userEmail} cityName={city.cityName} />}
-            {city && !isAuthenticated && <SubscribeBox />}
+            {city && isAuthenticated && <SubscribeButtonToCity cityName={city.cityName} />}
+            {city && !isAuthenticated && <SubscribeBox cityName={city.cityName}/>}
           </div>
           <hr />
         </div>
@@ -57,7 +59,7 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
       </div>
       <div className={styles.main}>
         <h1 className={styles['title-events']}>Upcoming Events</h1>
-        <EventList cityId={cityId} userEmail={userEmail} isAuthenticated={isAuthenticated}/>
+        <EventList cityId={cityId}/>
       </div>
     </div>
   );

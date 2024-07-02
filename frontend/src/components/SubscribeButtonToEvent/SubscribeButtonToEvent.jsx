@@ -1,10 +1,11 @@
-import React from 'react';
+import { useContext } from 'react';
 import styles from './SubscribeButtonToEvent.module.css';
-import { getUserToken } from '../../utils/localStorage.utils';
-import { api } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../users/AuthContext/AuthContext';
+import { api } from '../../utils/api';
 
-const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange, isAuthenticated }) => {
+const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange }) => {
+  const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubscribe = async () => {
@@ -13,29 +14,13 @@ const SubscribeButton = ({ eventId, isSubscribed, onSubscribeChange, isAuthentic
       return;
     }
 
-    const token = getUserToken();
     try {
       let response;
+      const endpoint = isSubscribed ? `/events/${eventId}/unsubscribe` : `/events/${eventId}/subscribe`;
 
-      if (isSubscribed) {
-        response = await api(navigate).post(
-          `/events/${eventId}/unsubscribe`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        onSubscribeChange(eventId, false);
-      } else {
-        response = await api(navigate).post(
-          `/events/${eventId}/subscribe`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        onSubscribeChange(eventId, true);
-      }
+      response = await api().post(endpoint);
+      
+      onSubscribeChange(eventId, !isSubscribed);
     } catch (error) {
       console.error('Error subscribing/unsubscribing to event:', error);
     }
