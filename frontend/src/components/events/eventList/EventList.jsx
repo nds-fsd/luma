@@ -53,7 +53,7 @@ const EventList = ({ cityId }) => {
                         <strong>Fecha:</strong> {formatDate(event.eventDate)}
                       </p>
                       <p className={styles.eventInfo}>
-                        <strong>Organizado por:</strong> {event.owner.fullname}
+                        <strong>Organizado por:</strong> {event.owner ? event.owner.fullname : 'Desconocido'}
                       </p>
                       <p className={styles.eventInfo}>
                         <strong>Precio:</strong> {event.eventPrice}

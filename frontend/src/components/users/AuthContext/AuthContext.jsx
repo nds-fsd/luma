@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { getUserToken, removeSession, isTokenExpired, getUserSession } from '../../../utils/localStorage.utils';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,18 +10,17 @@ export const AuthProvider = ({ children }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
-  /*useEffect(() => {
+  useEffect(() => {
     const token = getUserToken();
-    if (!token || isTokenExpired(token)) {
+    if (token && isTokenExpired(token)) {
       removeSession();
       setIsAuthenticated(false);
       setUser({});
-      navigate('/login');
-    } else {
+    } else if (token) {
       setIsAuthenticated(true);
       setUser(getUserSession());
     }
-  }, [navigate]);*/
+  }, []);
 
   const handleLogin = () => {
     setIsAuthenticated(true);

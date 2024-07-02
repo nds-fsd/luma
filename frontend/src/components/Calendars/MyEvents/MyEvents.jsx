@@ -1,15 +1,17 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useQueryClient, useQuery } from 'react-query';
 import styles from './MyEvents.module.css';
 import { api } from '../../../utils/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../users/AuthContext/AuthContext';
+import ConfirmDeleteModal from '../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 const MyEvents = () => {
   const { userId } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getEvents = async () => {
     const res = await api(navigate).get('/events');
@@ -31,6 +33,16 @@ const MyEvents = () => {
   const handleEditEvent = (event) => {
     setSelectedEvent(event);
     navigate('/editevent', { state: { event } });
+  };
+
+  const handleDeleteEvent = (id) => {
+    setSelectedEvent(id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDeleteEvent = async () => {
+    await deleteEvent(selectedEvent);
+    setIsModalOpen(false);
   };
 
   const userEvents = events ? events.filter((event) => event.owner && event.owner._id === userId) : [];
@@ -80,7 +92,7 @@ const MyEvents = () => {
                       </p>
                     </div>
                     <div className={styles.buttonGroup}>
-                      <button className={styles.button} onClick={(e) => { e.preventDefault(); deleteEvent(event._id); }}>
+                      <button className={styles.button} onClick={(e) => { e.preventDefault(); handleDeleteEvent(event._id); }}>
                         Eliminar
                       </button>
                       <button className={styles.button} onClick={(e) => { e.preventDefault(); handleEditEvent(event); }}>
@@ -94,6 +106,12 @@ const MyEvents = () => {
           ))}
         </ul>
       )}
+      <ConfirmDeleteModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDeleteEvent}
+        type='event'
+      />
     </div>
   );
 };

@@ -53,10 +53,11 @@ const ImgPicker = ({ selectedImage, setSelectedImage }) => {
 
     return (
         <div className={Styles.imageContainer}>
+            <h3>Seleccionar imagen para el evento:</h3>
             {selectedImage && <img src={selectedImage} alt="Selected event" className={Styles.eventImage} />}
             <div className={Styles.imagePicker}>
                 <label htmlFor="image_file" className={Styles.customFileUpload}>
-                    Seleccionar archivo
+                    Seleccionar
                 </label>
                 <input
                     id="image_file"

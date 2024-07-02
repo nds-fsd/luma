@@ -3,6 +3,7 @@ import { api } from '../../../../utils/api';
 import { removeSession } from '../../../../utils/localStorage.utils';
 import styles from './Account.module.css';
 import { AuthContext } from '../../../users/AuthContext/AuthContext';
+import ConfirmDeleteModal from '../../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 function Account() {
   const { userId } = useContext(AuthContext);
@@ -25,6 +26,7 @@ function Account() {
   const [profilePictureUrl, setProfilePictureUrl] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -186,19 +188,22 @@ function Account() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmDeletion = window.confirm(
-      '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.'
-    );
-    if (confirmDeletion) {
-      try {
-        await api().delete(`/user/${userId}`);
-        removeSession();
-        window.location.reload();
-      } catch (error) {
-        console.error('Error deleting account:', error);
-        setMessage('');
-      }
+    try {
+      await api().delete(`/user/${userId}`);
+      removeSession();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      setMessage('');
     }
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handleKeyDown = (event, handler, index = null) => {
@@ -482,10 +487,16 @@ function Account() {
       </div>
       <div className={styles.deleteAccountSection}>
         <h3 className={styles.subHeading}>Eliminar Cuenta</h3>
-        <button onClick={handleDeleteAccount} className={styles.deleteButton}>
+        <button onClick={handleOpenModal} className={styles.deleteButton}>
           Eliminar Cuenta
         </button>
       </div>
+      <ConfirmDeleteModal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        onConfirm={handleDeleteAccount}
+        type='account'
+      />
     </div>
   );
 }

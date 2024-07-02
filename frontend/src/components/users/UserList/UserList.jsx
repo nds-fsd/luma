@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './UserList.module.css';
-import { useNavigate } from 'react-router-dom';
+import ConfirmDeleteModal from '../../ConfirmDeleteModal/ConfirmDeleteModal';
 
 function UserList() {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +51,23 @@ function UserList() {
     user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleOpenModal = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  };
+
+  const confirmDeleteUser = async () => {
+    if (selectedUser) {
+      await deleteUser(selectedUser._id);
+      setIsModalOpen(false);
+    }
+  };
+
   return (
     <div>
       <h1 className={styles.title}>Lista de Usuarios</h1>
@@ -79,13 +98,21 @@ function UserList() {
                 <option value="ADMIN">Administrador</option>
                 <option value="CREATOR">Event Creator</option>
               </select>
-              <button className={styles.button} onClick={() => deleteUser(user._id)}>
+              <button className={styles.button} onClick={() => handleOpenModal(user)}>
                 Delete
               </button>
             </div>
           ))}
         </div>
       </div>
+      {isModalOpen && (
+        <ConfirmDeleteModal
+          isOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+          onConfirm={confirmDeleteUser}
+          type="user"
+        />
+      )}
     </div>
   );
 }

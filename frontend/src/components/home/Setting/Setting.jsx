@@ -8,7 +8,7 @@ const Setting = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   useEffect(() => {
-    const savedTabIndex = localStorage.getItem('selectedTabIndex');
+    const savedTabIndex = localStorage.getItem('settingSelectedTabIndex');
     if (savedTabIndex !== null) {
       setSelectedTabIndex(parseInt(savedTabIndex, 10));
     }
@@ -16,7 +16,7 @@ const Setting = () => {
 
   const handleTabSelect = (index) => {
     setSelectedTabIndex(index);
-    localStorage.setItem('selectedTabIndex', index);
+    localStorage.setItem('settingSelectedTabIndex', index);
   };
 
   return (

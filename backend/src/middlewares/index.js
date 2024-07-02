@@ -135,7 +135,7 @@ const validatePhoneNumber = (phoneNumber) => {
 };
 
 const validateFullname = (fullname) => {
-  const pattern = /^[a-zA-Z\s]+$/;
+  const pattern = /^[\p{L}\s]+$/u;
   return pattern.test(fullname);
 };
 
