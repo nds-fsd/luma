@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext  } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
@@ -11,6 +11,8 @@ import EventMap from '../../EventMap/EventMap';
 const EventPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const [city, setCity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { cityId } = useParams();
   const navigate = useNavigate();
 
@@ -19,13 +21,24 @@ const EventPage = () => {
       try {
         const response = await api(navigate).get(`/city/${cityId}`);
         setCity(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error al obtener la ciudad:', error);
+        setError('Error al obtener la ciudad');
+        setLoading(false);
       }
     };
 
     fetchCityById();
   }, [cityId, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   const backgroundImage = city ? city.cityWallpaper : '';
 
@@ -52,7 +65,7 @@ const EventPage = () => {
           </div>
           <hr />
           <div className={styles.eventmap}>
-            <EventMap />
+            {city && <EventMap cityName={city.cityName} />}
           </div>
         </div>
         <div className={styles.header} style={backgroundStyle}></div>
