@@ -1,18 +1,14 @@
 .mapObject {
-    height: 300px;
+    height: 350px;
     width: auto;
     display: flex;
     bottom: 1;
     border-color: white;
 }
 
-.mapContainer {
-    align-items: center;
-    margin-bottom:  -60px;
-}
-
-@media screen {
-    .mapContainer {
-        align-items: center;
+@media (max-width: 768px) {
+    .mapObject {
+        height: 290px;
     }
-}
+  }
+  

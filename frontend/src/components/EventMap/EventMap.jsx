@@ -7,7 +7,7 @@ import axios from 'axios';
 console.log('All ENV Variables:', process.env);
 
 
-const API_KEY = process.env.OPENCAGE_API;
+const API_KEY = '14dfaa2a825c4efc881b8d8df5727485';
 console.log('API Key:', API_KEY);
 
 const getCoordinates = async (cityName) => {
