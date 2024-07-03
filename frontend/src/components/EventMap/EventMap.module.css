@@ -1,0 +1,18 @@
+.mapObject {
+    height: 300px;
+    width: auto;
+    display: flex;
+    bottom: 1;
+    border-color: white;
+}
+
+.mapContainer {
+    align-items: center;
+    margin-bottom:  -60px;
+}
+
+@media screen {
+    .mapContainer {
+        align-items: center;
+    }
+}

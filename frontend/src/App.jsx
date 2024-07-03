@@ -19,6 +19,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Setting from './components/home/Setting/Setting';
 import { AuthContext } from './components/users/AuthContext/AuthContext';
 import {  getUserToken, removeSession, isTokenExpired } from './utils/localStorage.utils';
+import 'leaflet/dist/leaflet.css';
+
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();

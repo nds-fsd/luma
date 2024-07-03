@@ -2,11 +2,11 @@ import { useState, useEffect, useContext  } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../../utils/api';
 import styles from './EventPage.module.css';
-import Clock from '../clock/Clock';
 import EventList from '../eventList/EventList';
 import SubscribeButtonToCity from '../../SubscribeButtonToCity/SubscribeButtonToCity';
 import SubscribeBox from '../../SubscribeButtonToCityWithoutAuth/SubscribeButtonToCityWithoutAuth';
 import { AuthContext } from '../../users/AuthContext/AuthContext';
+import EventMap from '../../EventMap/EventMap';
 
 const EventPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -41,9 +41,6 @@ const EventPage = () => {
             Qué está pasando en <br />
             {city && <span className={styles['title-city']}>{city.cityName}</span>}
           </h1>
-          <div className={styles['clock-container']}>
-            <Clock timeZone='Europe/Madrid' className={styles['custom-clock']} />
-          </div>
           <p className={styles['text-p']}>
             Los eventos más actuales e interesantes
             <br />
@@ -54,9 +51,13 @@ const EventPage = () => {
             {city && !isAuthenticated && <SubscribeBox cityName={city.cityName}/>}
           </div>
           <hr />
+          <div className={styles.eventmap}>
+            <EventMap />
+          </div>
         </div>
         <div className={styles.header} style={backgroundStyle}></div>
       </div>
+
       <div className={styles.main}>
         <h1 className={styles['title-events']}>Upcoming Events</h1>
         <EventList cityId={cityId}/>
