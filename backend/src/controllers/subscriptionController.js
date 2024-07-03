@@ -1,5 +1,6 @@
 const Subscription = require('../models/subscriptionModel');
 const City = require('../models/cityModel');
+const User = require('../models/userModel');
 
 const checkSubscription = async (req, res) => {
   const { email, cityName } = req.body;
@@ -35,14 +36,18 @@ const subscribeWithEmail = async (req, res) => {
       return res.status(404).json({ message: 'City not found' });
     }
 
+    const user = await User.findOne({ email });
+    const userId = user ? user._id : null;
+
     let subscription = await Subscription.findOne({ email, city: city._id });
     if (subscription) {
       if (subscription.isActive) {
         return res.status(200).json({ message: 'You are already subscribed for this city' });
       }
       subscription.isActive = true;
+      subscription.userId = userId;
     } else {
-      subscription = new Subscription({ email, city: city._id, isActive: true });
+      subscription = new Subscription({ email, city: city._id, isActive: true, userId });
     }
     await subscription.save();
     res.status(201).json({ message: 'Subscribed successfully' });
@@ -51,6 +56,9 @@ const subscribeWithEmail = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+module.exports = subscribeWithEmail;
+
 
 
 const unsubscribeWithEmail = async (req, res) => {
