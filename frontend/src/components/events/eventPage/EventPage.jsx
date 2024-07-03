@@ -49,6 +49,9 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
             {city && !isAuthenticated && <SubscribeBox />}
           </div>
           <hr />
+          <div className={styles.eventmap}>
+            <EventMap />
+          </div>
         </div>
         <div className={styles.header} style={backgroundStyle}></div>
       </div>
@@ -56,10 +59,6 @@ const EventPage = ({ userEmail, isAuthenticated }) => {
       <div className={styles.main}>
         <h1 className={styles['title-events']}>Upcoming Events</h1>
         <EventList cityId={cityId} userEmail={userEmail} isAuthenticated={isAuthenticated}/>
-      </div>
-
-      <div className={styles.eventmap}>
-        <EventMap />
       </div>
     </div>
   );
