@@ -13,7 +13,7 @@
 }
 
 .blue-background {
-  background-color: rgba(235, 241, 243, 0.801);
+  background-color: rgba(170, 211, 223, 255);
   border-top-left-radius: 35px;
   display: flex;
   flex-direction: column;
