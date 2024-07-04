@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Home from './components/home/HomeContainer/Home';
 import UserList from './components/users/UserList/UserList';
@@ -10,7 +11,6 @@ import Styles from './App.module.css';
 import EventPage from './components/events/eventPage/EventPage';
 import EventDetail from './components/events/eventDetail/EventDetail';
 import { getUserSession, getUserToken, removeSession, isTokenExpired } from './utils/localStorage.utils';
-import { useState, useEffect } from 'react';
 import AddCityForm from './components/cities/AddCityForm/AddCityForm';
 import ProtectedRouteAdmin from './components/home/ProtectedRoute/ProtectedRoute';
 import DiscoverEvents from './components/DiscoverEvents/DiscoverEvents';
@@ -18,6 +18,7 @@ import EditEventFormContainer from './components/Calendars/MyEvents/EditEventFor
 import Calendars from './components/Calendars/Calendars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Setting from './components/home/Setting/Setting';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AuthRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -33,10 +34,54 @@ const AuthRoute = ({ children }) => {
   return token && !isTokenExpired(token) ? children : null;
 };
 
-function App() {
+function App({ socket, token }) {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  // useEffect(() => {
+  //   socket.auth = { token };
+  //   socket.connect();
+  
+  //   socket.on('connection', () => {
+  //     console.log('connected to websocket server');
+  //   });
+    
+  //   socket.on('msg', (message) => {
+  //     console.log('message received: ', message);
+  //     // toast.success(` ${message.text}`);
+  //   });
+  
+  //   socket.on('connect_error', (err) => {
+  //     if (err.message === 'Authentication error') {
+  //       console.error('Authentication failed');
+  //       toast.error('Authentication failed');
+  //     }
+  //   });
+  
+  //   return () => {
+  //     socket.off('connect');
+  //     socket.off('msg');
+  //     socket.off('connect_error');
+  //   };
+  // }, [socket, token]);
+
+
+  useEffect(() => {
+    const onMessage = (message) => {
+      console.log(message)
+    }
+    socket.on("messageWelcome", onMessage)
+    socket.on("welcomeEverybody", onMessage)
+    socket.off("newEvent", onMessage)
+    socket.on("msg", onMessage);
+    return () => {
+      socket.off("messageWelcome", onMessage)
+      socket.off("welcomeEverybody", onMessage)
+      socket.off("newEvent", onMessage)
+      socket.off("msg", onMessage)
+    }
+  }, [])
 
   const user = getUserSession() || {};
 
@@ -139,7 +184,7 @@ function App() {
             </AuthRoute>
           }
         />
-        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated} />} />
+        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated}/>} />
         <Route
           path='/event/:eventId'
           element={<EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated} />}
@@ -173,6 +218,7 @@ function App() {
         <Route path='*' element={isAuthenticated ? <Navigate to='/discoverevents' /> : <Navigate to='/' />} />
       </Routes>
       <div>
+        <Toaster />
         <Footer />
       </div>
     </>

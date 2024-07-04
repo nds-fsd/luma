@@ -1,6 +1,7 @@
 const { connectDB } = require('./mongoose');
 const {bootstrapApp} = require('./bootstrap');
 const app = bootstrapApp();
+const ws = require ("./ws");
 
 connectDB().then(() => console.log('Connected to database!'));
 

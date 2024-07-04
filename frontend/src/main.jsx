@@ -4,14 +4,23 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import io from 'socket.io-client'
+import { getUserToken} from './utils/localStorage.utils';
 
 const queryClient = new QueryClient();
+const token = getUserToken();
+
+const socket = io('ws://localhost:3002', {
+  auth: {
+    token: token
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-          <App />
+          <App socket={socket} token={token}/>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
