@@ -1,21 +1,17 @@
-const express = require('express');
-const http = require('http');
 const { Server } = require("socket.io");
 const { validateJWT } = require('../services/auth.service');
 const Subscription = require('../models/subscriptionModel');
 const User = require('../models/userModel');
-const City = require('../models/cityModel');
-const Event = require('../models/eventModel');
 
-const app = express();
-const httpServer = http.createServer(app);
 const socketConnections = {};
 
-  const io = new Server(httpServer, { cors: { origins: ['*'] } });
+const socketServer = (server) => {
+  const io = new Server(server, { cors: { origins: ['*'] } });
+
   io.use(async (socket, next) => {
     console.log("New WS connection request, validating user");
     const token = socket.handshake.auth.token;
-    console.log("token", token)
+
     try {
       const user = validateJWT(token);
       if (!user) {
@@ -31,7 +27,7 @@ const socketConnections = {};
         socketId: socket.id
       };
 
-      console.log('Populated User:', populatedUser);
+      // console.log('Populated User:', populatedUser);
       socket.user = populatedUser;
       next();
     } catch (error) {
@@ -42,9 +38,6 @@ const socketConnections = {};
 
   io.on('connection', (socket) => {
     try {
-      // console.log(socket)
-      // console.log('User connected: ', socket.user.userId);
-      // console.log(socket.user);
       const userId = socket.user.userId;
       socketConnections[userId] = socket.user;
 
@@ -55,6 +48,9 @@ const socketConnections = {};
           socket.join(city._id.toString());
         });
       }
+
+      io.emit("messageWelcome", { text: `Welcome ${socket.user.fullname}!` });
+      socket.emit("welcomeEverybody", { text: `Welcome everybody!` });
 
       socket.on('disconnect', () => {
         console.log('User disconnected: ', socket.user._id);
@@ -70,12 +66,10 @@ const socketConnections = {};
     }
   });
 
-
-httpServer.listen(process.env.WS_PORT || 3002, () => {
-  console.log(`WebSocket server running on port ${process.env.WS_PORT || 3002}`);
-});
+  return io;
+};
 
 module.exports = {
-  socketConnections,
-  io
+  socketServer,
+  socketConnections
 };

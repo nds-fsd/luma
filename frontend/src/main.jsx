@@ -10,7 +10,7 @@ import { getUserToken} from './utils/localStorage.utils';
 const queryClient = new QueryClient();
 const token = getUserToken();
 
-const socket = io('ws://localhost:3002', {
+const socket = io('ws://localhost:3001', {
   auth: {
     token: token
   }

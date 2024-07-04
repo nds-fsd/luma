@@ -42,23 +42,23 @@ function App({ socket, token }) {
   // useEffect(() => {
   //   socket.auth = { token };
   //   socket.connect();
-  
+
   //   socket.on('connection', () => {
   //     console.log('connected to websocket server');
   //   });
-    
+
   //   socket.on('msg', (message) => {
   //     console.log('message received: ', message);
   //     // toast.success(` ${message.text}`);
   //   });
-  
+
   //   socket.on('connect_error', (err) => {
   //     if (err.message === 'Authentication error') {
   //       console.error('Authentication failed');
   //       toast.error('Authentication failed');
   //     }
   //   });
-  
+
   //   return () => {
   //     socket.off('connect');
   //     socket.off('msg');
@@ -66,22 +66,24 @@ function App({ socket, token }) {
   //   };
   // }, [socket, token]);
 
-
   useEffect(() => {
     const onMessage = (message) => {
-      console.log(message)
-    }
-    socket.on("messageWelcome", onMessage)
-    socket.on("welcomeEverybody", onMessage)
-    socket.off("newEvent", onMessage)
-    socket.on("msg", onMessage);
+      if (message.event) {
+        toast.success(`${message.text}`);
+      }
+      console.log(message);
+    };
+    socket.on('messageWelcome', onMessage);
+    socket.on('welcomeEverybody', onMessage);
+    socket.off('newEvent', onMessage);
+    socket.on('msg', onMessage);
     return () => {
-      socket.off("messageWelcome", onMessage)
-      socket.off("welcomeEverybody", onMessage)
-      socket.off("newEvent", onMessage)
-      socket.off("msg", onMessage)
-    }
-  }, [])
+      socket.off('messageWelcome', onMessage);
+      socket.off('welcomeEverybody', onMessage);
+      socket.off('newEvent', onMessage);
+      socket.off('msg', onMessage);
+    };
+  }, []);
 
   const user = getUserSession() || {};
 
@@ -184,7 +186,7 @@ function App({ socket, token }) {
             </AuthRoute>
           }
         />
-        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated}/>} />
+        <Route path='/city/:cityId' element={<EventPage userEmail={userEmail} isAuthenticated={isAuthenticated} />} />
         <Route
           path='/event/:eventId'
           element={<EventDetail userEmail={userEmail} isAuthenticated={isAuthenticated} />}
