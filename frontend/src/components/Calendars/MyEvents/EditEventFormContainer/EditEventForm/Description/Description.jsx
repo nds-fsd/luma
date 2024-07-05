@@ -58,9 +58,8 @@ const Description = ({ event, selectedImage }) => {
     };
 
     const onSubmit = async (data) => {
-
         const { cityLogo, cityWallpaper, ...eventDataToSend } = data;
-        
+    
         const eventData = {
             ...eventDataToSend,
             eventCapacity: data.eventCapacity === 'ilimitado' ? -1 : parseInt(data.eventCapacity1),
@@ -68,12 +67,19 @@ const Description = ({ event, selectedImage }) => {
             eventPicture: selectedImage
         };
         console.log('eventData: ', eventData);
-
+    
         try {
             await api().patch(`/events/${event._id}`, eventData);
             navigate('/home');
         } catch (error) {
             console.error('Error al enviar la solicitud PATCH', error);
+            if (error.response) {
+                console.error('Response error data:', error.response.data);
+            } else if (error.request) {
+                console.error('Request error:', error.request);
+            } else {
+                console.error('Error', error.message);
+            }
         }
     };
 

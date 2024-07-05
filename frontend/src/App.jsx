@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import Home from './components/home/HomeContainer/Home';
@@ -17,7 +18,7 @@ import EditEventFormContainer from './components/Calendars/MyEvents/EditEventFor
 import Calendars from './components/Calendars/Calendars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Setting from './components/home/Setting/Setting';
-import { AuthContext } from './components/users/AuthContext/AuthContext';
+import toast, { Toaster } from 'react-hot-toast';
 import {  getUserToken, removeSession, isTokenExpired } from './utils/localStorage.utils';
 import 'leaflet/dist/leaflet.css';
 
@@ -36,8 +37,57 @@ const AuthRoute = ({ children }) => {
   return token && !isTokenExpired(token) ? children : null;
 };
 
-function App() {
+function App({ socket, token }) {
   const { isAuthenticated, handleLogin } = useContext(AuthContext);
+
+
+  // useEffect(() => {
+  //   socket.auth = { token };
+  //   socket.connect();
+
+  //   socket.on('connection', () => {
+  //     console.log('connected to websocket server');
+  //   });
+
+  //   socket.on('msg', (message) => {
+  //     console.log('message received: ', message);
+  //     // toast.success(` ${message.text}`);
+  //   });
+
+  //   socket.on('connect_error', (err) => {
+  //     if (err.message === 'Authentication error') {
+  //       console.error('Authentication failed');
+  //       toast.error('Authentication failed');
+  //     }
+  //   });
+
+  //   return () => {
+  //     socket.off('connect');
+  //     socket.off('msg');
+  //     socket.off('connect_error');
+  //   };
+  // }, [socket, token]);
+
+  useEffect(() => {
+    const onMessage = (message) => {
+      if (message.event) {
+        toast.success(`${message.text}`);
+      }
+      console.log(message);
+    };
+    socket.on('messageWelcome', onMessage);
+    socket.on('welcomeEverybody', onMessage);
+    socket.off('newEvent', onMessage);
+    socket.on('msg', onMessage);
+    return () => {
+      socket.off('messageWelcome', onMessage);
+      socket.off('welcomeEverybody', onMessage);
+      socket.off('newEvent', onMessage);
+      socket.off('msg', onMessage);
+    };
+  }, []);
+
+
 
   return (
     <>
@@ -123,6 +173,7 @@ function App() {
         <Route path='*' element={isAuthenticated ? <Navigate to='/discoverevents' /> : <Navigate to='/' />} />
       </Routes>
       <div>
+        <Toaster />
         <Footer />
       </div>
     </>

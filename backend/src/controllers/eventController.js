@@ -1,5 +1,8 @@
 const Event = require('../models/eventModel');
+const Subscription = require('../models/subscriptionModel');
 const User = require('../models/userModel');
+
+const socketConnections = require('../ws/index').socketConnections;
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -43,6 +46,7 @@ const deleteEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
   const body = req.body;
+  console.log(body);
   const user = req.user;
 
   if (!user) {
@@ -58,17 +62,41 @@ const createEvent = async (req, res) => {
     creationDate: today,
   };
 
-  console.log('Backend:', data);
+  // console.log('Backend:', data);
 
   try {
-    const newEvent = new Event(data);
+    const newEvent = await new Event(data).populate("eventLocation");
     await newEvent.save();
+    const { io } = require("../index")
+    Object.values(socketConnections).forEach(user => {
+      console.log(user.subscribedCities)
+      const subscribedCities = user.subscribedCities || [];
+      if (subscribedCities.some(c => c.cityName === newEvent.eventLocation.cityName)) {
+        io.to(user.socketId).emit('msg', {
+          text: `Nuevo evento en ${newEvent.eventLocation.cityName}`,
+          event: newEvent,
+        })
+      }
+    })
+
+    // const subscriptions = await Subscription.find({ city: newEvent.eventLocation });
+    // subscriptions.filter((s) => s.user).map(subs => {
+    //   io.to(subs.userId.toString()).emit('msg', {
+    //     text: `Nuevo evento en ${newEvent.eventLocation}`,
+    //     event: newEvent,
+    //   });
+    // });
     res.status(200).json(newEvent);
+
   } catch (error) {
     console.error('Error while creating event', error);
     res.status(500).json(error);
   }
 };
+
+
+
+
 
 const subscribeToEvent = async (req, res) => {
   try {

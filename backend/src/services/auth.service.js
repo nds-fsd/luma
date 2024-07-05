@@ -1,4 +1,4 @@
-require('dotenv').config();  // Asegúrate de cargar .env primero
+require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 
