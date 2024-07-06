@@ -3,9 +3,9 @@
   "version": "0.0.19",
   "private": true,
   "scripts": {
-    "build": "email build",
-    "dev": "email dev --port 3002",
-    "export": "email export --pretty --plainText"
+    "build": "npx email build",
+    "dev": "npx email dev --port 3002",
+    "export": "npx email export --pretty --plainText"
   },
   "dependencies": {
     "@react-email/components": "0.0.21",

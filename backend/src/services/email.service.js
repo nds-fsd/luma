@@ -2,6 +2,8 @@ const handlebars = require("handlebars");
 const fs  = require("fs");
 const path = require("path");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -9,7 +11,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL_ADDRESS,
+    user: process.env.EMAIL_ADDRESS, 
     pass: process.env.EMAIL_PASSWORD,
   },
 });
@@ -18,6 +20,12 @@ const readHbsTemplate = (templateName) => {
   const templatePath = path.join(__dirname, `../email-templates/${templateName}.hbs`);
   const templateString = fs.readFileSync(templatePath, "utf-8")
   return handlebars.compile(templateString);
+}
+
+const testTemplate = () => {
+  const template = readHbsTemplate("template");
+  console.log(template({name: "Barbara"}));
+  console.log(template({name: "Laia"}));
 }
 
 const sendWelcomeEmail = async (email, name) => {
@@ -45,4 +53,5 @@ const sendEmail = async (email, subject, template) => {
 
 module.exports = {
   sendWelcomeEmail,
+  testTemplate
 }

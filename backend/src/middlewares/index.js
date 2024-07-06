@@ -140,6 +140,7 @@ const validateFullname = (fullname) => {
 };
 
 const validateUserCreation = (req, res, next) => {
+  console.log(req.body)
   const { fullname, email, phone_number, password, birthdate, profile_picture } = req.body;
 
   if (!fullname) {

@@ -51,9 +51,10 @@ function UserCreate({ onClose }) {
       setErrorServer("Passwords don't match");
       return;
     }
-
+    console.log(data)
     try {
       const response = await api().post('/user/register', data);
+      console.log(response);
       if (response?.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');

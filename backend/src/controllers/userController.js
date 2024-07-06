@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const {sendWelcomeEmail} = require('../services/email.service')
 
 exports.registerUser = (req, res) => {
   const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
@@ -31,13 +32,14 @@ exports.registerUser = (req, res) => {
       return user.save();
     })
     .then(() => {
+      sendWelcomeEmail(email, fullname);
       res.status(201).json({ success: true, message: 'User registered successfully' });
     })
     .catch((err) => {
       if (err.status) {
         res.status(err.status).json({ error: err.message });
       } else {
-        res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 51
+        res.status(500).json({ success: false, error: 'Internal server error' }); 
       }
     });
 };

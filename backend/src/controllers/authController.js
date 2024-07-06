@@ -20,9 +20,8 @@ exports.register = async (req, res) => {
 
 
     const token = generateJWT(newUser);
-
-    await sendWelcomeEmail(email, name)
-
+    console.log("token", token)
+    await sendWelcomeEmail(email, name);
     return res.status(201).json({ user: newUser, token });
 }
 
