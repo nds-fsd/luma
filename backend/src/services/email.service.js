@@ -1,13 +1,12 @@
 const handlebars = require("handlebars");
-const fs  = require("fs");
+const fs = require("fs");
 const path = require("path");
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
   host: "smtp.gmail.com",
   port: 465,
-  secure: true,
+  // secure: true,
   auth: {
     user: process.env.EMAIL_ADDRESS,
     pass: process.env.EMAIL_PASSWORD,
@@ -21,6 +20,7 @@ const readHbsTemplate = (templateName) => {
 }
 
 const sendWelcomeEmail = async (email, name) => {
+  console.log("ENTRO A MANDAR EL MAIL")
   const welcomeTemplate = readHbsTemplate("welcome");
   return sendEmail(email, `Welcome to Lumatic ${name}!`, welcomeTemplate({ name }));
 }
