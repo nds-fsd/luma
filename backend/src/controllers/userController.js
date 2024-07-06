@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
-const {sendWelcomeEmail} = require('../services/email.service')
-
+const { sendWelcomeEmail } = require('../services/email.service')
 exports.registerUser = (req, res) => {
   const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
 
@@ -32,7 +31,9 @@ exports.registerUser = (req, res) => {
       return user.save();
     })
     .then(() => {
-      sendWelcomeEmail(email, fullname);
+      console.log('User registered successfully')
+      // Aqui mandaremos el email de bienvenida
+      sendWelcomeEmail(email, fullname)
       res.status(201).json({ success: true, message: 'User registered successfully' });
     })
     .catch((err) => {
