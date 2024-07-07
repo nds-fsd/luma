@@ -12,8 +12,7 @@ const server = app.listen(port, () => {
 connectDB()
     .then(() => {
         console.log('Connected to database!');
-        const io = socketServer(server); // Aquí se inicializa socket.io con el servidor HTTP
-        // Exporta app, server y io para otros módulos si es necesario
+        const io = socketServer(server); 
         module.exports = { app, server, io };
     })
     .catch(err => {
