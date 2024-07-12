@@ -69,18 +69,29 @@ function App({ socket, token }) {
   useEffect(() => {
     const onMessage = (message) => {
       if (message.event) {
-        toast.success(`${message.text}`);
+        toast.success(`${message.text}`, {
+          duration: 10000, 
+          style: {
+            backgroundColor: 'black', 
+            color: '#fff', 
+          },
+          position: 'top-center',
+          iconTheme: {
+            primary: '#4CAF50',
+            secondary: '#FFFAEE',
+          },
+        });
       }
       console.log(message);
     };
+  
     socket.on('messageWelcome', onMessage);
     socket.on('welcomeEverybody', onMessage);
-    socket.off('newEvent', onMessage);
     socket.on('msg', onMessage);
+  
     return () => {
       socket.off('messageWelcome', onMessage);
       socket.off('welcomeEverybody', onMessage);
-      socket.off('newEvent', onMessage);
       socket.off('msg', onMessage);
     };
   }, []);
