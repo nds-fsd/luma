@@ -27,6 +27,7 @@ These features ensure a comprehensive and user-friendly experience for event dis
 *	Mongoose [MongoDB object modeling tool]
 *	Node.js 
 *	Express [Node.js framework]
+*	Cloudinary [Image and Video API Platform]
 
 ## UI
 
@@ -34,6 +35,8 @@ These features ensure a comprehensive and user-friendly experience for event dis
 
 At this page we have the main browser to discover the latest events. 
 The header displays the navigation links, and access to the profile.
+
+![](https://github.com/nds-fsd/luma/blob/main/home.png)
  
 ## “Explorar Eventos” Page
 
