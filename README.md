@@ -10,12 +10,12 @@ Welcome to Lumatic, your ultimate destination for discovering and managing event
 
 Here are the key features of the Lumatic website:
 
-•	Event Discovery: Browse a wide variety of events including concerts, workshops, conferences, and local meetups.
-•	Personalized Recommendations: Receive event suggestions tailored to your interests and past activities.
-•	User Accounts: Create and manage personal accounts to track event history and preferences.
-•	Event Listings: Detailed descriptions, schedules, and locations for each event, including user reviews and ratings.
-•	Notifications and Alerts: Get notifications for upcoming events, ticket availability, and personalized event alerts.
-•	Mobile Friendly: Access the website and manage your events easily from any device.
+* Event Discovery: Browse a wide variety of events including concerts, workshops, conferences, and local meetups.
+* Personalized Recommendations: Receive event suggestions tailored to your interests and past activities.
+* User Accounts: Create and manage personal accounts to track event history and preferences.
+* Event Listings: Detailed descriptions, schedules, and locations for each event, including user reviews and ratings.
+* Notifications and Alerts: Get notifications for upcoming events, ticket availability, and personalized event alerts.
+* Mobile Friendly: Access the website and manage your events easily from any device.
 
 These features ensure a comprehensive and user-friendly experience for event discovery and management.
 
