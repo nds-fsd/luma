@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcrypt');
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const User = require('./models/userModel');
 
-dotenv.config(); 
+dotenv.config();
 
 let dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
 
@@ -13,7 +13,6 @@ let mongodb;
 exports.connectDB = async () => {
   mongoose.set('strictQuery', false);
 
-  try {
     if (process.env.NODE_ENV === 'test') {
       mongodb = await MongoMemoryServer.create();
       dbUrl = mongodb.getUri();
@@ -36,7 +35,7 @@ exports.connectDB = async () => {
           phone_number: "666666666",
           role: "ADMIN",
           profile_picture: "www.google.com",
-          password: hashedPassword, 
+          password: hashedPassword,
         });
 
         await admin.save();
@@ -55,7 +54,7 @@ exports.connectDB = async () => {
           phone_number: "777777777",
           role: "CREATOR",
           profile_picture: "www.example.com",
-          password: hashedPassword, 
+          password: hashedPassword,
         });
 
         await creator.save();
@@ -64,10 +63,6 @@ exports.connectDB = async () => {
         console.log("CREATOR user exists: ", creator.email);
       }
     }
-
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 exports.disconnectDB = async () => {
