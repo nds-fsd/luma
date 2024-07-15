@@ -88,4 +88,4 @@ Once you are inside the project directory, you need to install the project depen
   npm run dev
 
 ```
-- Navigate to `http://localhost:3000` to view the application.
+- Navigate to `[https://lumatic.netlify.app/]` to view the application.
