@@ -44,12 +44,13 @@ The header displays the navigation links, and access to the profile.
 
 Our event exploration page is organized by cities, showcasing the latest events specific to each location. Additionally, you will have access to the "Featured Calendars" section, where the most popular events from all cities will be displayed.
 
-![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-discoverevents-2024-07-13-19_38_29.png)
-
-## Featured Calendars:
+- **Featured Calendars**:
 
 This page provides a curated selection of events that have been highlighted due to their popularity, significance, or relevance. 
 This section serves as a convenient way for users to discover and explore high-profile events across various categories and locations. Featured Calendars" ensures users stay informed about noteworthy events that align with their interests and preferences.
+
+![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-discoverevents-2024-07-13-19_38_29.png)
+
 
 ## Cities Event Page:
 On this page, we've designed a space to showcase an iconic photo of the city alongside a map for precise city localization. Additionally, we provide the current local time for added convenience.
