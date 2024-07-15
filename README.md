@@ -56,6 +56,8 @@ This section serves as a convenient way for users to discover and explore high-p
 On this page, we've designed a space to showcase an iconic photo of the city alongside a map for precise city localization. Additionally, we provide the current local time for added convenience.
 Furthermore, you'll find a comprehensive list of all events taking place in that same city. This list details a variety of events, from concerts and exhibitions to conferences and community events, ensuring that users can explore and actively participate in activities that interest them most in real-time.
 
+![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-city-66512b1570004594642af1b0-2024-07-13-19_39_41.png)
+
 
 ## Event Detail Page:
 
