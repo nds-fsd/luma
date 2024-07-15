@@ -40,11 +40,36 @@ The header displays the navigation links, and access to the profile.
 
 ![](https://github.com/nds-fsd/luma/blob/main/docs/home.png)
  
-## “Explorar Eventos” Page
+## “Explorar Eventos” Page:
 
 Our event exploration page is organized by cities, showcasing the latest events specific to each location. Additionally, you will have access to the "Featured Calendars" section, where the most popular events from all cities will be displayed.
 
 ![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-discoverevents-2024-07-13-19_38_29.png)
+
+## Featured Calendars:
+
+This page provides a curated selection of events that have been highlighted due to their popularity, significance, or relevance. 
+This section serves as a convenient way for users to discover and explore high-profile events across various categories and locations. Featured Calendars" ensures users stay informed about noteworthy events that align with their interests and preferences.
+
+## Cities Event Page:
+On this page, we've designed a space to showcase an iconic photo of the city alongside a map for precise city localization. Additionally, we provide the current local time for added convenience.
+Furthermore, you'll find a comprehensive list of all events taking place in that same city. This list details a variety of events, from concerts and exhibitions to conferences and community events, ensuring that users can explore and actively participate in activities that interest them most in real-time.
+
+
+## Event Detail Page:
+
+This page displays the specific event with the following features:
+* Organization
+*	Social media icons
+*	Description
+*	Time
+*	Price
+* Subscription box
+
+## Create an event:
+
+On this page, you can create an event directly to be uploaded to Lumatic for other users to view.
+To create your first event, you must first be properly registered on the website.
 
 ## Installation:
 
