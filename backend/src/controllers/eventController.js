@@ -23,19 +23,39 @@ const getEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-  const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  console.log(allEvents);
-  res.json(allEvents);
+  try {
+    const updateData = { ...req.body };
+    if (updateData._id) {
+      delete updateData._id;
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+    console.log(updatedEvent);
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error('Error al actualizar el evento:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 const patchEvent = async (req, res) => {
-  const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    upsert: true,
-  });
-  res.json(allEvents);
+  try {
+    const updateData = { ...req.body };
+    if (updateData._id) {
+      delete updateData._id;
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+      upsert: true,
+    });
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error('Error al actualizar el evento:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 const deleteEvent = async (req, res) => {
@@ -59,8 +79,6 @@ const createEvent = async (req, res) => {
     eventDate: date,
     creationDate: today,
   };
-
-  // console.log('Backend:', data);
 
   try {
     const newEvent = await new Event(data).populate("eventLocation");
