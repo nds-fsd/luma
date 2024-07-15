@@ -66,10 +66,12 @@ This page displays the specific event with the following features:
 *	Price
 * Subscription box
 
-## Create an event:
+## Event Create:
 
 On this page, you can create an event directly to be uploaded to Lumatic for other users to view.
 To create your first event, you must first be properly registered on the website.
+
+![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-eventcreate-2024-07-13-19_40_03.png)
 
 ## Installation:
 
