@@ -1,3 +1,5 @@
+![](https://github.com/nds-fsd/luma/blob/main/docs/LOGO%20(2).png)
+
 ## Overview:
 
 Welcome to our **Lumatic** repo! This project is the result of our master project, where we have developed an event website using the MERN stack.
@@ -36,11 +38,13 @@ These features ensure a comprehensive and user-friendly experience for event dis
 At this page we have the main browser to discover the latest events. 
 The header displays the navigation links, and access to the profile.
 
-![](https://github.com/nds-fsd/luma/blob/main/home.png)
+![]([https://github.com/nds-fsd/luma/blob/main/home.png](https://github.com/nds-fsd/luma/blob/main/docs/home.png))
  
 ## “Explorar Eventos” Page
 
 Our event exploration page is organized by cities, showcasing the latest events specific to each location. Additionally, you will have access to the "Featured Calendars" section, where the most popular events from all cities will be displayed.
+
+![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-discoverevents-2024-07-13-19_38_29.png)
 
 ## Installation:
 
