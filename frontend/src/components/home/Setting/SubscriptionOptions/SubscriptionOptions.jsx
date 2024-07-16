@@ -43,9 +43,7 @@ const SubscriptionOptions = () => {
         await api().post('/subscription/subscribeToNews', { email: userEmail, cityName });
       }
       setSubscribedCities((prevCities) =>
-        prevCities.map((city) =>
-          city.cityName === cityName ? { ...city, isSubscribed: !isSubscribed } : city
-        )
+        prevCities.map((city) => (city.cityName === cityName ? { ...city, isSubscribed: !isSubscribed } : city))
       );
     } catch (error) {
       console.error('Error updating subscription status:', error);
@@ -67,7 +65,19 @@ const SubscriptionOptions = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Eventos locales</h2>
       <p className={styles.description}>
-        Todos los domingos, recibirás una lista de eventos populares en las ciudades a las que estás suscrito.
+        <ul>
+          <li>Cada vez que haya un nuevo evento en la ciudad que estés suscrito, serás notificado.</li>
+          <li>
+            Todos los domingos, recibirás una lista de eventos populares en las ciudades a las que estás suscrito.
+          </li>
+        </ul>
+      </p>
+      <h2 className={styles.title}>Todas las notificaciones:</h2>
+      <p className={styles.description}>
+        Estas opciones se aplican a todas las ciudades de las que formas parte.
+      </p>
+      <p className={styles.description}>
+        (Si desactivas las opciones serán silenciadas todas las notificationes)
       </p>
       <div className={styles.subscriptionList}>
         {subscribedCities.map((city, index) => (
@@ -78,7 +88,7 @@ const SubscriptionOptions = () => {
             </div>
             <label className={styles.switch}>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={city.isSubscribed}
                 onChange={() => handleSubscriptionChange(city.cityName, city.isSubscribed)}
               />
@@ -86,57 +96,6 @@ const SubscriptionOptions = () => {
             </label>
           </div>
         ))}
-      </div>
-
-      <div className={styles.notifications}>
-        <h2 className={styles.title}>Notificaciones y recordatorios</h2>
-        <p className={styles.description}>
-          Estas opciones se aplican a todos los calendarios y eventos de los que formas parte.
-        </p>
-
-        <div className={styles.notificationSection}>
-          <h3 className={styles.sectionTitle}>Eventos a los que asistes</h3>
-          <label>
-            <input
-              type="checkbox"
-              checked={notificationSettings.emailReminders}
-              onChange={() => handleNotificationChange('emailReminders')}
-            />
-            Recordatorios por correo
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={notificationSettings.smsReminders}
-              onChange={() => handleNotificationChange('smsReminders')}
-            />
-            Recordatorios por SMS
-          </label>
-        </div>
-
-        <div className={styles.notificationSection}>
-          <h3 className={styles.sectionTitle}>Eventos que organizas</h3>
-          <label>
-            <input
-              type="checkbox"
-              checked={notificationSettings.newInvites}
-              onChange={() => handleNotificationChange('newInvites')}
-            />
-            Nuevo suscriptor
-          </label>
-        </div>
-
-        <div className={styles.notificationSection}>
-          <h3 className={styles.sectionTitle}>Lumatic</h3>
-          <label>
-            <input
-              type="checkbox"
-              checked={notificationSettings.marketingEmails}
-              onChange={() => handleNotificationChange('marketingEmails')}
-            />
-            Correos de marketing
-          </label>
-        </div>
       </div>
     </div>
   );
