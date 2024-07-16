@@ -75,6 +75,8 @@ This page displays the specific event with the following features:
 
 If you are already registered in Lumatic, here you can login directly to check your subscribed events or your events.
 
+![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-login-2024-07-13-19_39_02.png)
+
 ## Registration:
 
 This page has been meticulously crafted with both frontend and backend technologies to provide a seamless and secure registration experience.
