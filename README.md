@@ -68,6 +68,8 @@ This page displays the specific event with the following features:
 *	Time
 *	Price
 * Subscription box
+* 
+![](https://github.com/nds-fsd/luma/blob/main/docs/Evento.png)
 
 ## Event Create:
 
