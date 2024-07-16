@@ -80,7 +80,7 @@ If you are already registered in Lumatic, here you can login directly to check y
 
 This page has been meticulously crafted with both frontend and backend technologies to provide a seamless and secure registration experience.
 
-![](https://github.com/nds-fsd/luma/blob/main/Register.png)
+![](https://github.com/nds-fsd/luma/blob/main/docs/Registro.png)
 
 ## Administrator page:
 
