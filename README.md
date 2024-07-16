@@ -1,4 +1,4 @@
-![](https://github.com/nds-fsd/luma/blob/main/docs/LOGO%20(2).png)
+![](https://github.com/nds-fsd/luma/blob/main/docs/logo.png)
 
 ## Overview:
 
