@@ -6,7 +6,7 @@ Welcome to our **Lumatic** repo! This project is the result of our master projec
 
 ## Core Business:
 
-Welcome to **Lumatic**, your ultimate destination for discovering and managing events! Whether you're looking for concerts, workshops, conferences, or local meetups, our platform provides a seamless experience to explore and book your favorite events. With personalized recommendations, easy-to-use filters, and secure ticketing options, Lumatic ensures you never miss out on the fun. Join our community today and start experiencing events like never before!
+Welcome to **Lumatic**, your ultimate website for discovering and managing events! Whether you're looking for concerts, workshops, conferences, or local meetups, our platform provides a seamless experience to explore and book your favorite events. With personalized recommendations, easy-to-use filters, and secure ticketing options, Lumatic ensures you never miss out on the fun. Join our community today and start experiencing events like never before!
 
 ## Key Features: 
 
@@ -56,6 +56,7 @@ On this page, we've designed a space to showcase an iconic photo of the city alo
 Furthermore, you'll find a comprehensive list of all events taking place in that same city. This list details a variety of events, from concerts and exhibitions to conferences and community events, ensuring that users can explore and actively participate in activities that interest them most in real-time.
 
 ![](https://github.com/nds-fsd/luma/blob/main/docs/event-page.png)
+![](https://github.com/nds-fsd/luma/blob/main/docs/upcoming-events.png)
 
 ## Event Detail Page:
 
