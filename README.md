@@ -114,3 +114,11 @@ Once you are inside the project directory, you need to install the project depen
 
 ```
 - Navigate to `[https://lumatic.netlify.app/]` to view the application.
+
+## Owners:
+
+This project has been carried out by:
+https://github.com/robertofrank
+https://github.com/marta-ojeda
+https://github.com/barbarasg92
+https://github.com/Diegoruiz1711
