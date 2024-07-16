@@ -55,7 +55,7 @@ This section serves as a convenient way for users to discover and explore high-p
 On this page, we've designed a space to showcase an iconic photo of the city alongside a map for precise city localization. Additionally, we provide the current local time for added convenience.
 Furthermore, you'll find a comprehensive list of all events taking place in that same city. This list details a variety of events, from concerts and exhibitions to conferences and community events, ensuring that users can explore and actively participate in activities that interest them most in real-time.
 
-![](https://github.com/nds-fsd/luma/blob/main/docs/event page.png)
+![](https://github.com/nds-fsd/luma/blob/main/docs/event-page.png)
 
 ## Event Detail Page:
 
@@ -116,7 +116,8 @@ Once you are inside the project directory, you need to install the project depen
 ## Owners:
 
 This project has been carried out by:
-https://github.com/robertofrank
-https://github.com/marta-ojeda
-https://github.com/barbarasg92
-https://github.com/Diegoruiz1711
+
+- **Roberto Frank**: https://github.com/robertofrank
+- **Marta Ojeda**: https://github.com/marta-ojeda
+- **Barbara Salazar**: https://github.com/barbarasg92
+- **Diego Ruiz**: https://github.com/Diegoruiz1711
