@@ -71,6 +71,21 @@ This page displays the specific event with the following features:
   
 ![](https://github.com/nds-fsd/luma/blob/main/docs/Evento.png)
 
+## Login:
+
+If you are already registered in Lumatic, here you can login directly to check your subscribed events or your events.
+
+## Registration:
+
+This page has been meticulously crafted with both frontend and backend technologies to provide a seamless and secure registration experience.
+
+
+## Administrator page:
+
+On this page you will find your central hub for managing and overseeing all your event-related activities. Here, you can easily navigate between events you've subscribed to and those you've organized.
+
+
+
 ## Event Create:
 
 On this page, you can create an event directly to be uploaded to Lumatic for other users to view.
