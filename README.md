@@ -56,7 +56,7 @@ On this page, we've designed a space to showcase an iconic photo of the city alo
 Furthermore, you'll find a comprehensive list of all events taking place in that same city. This list details a variety of events, from concerts and exhibitions to conferences and community events, ensuring that users can explore and actively participate in activities that interest them most in real-time.
 
 ![](https://github.com/nds-fsd/luma/blob/main/docs/event-page.png)
-![](https://github.com/nds-fsd/luma/blob/main/docs/Upcoming-events.png)
+
 
 ## Event Detail Page:
 
