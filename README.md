@@ -81,7 +81,7 @@ If you are already registered in Lumatic, here you can login directly to check y
 
 This page has been meticulously crafted with both frontend and backend technologies to provide a seamless and secure registration experience.
 
-
+![](https://github.com/nds-fsd/luma/blob/main/Register.png)
 ## Administrator page:
 
 On this page you will find your central hub for managing and overseeing all your event-related activities. Here, you can easily navigate between events you've subscribed to and those you've organized.
