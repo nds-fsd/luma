@@ -86,6 +86,10 @@ This page has been meticulously crafted with both frontend and backend technolog
 
 On this page you will find your central hub for managing and overseeing all your event-related activities. Here, you can easily navigate between events you've subscribed to and those you've organized.
 
+- **Events tab**:
+
+- **Subscription tab**:
+
 ![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-home-2024-07-13-19_40_43.png)
 
 ## Event Create:
