@@ -9,7 +9,7 @@ const Event = require('../models/eventModel');
 const User = require('../models/userModel');
 const { generateJWT } = require('../services/auth.service');
 
-jest.setTimeout(30000); // 30 segundos de tiempo de espera
+jest.setTimeout(30000);
 
 const setUpData = async () => {
   const event = new Event({
@@ -93,7 +93,7 @@ describe("Event Controller TEST", () => {
       console.log("Data being sent:", eventData);
       const response = await fakeRequest.post("/events").set(adminHeaders).send(eventData);
       console.log("Response body:", response.body);
-      expect(response.status).toBe(200); // Changed to 200
+      expect(response.status).toBe(200);
     });
   });
 
@@ -110,7 +110,6 @@ describe("Event Controller TEST", () => {
   describe("POST /events/:eventId/unsubscribe", () => {
     it("should return 200 status code when unsubscribing from an Event", async () => {
       const eventId = event._id;
-      // Primero suscribimos al evento para incrementar el count
       await fakeRequest.post(`/events/${eventId}/subscribe`).set(adminHeaders);
       const response = await fakeRequest.post(`/events/${eventId}/unsubscribe`).set(adminHeaders);
       expect(response.status).toBe(200);

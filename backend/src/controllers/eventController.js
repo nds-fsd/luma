@@ -2,7 +2,6 @@ const Event = require('../models/eventModel');
 const Subscription = require('../models/subscriptionModel');
 const User = require('../models/userModel');
 
-const socketConnections = require('../ws/index').socketConnections;
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -24,19 +23,35 @@ const getEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-  const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  console.log(allEvents);
-  res.json(allEvents);
+  try {
+    const updateData = { ...req.body };
+    if (updateData._id) {
+      delete updateData._id;
+    }
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error('Error al actualizar el evento:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
-
 const patchEvent = async (req, res) => {
-  const allEvents = await Event.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    upsert: true,
-  });
-  res.json(allEvents);
+  try {
+    const updateData = { ...req.body };
+    if (updateData._id) {
+      delete updateData._id;
+    }
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+      upsert: true,
+    });
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error('Error al actualizar el evento:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 const deleteEvent = async (req, res) => {
@@ -46,7 +61,6 @@ const deleteEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
   const body = req.body;
-  console.log(body);
   const user = req.user;
 
   if (!user) {
@@ -62,30 +76,15 @@ const createEvent = async (req, res) => {
     creationDate: today,
   };
 
-  // console.log('Backend:', data);
-
   try {
     const newEvent = await new Event(data).populate("eventLocation");
     await newEvent.save();
     const { io } = require("../index")
-    Object.values(socketConnections).forEach(user => {
-      console.log(user.subscribedCities)
-      const subscribedCities = user.subscribedCities || [];
-      if (subscribedCities.some(c => c.cityName === newEvent.eventLocation.cityName)) {
-        io.to(user.socketId).emit('msg', {
-          text: `Nuevo evento en ${newEvent.eventLocation.cityName}`,
-          event: newEvent,
-        })
-      }
-    })
+    io.to(newEvent.eventLocation._id.toString()).emit('msg', {
+      text: `Nuevo evento en ${newEvent.eventLocation.cityName}`,
+      event: newEvent,
+    });
 
-    // const subscriptions = await Subscription.find({ city: newEvent.eventLocation });
-    // subscriptions.filter((s) => s.user).map(subs => {
-    //   io.to(subs.userId.toString()).emit('msg', {
-    //     text: `Nuevo evento en ${newEvent.eventLocation}`,
-    //     event: newEvent,
-    //   });
-    // });
     res.status(200).json(newEvent);
 
   } catch (error) {
@@ -171,7 +170,7 @@ const getMostSubscribedEvents = async (req, res) => {
 };
 
 const getEventsByIds = async (req, res) => {
-  const { ids } = req.body; // Se espera que los IDs se envíen en el cuerpo de la solicitud como un array
+  const { ids } = req.body; 
 
   try {
     const events = await Event.find({ _id: { $in: ids } })

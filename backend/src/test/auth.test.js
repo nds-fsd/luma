@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 const { generateJWT } = require('../services/auth.service');
 const { disconnectDB, connectDB } = require('../mongoose');
 
-jest.setTimeout(30000); // 30 segundos de tiempo de espera
+jest.setTimeout(30000);
 
 let adminUser;
 let adminHeaders;

@@ -4,6 +4,7 @@ const authRouter = express.Router();
 const bcrypt = require('bcrypt'); 
 const { generateJWT } = require('../services/auth.service');
 
+
 authRouter.post('/login', async (req, res) => {
   const { email, phone_number, password } = req.body;
 
