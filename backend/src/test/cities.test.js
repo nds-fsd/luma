@@ -9,7 +9,7 @@ const City = require('../models/cityModel');
 const User = require('../models/userModel');
 const { generateJWT } = require('../services/auth.service');
 
-jest.setTimeout(30000); // 30 segundos de tiempo de espera
+jest.setTimeout(30000);
 
 let adminUser;
 let adminHeaders;
@@ -118,11 +118,11 @@ describe('City Controller TEST', () => {
     it('should return 200 status code and patch the city', async () => {
       const cityData = {
         cityName: 'Patched City',
-        cityLogo: city.cityLogo, // Ensure all required fields are included
-        cityWallpaper: city.cityWallpaper // Ensure all required fields are included
+        cityLogo: city.cityLogo, 
+        cityWallpaper: city.cityWallpaper 
       };
       const response = await fakeRequest.patch(`/city/${city._id}`).set(adminHeaders).send(cityData);
-      console.log("Response body PATCH:", response.body); // Log response body for debugging
+      console.log("Response body PATCH:", response.body);
       expect(response.status).toBe(200);
       expect(response.body.cityName).toBe('Patched City');
     });
@@ -137,8 +137,8 @@ describe('City Controller TEST', () => {
       const nonExistentId = new mongoose.Types.ObjectId();
       const cityData = {
         cityName: 'Patched City',
-        cityLogo: city.cityLogo, // Ensure all required fields are included
-        cityWallpaper: city.cityWallpaper // Ensure all required fields are included
+        cityLogo: city.cityLogo, 
+        cityWallpaper: city.cityWallpaper 
       };
       const response = await fakeRequest.patch(`/city/${nonExistentId}`).set(adminHeaders).send(cityData);
       expect(response.status).toBe(404);

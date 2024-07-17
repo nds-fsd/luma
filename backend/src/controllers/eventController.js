@@ -31,7 +31,6 @@ const updateEvent = async (req, res) => {
     const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
-    console.log(updatedEvent);
     res.json(updatedEvent);
   } catch (error) {
     console.error('Error al actualizar el evento:', error);
@@ -76,8 +75,6 @@ const createEvent = async (req, res) => {
     eventDate: date,
     creationDate: today,
   };
-
-  // console.log('Backend:', data);
 
   try {
     const newEvent = await new Event(data).populate("eventLocation");
@@ -173,7 +170,7 @@ const getMostSubscribedEvents = async (req, res) => {
 };
 
 const getEventsByIds = async (req, res) => {
-  const { ids } = req.body; // Se espera que los IDs se envíen en el cuerpo de la solicitud como un array
+  const { ids } = req.body; 
 
   try {
     const events = await Event.find({ _id: { $in: ids } })

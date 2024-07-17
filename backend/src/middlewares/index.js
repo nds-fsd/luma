@@ -43,7 +43,6 @@ const validateEmail = (email) => {
 };
 
 const validateDate = (eventDate) => {
-  console.log(eventDate, 'Event Date');
   const pattern = /^\d{4}-\d{2}-\d{2}$/;
   return pattern.test(eventDate);
 };
@@ -53,12 +52,10 @@ const validateTitle = (eventTitle) => {
 };
 
 const validatePrice = (eventPrice) => {
-  console.log('Event Price', eventPrice);
   return !isNaN(eventPrice) && parseFloat(eventPrice) >= 0;
 };
 
 const validateCapacity = (eventCapacity) => {
-  console.log('Event Capacity', eventCapacity);
   if (eventCapacity === -1) {
     return true;
   } else {
@@ -67,7 +64,6 @@ const validateCapacity = (eventCapacity) => {
 };
 
 const validateImage = (eventPicture) => {
-  console.log('Event Picture', eventPicture);
   
   const urlPattern = new RegExp(/^(http|https):\/\/[^\s$.?#].[^\s]*$/);
   const base64Pattern = new RegExp(/^data:image\/(jpeg|png|gif|bmp|webp);base64,[a-zA-Z0-9+/=]+$/);
@@ -90,10 +86,7 @@ const validateImage = (eventPicture) => {
 };
 
 const validateEventCreation = (req, res, next) => {
-  console.log(req.body);
   const { eventDate, eventTitle, eventPrice, eventCapacity, eventPicture } = req.body;
-  console.log(typeof eventPrice);
-  console.log(eventCapacity);
 
   if (!eventDate || !validateDate(eventDate)) {
     return res.status(400).json({ error: 'La fecha del evento es requerida' });
@@ -140,7 +133,6 @@ const validateFullname = (fullname) => {
 };
 
 const validateUserCreation = (req, res, next) => {
-  console.log(req.body)
   const { fullname, email, phone_number, password, birthdate, profile_picture } = req.body;
 
   if (!fullname) {

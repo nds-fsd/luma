@@ -27,7 +27,6 @@ const testTemplate = () => {
 }
 
 const sendWelcomeEmail = async (email, name) => {
-  console.log("ENTRO A MANDAR EL MAIL")
   const welcomeTemplate = readHbsTemplate("welcome");
   return sendEmail(email, `Welcome to Lumatic ${name}!`, welcomeTemplate({ name }));
 }

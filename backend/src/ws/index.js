@@ -27,7 +27,7 @@ const socketServer = (server) => {
         socketId: socket.id
       };
 
-      // console.log('Populated User:', populatedUser);
+  
       socket.user = populatedUser;
       next();
     } catch (error) {
