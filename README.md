@@ -111,14 +111,44 @@ Once you are inside the project directory, you need to install the project depen
 ```
 
 - Create and configure the environment variables in the .env file
-`MONGO_URL`
+```Bash
 
+Backend
+_____________________________
+    MONGO_PASSWORD
+    MONGO_CLUSTER
+    MONGO_DATABASE
+    MONGO_USER
+    PORT_BACKEND
+    EMAIL_ADDRESS
+    EMAIL_PASSWORD
+    JWT_SECRET
+    CLOUDINARY_CLOUD_NAME
+    CLOUDINARY_API_KEY
+    CLOUDINARY_API_SECRET
+    CLOUDINARY_URL
+
+Frontend
+_____________________________
+
+    REACT_APP_BACKEND_URL
+    REACT_APP_WS_URL
+
+```
 - Run the project in the terminal with the following command:
 ```bash
   npm run dev
 
 ```
 - Navigate to `[https://lumatic.netlify.app/]` to view the application.
+
+## Test Backend:
+
+- To run the backend tests, execute the following command:
+```bash
+  npm run test
+
+```
 
 ## Owners:
 
