@@ -106,7 +106,7 @@ To create your first event, you must first be properly registered on the website
 
 ## Entity-Relationship Diagram (ERD)
 
-![](https://github.com/nds-fsd/luma/blob/main/docs/dbWorkflow.png)
+![](https://github.com/nds-fsd/luma/blob/main/docs/esquemaDeEntidades.png)
 
 ## Installation:
 
