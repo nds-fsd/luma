@@ -31,7 +31,7 @@ These features ensure a comprehensive and user-friendly experience for event dis
 *	Node.js 
 *	Express [Node.js framework]
 *	Cloudinary [Image and Video API Platform]
-*	React Leaflet [Library interactive maps]
+*	React Leaflet [Interactive maps Library]
 *	Open Cage API [Geocoding service]
 
 ## UI
