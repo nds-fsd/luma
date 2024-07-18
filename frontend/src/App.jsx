@@ -37,17 +37,17 @@ const AuthRoute = ({ children }) => {
   return token && !isTokenExpired(token) ? children : null;
 };
 
-function App({ socket, token }) {
-  const { isAuthenticated, handleLogin } = useContext(AuthContext);
+function App() {
+  const { isAuthenticated, handleLogin, socket } = useContext(AuthContext);
 
   useEffect(() => {
     const onMessage = (message) => {
       if (message.event) {
         toast.success(`${message.text}`, {
-          duration: 10000, 
+          duration: 10000,
           style: {
-            backgroundColor: 'black', 
-            color: '#fff', 
+            backgroundColor: 'black',
+            color: '#fff',
           },
           position: 'top-center',
           iconTheme: {
@@ -58,18 +58,18 @@ function App({ socket, token }) {
       }
       console.log(message);
     };
-  
-    socket.on('messageWelcome', onMessage);
-    socket.on('welcomeEverybody', onMessage);
-    socket.on('msg', onMessage);
-  
+
+    socket?.on('messageWelcome', onMessage);
+    socket?.on('welcomeEverybody', onMessage);
+    socket?.on('msg', onMessage);
+
     return () => {
-      socket.off('messageWelcome', onMessage);
-      socket.off('welcomeEverybody', onMessage);
-      socket.off('msg', onMessage);
+      socket?.off('messageWelcome', onMessage);
+      socket?.off('welcomeEverybody', onMessage);
+      socket?.off('msg', onMessage);
     };
-  }, []);
-  
+  }, [socket]);
+
 
 
   return (

@@ -51,9 +51,10 @@ function UserCreate({ onClose }) {
       setErrorServer("Passwords don't match");
       return;
     }
-
+    console.log(data)
     try {
       const response = await api().post('/user/register', data);
+      console.log(response);
       if (response?.data.success) {
         setMessageServer(response.data.message);
         setErrorServer('');
@@ -81,7 +82,6 @@ function UserCreate({ onClose }) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     handleInputChange(event);
-    // clearErrors('profile_picture');
     await handleImageUpload(file);
   };
 

@@ -13,8 +13,6 @@ const EventFormContainer = () => {
   const [showLoginPopup, setShowLoginPopup] = useState(!isAuthenticated);
   const [isLoading, setIsLoading] = useState(false);
 
-  //const user = getUserSession();
-  //const userId = user ? user._id : null;
 
   const handleLogin = () => {
     setShowLoginPopup(false);

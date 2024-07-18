@@ -3,7 +3,11 @@ const userRouter = express.Router();
 const userController = require('../controllers/userController');
 const { validateUserCreation, jwtMiddleware, adminMiddleware, validatePasswordChange } = require('../middlewares/index');
 
-userRouter.post('/register', validateUserCreation, userController.registerUser);
+// userRouter.post('/register', validateUserCreation, userController.registerUser);
+userRouter.post('/register',  userController.registerUser);
+
+
+
 userRouter.get('/subscriptions/:id', jwtMiddleware, userController.getUserSubscriptions);
 userRouter.get('/subscriptions', jwtMiddleware, userController.getUserSubscriptions);
 userRouter.get('/', jwtMiddleware, adminMiddleware, userController.getAllUsers);

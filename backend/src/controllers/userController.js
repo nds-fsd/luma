@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
-
+const { sendWelcomeEmail } = require('../services/email.service')
 exports.registerUser = (req, res) => {
   const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
 
@@ -31,13 +31,15 @@ exports.registerUser = (req, res) => {
       return user.save();
     })
     .then(() => {
+      console.log('User registered successfully')
+      sendWelcomeEmail(email, fullname)
       res.status(201).json({ success: true, message: 'User registered successfully' });
     })
     .catch((err) => {
       if (err.status) {
         res.status(err.status).json({ error: err.message });
       } else {
-        res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 51
+        res.status(500).json({ success: false, error: 'Internal server error' }); 
       }
     });
 };
@@ -48,7 +50,7 @@ exports.getAllUsers = (req, res) => {
       res.json(users);
     })
     .catch((err) => {
-      res.status(500).json({ error: 'Internal server error' }); // Línea 66
+      res.status(500).json({ error: 'Internal server error' });
     });
 };
 
@@ -63,7 +65,7 @@ exports.getUserById = (req, res) => {
       res.json(user);
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 82
+      res.status(500).json({ success: false, error: 'Internal server error' });
     });
 };
 
@@ -79,7 +81,7 @@ exports.updateUser = (req, res) => {
       res.json({ success: true, message: 'User updated successfully', user: updatedUser });
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 97
+      res.status(500).json({ success: false, error: 'Internal server error' }); 
     });
 };
 
@@ -94,7 +96,7 @@ exports.deleteUser = (req, res) => {
       res.json({ success: true, message: 'User deleted successfully' });
     })
     .catch((err) => {
-      res.status(500).json({ success: false, error: 'Internal server error' }); // Línea 108
+      res.status(500).json({ success: false, error: 'Internal server error' });
     });
 };
 
@@ -111,7 +113,7 @@ exports.getUserSubscriptions = (req, res) => {
     })
     .catch((error) => {
       console.error('Error fetching user subscriptions:', error);
-      res.status(500).json({ message: 'Internal server error' }); // Líneas 113-114
+      res.status(500).json({ message: 'Internal server error' });
     });
 };
 

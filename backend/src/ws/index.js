@@ -27,7 +27,7 @@ const socketServer = (server) => {
         socketId: socket.id
       };
 
-      // console.log('Populated User:', populatedUser);
+  
       socket.user = populatedUser;
       next();
     } catch (error) {
@@ -39,7 +39,6 @@ const socketServer = (server) => {
   io.on('connection', (socket) => {
     try {
       const userId = socket.user.userId;
-      socketConnections[userId] = socket.user;
 
       if (!socket.user.subscribedCities || socket.user.subscribedCities.length === 0) {
         console.log('No subscribed cities found for user:', socket.user.fullname);
@@ -47,6 +46,7 @@ const socketServer = (server) => {
         socket.user.subscribedCities.forEach(city => {
           socket.join(city._id.toString());
         });
+        console.log('User subscribed to cities:', socket.user.subscribedCities.map(city => city.cityName));
       }
 
       io.emit("messageWelcome", { text: `Welcome ${socket.user.fullname}!` });

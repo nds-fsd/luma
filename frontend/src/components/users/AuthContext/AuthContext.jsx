@@ -1,14 +1,18 @@
 import { createContext, useState, useEffect } from 'react';
 import { getUserToken, removeSession, isTokenExpired, getUserSession } from '../../../utils/localStorage.utils';
 import { useNavigate } from 'react-router-dom';
+import io from 'socket.io-client';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!getUserToken());
+  const [token, setToken] = useState(getUserToken());
   const [user, setUser] = useState(getUserSession() || {});
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const token = getUserToken();
@@ -22,9 +26,25 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+useEffect(() => {
+  if(isAuthenticated){
+    console.log('connecting to socket');
+    if(socket) socket.disconnect();
+    const newSocket = io('ws://localhost:3001', {
+      auth: {
+        token
+      }
+    });
+
+
+    setSocket(newSocket);
+  }
+}, [token, isAuthenticated])
+
   const handleLogin = () => {
     setIsAuthenticated(true);
     setUser(getUserSession());
+    setToken(getUserToken());
     setDropdownOpen(false);
     navigate('/home', { replace: true, state: { fromLogin: true } });
   };
@@ -75,6 +95,7 @@ export const AuthProvider = ({ children }) => {
         handleGoToConfiguration,
         isDropdownOpen,
         setDropdownOpen,
+        socket
       }}
     >
       {children}

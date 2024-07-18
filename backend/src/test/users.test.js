@@ -8,7 +8,7 @@ const { generateJWT } = require('../services/auth.service');
 const { disconnectDB, connectDB } = require('../mongoose');
 const bcrypt = require('bcrypt');
 
-jest.setTimeout(30000); // 30 segundos de tiempo de espera
+jest.setTimeout(30000);
 
 let adminUser;
 let adminHeaders;
@@ -45,7 +45,6 @@ afterAll(async () => {
 
 describe('User Controller TEST', () => {
   beforeAll(async () => {
-    // Crear un usuario de prueba si no existe
     let testUser = await User.findOne({ email: 'testuser@example.com' });
     if (!testUser) {
       const userData = {
@@ -79,7 +78,7 @@ describe('User Controller TEST', () => {
   it('should return 400 status code for existing email', async () => {
     const userData = {
       fullname: 'TEST USER',
-      email: 'testuser@example.com', // Mismo email que el anterior
+      email: 'testuser@example.com',
       birthdate: '2000-01-01',
       phone_number: '1234567891',
       profile_picture: 'https://example.com/profile.jpg',
@@ -95,7 +94,7 @@ describe('User Controller TEST', () => {
       fullname: 'TEST USER',
       email: 'newemail@example.com',
       birthdate: '2000-01-01',
-      phone_number: '0987654321', // Mismo número de teléfono que el anterior
+      phone_number: '0987654321',
       profile_picture: 'https://example.com/profile.jpg',
       password: 'password',
     };
@@ -114,7 +113,7 @@ describe('User Controller TEST', () => {
       password: 'password',
     };
 
-    // Mocking a general error
+    
     const userSaveSpy = jest.spyOn(User.prototype, 'save').mockImplementationOnce(() => {
       throw new Error('General error');
     });
@@ -128,7 +127,7 @@ describe('User Controller TEST', () => {
   it('should return 200 status code and a list of users', async () => {
     const response = await fakeRequest.get('/user').set(adminHeaders);
     expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(4); // Ajusta el número de usuarios esperados si es necesario
+    expect(response.body).toHaveLength(4);
   });
 
   it('should handle general error when fetching all users', async () => {
