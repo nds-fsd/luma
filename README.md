@@ -25,6 +25,7 @@ These features ensure a comprehensive and user-friendly experience for event dis
 
 *	React [Javascript Library]
 *	Jest/Supertest [Javascript Testing]
+*	Cypress [E2E testing]
 *	JsonWebToken [Secure data exchange]
 *	Mongoose [MongoDB object modeling tool]
 *	Node.js 
@@ -153,6 +154,14 @@ _____________________________
 - To run the backend tests, execute the following command:
 ```bash
   npm run test
+
+```
+
+## E2E Test:
+
+To run end-to-end tests, navigate to your frontend directory and execute the following command:
+```bash
+npm run cy:open
 
 ```
 
