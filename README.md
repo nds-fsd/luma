@@ -122,30 +122,6 @@ To create your first event, you must first be properly registered on the website
 
 ```
 
-You need to install all dependencies in backend and frontend both:
-```bash
-  cd frontend 
-
-```
-```bash
-  npm install
-
-```
-
-You need to go back to your Project directory and go foward to backend folder:
-```bash
-  cd .. 
-
-```
-```bash
-  cd backend 
-
-```
-```bash
-  npm install
-
-```
-
 - Create and configure the environment variables in the .env file
 ```Bash
 
