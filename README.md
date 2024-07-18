@@ -110,8 +110,37 @@ To create your first event, you must first be properly registered on the website
 
 ## Installation:
 
--Install Dependencies:
-Once you are inside the project directory, you need to install the project dependencies. Run the following command:
+- Clone the repository:
+```bash
+  https://github.com/nds-fsd/luma.git
+
+```
+
+- Once you are inside the project directory, you need to install the project dependencies. Run the following command:
+```bash
+  npm install
+
+```
+
+You need to install all dependencies in backend and frontend both:
+```bash
+  cd frontend 
+
+```
+```bash
+  npm install
+
+```
+
+You need to go back to your Project directory and go foward to backend folder:
+```bash
+  cd .. 
+
+```
+```bash
+  cd backend 
+
+```
 ```bash
   npm install
 
@@ -147,7 +176,7 @@ _____________________________
   npm run dev
 
 ```
-- Navigate to `[https://localhost:3000]` to view the application.
+- Navigate to `[http://localhost:3000/]` and enjoy owr page!
 
 ## Test Backend:
 
