@@ -103,6 +103,10 @@ To create your first event, you must first be properly registered on the website
 
 ![](https://github.com/nds-fsd/luma/blob/main/docs/screencapture-localhost-3000-eventcreate-2024-07-13-19_40_03.png)
 
+## Entity-Relationship Diagram (ERD)
+
+![](https://github.com/nds-fsd/luma/blob/main/docs/dbWorkflow.png)
+
 ## Installation:
 
 -Install Dependencies:
