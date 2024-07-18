@@ -147,7 +147,7 @@ _____________________________
   npm run dev
 
 ```
-- Navigate to `[https://lumatic.netlify.app/]` to view the application.
+- Navigate to `[https://localhost:3000]` to view the application.
 
 ## Test Backend:
 
