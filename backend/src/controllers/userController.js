@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const { sendWelcomeEmail } = require('../services/email.service')
+
 exports.registerUser = (req, res) => {
   const { fullname, email, birthdate, phone_number, profile_picture, password } = req.body;
 
