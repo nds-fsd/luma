@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../users/AuthContext/AuthContext';
 
 const DiscoverEvents = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, userId } = useContext(AuthContext);
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);
@@ -145,12 +145,12 @@ const DiscoverEvents = () => {
                 <h4 className={styles.eventTitle}>{event.eventTitle}</h4>
                 <p className={styles.eventDescription}>{event.eventDescription}</p>
               </div>
-              <SubscribeButton
+              {event.owner !== userId && (<SubscribeButton
                 eventId={event._id}
                 isSubscribed={userSubscriptions.includes(event._id.toString())}
                 onSubscribeChange={handleSubscriptionChange}
                 isAuthenticated={isAuthenticated}
-              />
+              />)}
             </div>
           ))}
         </div>
