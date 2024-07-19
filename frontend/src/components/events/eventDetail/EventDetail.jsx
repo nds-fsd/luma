@@ -15,7 +15,7 @@ import { getUserToken } from '../../../utils/localStorage.utils';
 import { AuthContext } from '../../users/AuthContext/AuthContext';
 
 const EventDetail = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, userFullName} = useContext(AuthContext);
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [cityName, setCityName] = useState(null);
@@ -147,10 +147,10 @@ const EventDetail = () => {
             {cityName && !isAuthenticated && <SubscribeBox cityName={cityName}/>}
           </div>
           <div>
-            {cityName && isAuthenticated && (
+            {cityName && isAuthenticated && event.owner.fullname !== userFullName && (
               <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Suscríbete a este evento</p>
             )}
-            {cityName && isAuthenticated && (
+            {cityName && isAuthenticated && event.owner.fullname !== userFullName && (
               <SubscribeButtonToEvent
                 eventId={eventId}
                 isSubscribed={userSubscriptions.includes(eventId)}
