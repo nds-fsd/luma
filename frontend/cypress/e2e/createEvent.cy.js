@@ -7,8 +7,6 @@ describe("Event creation flow", () => {
     cy.get('header button').contains('INICIAR SESIÓN').click();
     cy.get('input[name="email"]').type(email);
     cy.get('input[name="password"]').type(password);
-    cy.get('input[name="email"]').type(email);
-    cy.get('input[name="password"]').type(password);
     cy.get('button').contains('Continuar con correo electrónico').click();
     cy.get('header button').contains('CREAR EVENTO').click();
     cy.get('label').contains('Seleccionar').selectFile({
